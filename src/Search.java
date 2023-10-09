@@ -4,25 +4,36 @@
  */
 
  import java.util.Random;
+import java.util.Scanner;
 
 /**
  * This class includes the methods to support the search of a solution.
  */
 public class Search
 {
-    public static final int horizontalGridSize = 5;
-    public static final int verticalGridSize = 6;
+    public static int horizontalGridSize = 5;
+    public static int verticalGridSize = 6;
     
     public static final char[] input = { 'W', 'Y', 'I', 'T', 'Z', 'L'};
     
-    //Static UI class to display the board
-    public static UI ui = new UI(horizontalGridSize, verticalGridSize, 50);
-
+	public static UI ui;
 	/**
 	 * Helper function which starts a basic search algorithm
 	 */
     public static void search()
     {
+		// Read the grid sizes from console
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Enter Horizontal Grid Size: ");
+		horizontalGridSize = scanner.nextInt();
+		scanner.nextLine();
+		System.out.println("Enter Vertical Grid Size: ");
+		verticalGridSize = scanner.nextInt();
+
+		//Display the UI with the new grid sizes
+		ui = new UI(horizontalGridSize, verticalGridSize, 50);
+
         // Initialize an empty board
         int[][] field = new int[horizontalGridSize][verticalGridSize];
 
