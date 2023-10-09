@@ -3,7 +3,9 @@
  * @version 2022.0
  */
 
- import java.util.Random;
+ import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -14,7 +16,7 @@ public class Search
     public static int horizontalGridSize = 5;
     public static int verticalGridSize = 6;
     
-    public static final char[] input = { 'W', 'Y', 'I', 'T', 'Z', 'L'};
+    public static char[] input = {};
     
 	public static UI ui;
 	/**
@@ -30,6 +32,27 @@ public class Search
 		scanner.nextLine();
 		System.out.println("Enter Vertical Grid Size: ");
 		verticalGridSize = scanner.nextInt();
+
+		System.out.println("How many pentominos do you want to enter ?");
+		int PentominosLenght = scanner.nextInt();
+		scanner.nextLine();
+
+		ArrayList<Character> TemporaryInputs = new ArrayList<Character>(PentominosLenght);
+		input = new char[PentominosLenght];
+
+		for(int index = 0 ; index < PentominosLenght; index++)
+		{
+			System.out.println("What pentominos you want to read");
+			char letter = scanner.next().charAt(0);
+
+			if(!TemporaryInputs.contains(letter)){
+				TemporaryInputs.add(letter);
+				input[index] = (char) letter;
+			}else{
+				System.out.println("Pentomino already used!");
+				index--;
+			}
+		}
 
 		//Display the UI with the new grid sizes
 		ui = new UI(horizontalGridSize, verticalGridSize, 50);
