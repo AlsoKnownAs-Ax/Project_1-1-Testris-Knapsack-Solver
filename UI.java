@@ -11,6 +11,7 @@ import java.awt.geom.Rectangle2D;
  * This class takes care of all the graphics to display a certain state.
  * Initially, you do not need to modify (or event understand) this class in Phase 1. You will learn more about GUIs in Period 2, in the Introduction to Computer Science 2 course.
  */
+
 public class UI extends JPanel
 {
     private JFrame window;
