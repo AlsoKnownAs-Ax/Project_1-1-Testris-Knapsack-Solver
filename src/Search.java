@@ -146,7 +146,7 @@ public class Search
 						flag=false;
 				}
 			}
-			System.out.println(flag);
+			System.out.println("is field full: " + flag);
     		if (solutionFound) {
     			//display the field
     			ui.setState(field); 
