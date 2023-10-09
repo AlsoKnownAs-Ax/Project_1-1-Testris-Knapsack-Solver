@@ -80,6 +80,7 @@ public class PentominoDatabase
                 // Add piece to the dynamic list
                 dynamicList.get(dynamicList.size() - 1).add(piece);
             }
+            scanner.close();
         }
         catch (FileNotFoundException e)
         {

@@ -13,10 +13,11 @@ import java.util.Scanner;
  */
 public class Search
 {
-    public static int horizontalGridSize = 5;
-    public static int verticalGridSize = 6;
+    public static int horizontalGridSize = 6;
+    public static int verticalGridSize = 5;
+	public static final boolean READ_PENTO = true;
     
-    public static char[] input = {};
+    public static char[] input = {'T','W','Z','L','I','Y'};
     
 	public static UI ui;
 	/**
@@ -24,39 +25,6 @@ public class Search
 	 */
     public static void search()
     {
-		// Read the grid sizes from console
-		Scanner scanner = new Scanner(System.in);
-
-		System.out.println("Enter Horizontal Grid Size: ");
-		horizontalGridSize = scanner.nextInt();
-		scanner.nextLine();
-		System.out.println("Enter Vertical Grid Size: ");
-		verticalGridSize = scanner.nextInt();
-
-		System.out.println("How many pentominos do you want to enter ?");
-		int PentominosLenght = scanner.nextInt();
-		scanner.nextLine();
-
-		ArrayList<Character> TemporaryInputs = new ArrayList<Character>(PentominosLenght);
-		input = new char[PentominosLenght];
-
-		for(int index = 0 ; index < PentominosLenght; index++)
-		{
-			System.out.println("What pentominos you want to read");
-			char letter = scanner.next().charAt(0);
-
-			if(!TemporaryInputs.contains(letter)){
-				TemporaryInputs.add(letter);
-				input[index] = (char) letter;
-			}else{
-				System.out.println("Pentomino already used!");
-				index--;
-			}
-		}
-
-		//Display the UI with the new grid sizes
-		ui = new UI(horizontalGridSize, verticalGridSize, 50);
-
         // Initialize an empty board
         int[][] field = new int[horizontalGridSize][verticalGridSize];
 
@@ -115,9 +83,13 @@ public class Search
 	 * This algorithm can be very time-consuming
 	 * @param field a matrix representing the board to be fulfilled with pentominoes
 	 */
+
+
     private static void basicSearch(int[][] field){
     	Random random = new Random();
     	boolean solutionFound = false;
+		Scanner scanner = new Scanner(System.in);
+		int test = 0;
     	
     	while (!solutionFound) {
     		solutionFound = true;
@@ -171,16 +143,30 @@ public class Search
 
     		// TODO: TEST THE METHOD
 
-			boolean flag=true;
-			for(int i = 0; i < field.length && flag==true;  i++)
+			for(int i = 0; i < field.length && solutionFound==true;  i++)
 			{
-				for(int j = 0; j < field[i].length && flag==true; j++)
+				for(int j = 0; j < field[i].length && solutionFound==true; j++)
 				{
 					if (field[i][j]==-1)
-						flag=false;
+						solutionFound=false; 
 				}
+				System.out.println();
 			}
-			System.out.println("is field full: " + flag);
+
+			System.out.println(Arrays.deepToString(field));
+
+			test++;
+			ui.setState(field);
+
+			if(test == 50){
+				solutionFound = true; // TESTING
+			}
+
+			System.out.println("Press ENTER to generate the next field...");
+			
+			scanner.nextLine();
+
+			System.out.println("is field full: " + solutionFound);
     		if (solutionFound) {
     			//display the field
     			ui.setState(field); 
@@ -219,6 +205,44 @@ public class Search
 	 */
     public static void main(String[] args)
     {
+		// Read the grid sizes from console
+		if(READ_PENTO){
+			Scanner scanner = new Scanner(System.in);
+
+			System.out.println("Enter Vertical Grid Size: ");
+			verticalGridSize = scanner.nextInt();
+			scanner.nextLine();
+
+			System.out.println("Enter Horizontal Grid Size: ");
+			horizontalGridSize = scanner.nextInt();
+			scanner.nextLine();
+
+			System.out.println("How many pentominos do you want to enter ?");
+			int PentominosLenght = scanner.nextInt();
+			scanner.nextLine();
+
+			ArrayList<Character> TemporaryInputs = new ArrayList<Character>(PentominosLenght);
+			input = new char[PentominosLenght];
+
+			for(int index = 0 ; index < PentominosLenght; index++)
+			{
+				System.out.println("What pentominos you want to read");
+				char letter = scanner.next().charAt(0);
+				letter = Character.toUpperCase(letter);
+
+				if(!TemporaryInputs.contains(letter)){
+					TemporaryInputs.add(letter);
+					input[index] = (char) letter;
+				}else{
+					System.out.println("Pentomino already used!");
+					index--;
+				}
+			}
+		}
+
+		//Display the UI with the new grid sizes
+		ui = new UI(horizontalGridSize, verticalGridSize, 50);
+
         search();
     }
 }
