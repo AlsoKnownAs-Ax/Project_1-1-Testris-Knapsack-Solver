@@ -8,6 +8,7 @@
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class contains all the methods that you may need to start developing your project together with the representation of the pentomino's pieces
@@ -371,12 +372,22 @@ public class PentominoBuilder {
      * @param data2: the second matrix
      * @return true if equal, false otherwise
      */
+
+     //TODO
     public static boolean isEqual(int[][] data1, int[][] data2)
     {
-    	
-        
+        for(int i = 0; i < data1.length;i++)
+        {
+            for(int j = 0; j < data2.length; j++)
+            {
+                if(data1[i][j] != data2[i][j])
+                {
+                    return false;
+                }
+            }
+        }
 
-        return false;
+        return true;
     }
 
 
