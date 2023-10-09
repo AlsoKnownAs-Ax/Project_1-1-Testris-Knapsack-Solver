@@ -378,7 +378,7 @@ public class PentominoBuilder {
     {
         for(int i = 0; i < data1.length;i++)
         {
-            for(int j = 0; j < data2.length; j++)
+            for(int j = 0; j < data2[i].length; j++)
             {
                 if(data1[i][j] != data2[i][j])
                 {
