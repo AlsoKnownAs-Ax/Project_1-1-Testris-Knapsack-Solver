@@ -138,9 +138,9 @@ public class Search
     		// TODO: TEST THE METHOD
 
 			boolean flag=true;
-			for(int i = 0; i < field.length; i++)
+			for(int i = 0; i < field.length && flag==true;  i++)
 			{
-				for(int j = 0; j < field[i].length; j++)
+				for(int j = 0; j < field[i].length && flag==true; j++)
 				{
 					if (field[i][j]==-1)
 						flag=false;

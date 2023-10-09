@@ -372,8 +372,6 @@ public class PentominoBuilder {
      * @param data2: the second matrix
      * @return true if equal, false otherwise
      */
-
-     //TODO
     public static boolean isEqual(int[][] data1, int[][] data2)
     {
         for(int i = 0; i < data1.length;i++)
