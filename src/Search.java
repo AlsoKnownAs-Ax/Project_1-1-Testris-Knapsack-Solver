@@ -136,7 +136,21 @@ public class Search
     		//Check whether complete field is filled
     		//
     		//
+
     		// TODO: To be implemented
+				boolean flag=true;
+				 for(int i = 0; i < field.length; i++)
+        {
+            for(int j = 0; j < field[i].length; j++)
+            {
+            	if (field[i][j]==-1)
+				{flag=false;}
+            }
+        }
+		System.out.println(flag);
+		
+
+			
     		//
     		//
     		
