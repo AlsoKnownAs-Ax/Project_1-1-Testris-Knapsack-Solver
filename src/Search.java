@@ -14,10 +14,10 @@ import java.util.Scanner;
  */
 public class Search
 {
-    public static final int horizontalGridSize = 6;
-    public static final int verticalGridSize = 5;
+    public static int horizontalGridSize = 5;
+    public static int verticalGridSize = 8;
     
-    public static final char[] input = { 'W', 'Y', 'I', 'T', 'Z', 'L'};
+    public static final char[] input = { 'W', 'Y', 'I', 'T', 'Z', 'L','P','X'};
 	//public static final char[] input = { 'P', 'X', 'F', 'V', 'W', 'Y', 'T', 'Z', 'U', 'N', 'L', 'I'};
 	public static int[][] GLOBAL_grid = new int[horizontalGridSize][verticalGridSize];
     
@@ -27,7 +27,55 @@ public class Search
 	/**
 	 * Helper function which starts a basic search algorithm
 	 */
-    public static void search()
+
+
+	private static final int[][] DIRECTIONS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+	//private static int[][]
+
+    private static int countClusters(int[][] field)
+	{
+        int count = 0;
+        boolean[][] visited = new boolean[field.length][field[0].length];
+
+        for (int i = 0; i < field.length; i++) {
+            for (int j = 0; j < field[0].length; j++) {
+                if (field[i][j] == 1 && !visited[i][j]) {
+                    count++;
+                    dfs(field, visited, i, j);
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private static void dfs(int[][] field, boolean[][] visited, int row, int col) {
+        visited[row][col] = true;
+
+        for (int[] direction : DIRECTIONS) {
+            int newRow = row + direction[0];
+            int newCol = col + direction[1];
+
+            if (isValid(field, visited, newRow, newCol)) {
+                dfs(field, visited, newRow, newCol);
+            }
+        }
+    }
+
+    private static boolean isValid(int[][] field, boolean[][] visited, int row, int col) {
+        int numRows = field.length;
+        int numCols = field[0].length;
+
+        return row >= 0 && row < numRows && col >= 0 && col < numCols
+                && field[row][col] == 1 && !visited[row][col];
+    }
+
+   
+    
+}
+    
+	 public static void search()
     {
 
         for(int i = 0; i < GLOBAL_grid.length; i++)
@@ -163,6 +211,8 @@ public class Search
 						{
 							if(canPieceBePlaced(pieceToPlace,i,j)){
 								addPiece(pieceToPlace, pentID, i, j);
+
+
 								if(isGridFilled(GLOBAL_grid)){
 									System.out.println("GRID FILLED");
 									ui.setState(GLOBAL_grid); 
