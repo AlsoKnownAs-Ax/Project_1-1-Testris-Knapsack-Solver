@@ -4,10 +4,7 @@
  */
 
  import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -15,10 +12,13 @@ import java.util.Scanner;
  */
 public class Search
 {
-    public static int horizontalGridSize =	6;
-    public static int verticalGridSize = 5;
-    
-	public static final char[] input = { 'W', 'T', 'Z', 'L', 'I', 'Y'};
+	public static int verticalGridSize = 6;
+	public static int horizontalGridSize = 10;
+
+	//5x6 
+	//public static final char[] input = { 'T', 'W', 'Z', 'L', 'I', 'Y'};
+	// 6x10 
+	public static final char[] input = { 'I', 'P', 'T', 'W', 'X', 'Y','L','U','N','Z','F','V'};
 	//public static final char[] input = { 'W', 'T', 'Z', 'L', 'I', 'Y','X','F','P','U','F'};
     //public static final char[] input = { 'W', 'Y', 'I', 'T', 'Z', 'L','P','X','U','F'};
 	//public static final char[] input = { 'P', 'X', 'F', 'V', 'W', 'Y', 'T', 'Z', 'U', 'N', 'L', 'I'};
@@ -82,6 +82,12 @@ public class Search
     	return pentID;
     }
 
+	/**
+	 * Transfrom an Array into an ArrayList
+	 * @param array
+	 * @return ArrayList
+	 */
+
 	private static ArrayList<Character> Array2ArrayList(char[] array)
 	{
 		ArrayList<Character> new_ArrayList = new ArrayList<Character>(array.length);
@@ -91,6 +97,11 @@ public class Search
 		return new_ArrayList;
 	}
 
+	/**
+	 * Method to check if there are enough pentomino squares to fit the grid squares
+	 * @param field	--> The grid
+	 * @return	true/false
+	 */
 	private static boolean CanGridBeFilled(int[][] field)
 	{
 		int total_field_squares = verticalGridSize*horizontalGridSize;
@@ -104,6 +115,14 @@ public class Search
 
 		return true;
 	}
+
+	/**
+	 * Method to check if the piece can fit into the grid ar certain cords
+	 * @param pieceToPlace	matrix of the Piece
+	 * @param row	the row we start the check from
+	 * @param col	the collum we start the check from
+	 * @return	true/false if the piece fits or not
+	 */
 
 	private static boolean canPieceBePlaced(int[][] pieceToPlace, int row, int col)
 	{
@@ -129,6 +148,10 @@ public class Search
 
 		return pentominos;
 	}
+	
+	/**
+	 * Method to clear the Global Grid
+	 */
 
 	private static void ClearGrid()
 	{
@@ -136,6 +159,13 @@ public class Search
 			for(int j=0;j < verticalGridSize;j++)
 				GLOBAL_grid[i][j] = -1;
 	}
+
+	/**
+	 * Method to check the empty areas in the grid and the empty squares from every area. If there area areas with less
+	 * than 5 empty squares the area can not be filled with a pentomino.
+	 * @param grid	Global grid to check
+	 * @return	true/false if the Algorithm can/can't continue
+	 */
 
     public static boolean CanAlgorithmContinue(int[][] grid) {
 
@@ -157,6 +187,12 @@ public class Search
         return true;
     }
 
+	/**
+	 * Make a mock grid from one provided.
+	 * @param grid	--> Grid to duplicate
+	 * @return	--> Mock grid
+	 */
+
 	private static int[][] MakeMockGrid(int[][] grid)
 	{
 		int[][] CopiedGrid = new int[grid.length][grid[0].length];
@@ -167,6 +203,14 @@ public class Search
 
 		return CopiedGrid;
 	}
+
+	/**
+	 * DFS to check the empty areas and count the empty squares.
+	 * @param grid	--> grid to check
+	 * @param i	--> x cord to start the check
+	 * @param j	--> y coord to start the check
+	 * @return	--> The empty squares
+	 */
 
     private static int dfs(int[][] grid, int i, int j) {
 		int[][] mock_grid = grid;
@@ -184,24 +228,33 @@ public class Search
         return 0;
     }
 
+	/**
+	 * Recursive Algorithm for fitting the pentominoes into the grid.
+	 * @param pentominos
+	 */
+
 
 	private static void ImprovedSearch(char[] pentominos)
 	{
 
 		ArrayList<Character> TemporaryInputs = Array2ArrayList(pentominos);
 	
+		//Iterate over every pentomino
 		for(int index=0; index < pentominos.length; index++)
 		{
 			int pentID = characterToID(TemporaryInputs.get(index));
 			boolean piecePlaced = false;
 
+			//Iterate over grid squares
 			for(int i = 0; i < GLOBAL_grid.length && !piecePlaced; i++)
 				for(int j = 0; j < GLOBAL_grid[i].length && !piecePlaced; j++)
 				{
-
+					//Get every mutation of the piece
 					for(int mutation = 0 ; mutation < PentominoDatabase.data[pentID].length && !piecePlaced; mutation++)
 					{
 						int[][] pieceToPlace = PentominoDatabase.data[pentID][mutation];
+
+						//Can piece fit ?
 						if(canPieceBePlaced(pieceToPlace,i,j)){
 							addPiece(pieceToPlace, pentID, i, j);
 
@@ -210,23 +263,39 @@ public class Search
 								ui.setState(GLOBAL_grid); 
 								return;
 							}
-							piecePlaced = true;
+
+							int[][] mock_grid = MakeMockGrid(GLOBAL_grid);
+
+							//If the piece leaves no Dead Areas then exit from the loops
+							if(CanAlgorithmContinue(mock_grid))
+							{
+								piecePlaced = true;
+							}
 						}
 					}
 				}
 		}
 
+		//If the grid is not finished then continue
 		if(!isGridFilled(GLOBAL_grid)){
+			//Shuffle the combination
 			Collections.shuffle(TemporaryInputs);
 			pentominos = ArrayList2Array(TemporaryInputs,pentominos);
 
 			System.out.println("NEXT PENTOS: ");
 			for(int k = 0 ; k < pentominos.length; k++)
 				System.out.print(pentominos[k] + " ");
+
 			ClearGrid();
 			ImprovedSearch(pentominos);
 		}
-		}
+	}
+
+	/**
+	 * Method to check if the grid is fully filled.
+	 * @param field	--> Grid to check
+	 * @return	--> true/false
+	 */
 
 	private static boolean isGridFilled(int[][] field)
 	{
@@ -248,7 +317,6 @@ public class Search
 	 */
     public static void addPiece(int[][] piece, int pieceID, int x, int y)
     {
-		Scanner scanner = new Scanner(System.in);
         for(int i = 0; i < piece.length; i++) // loop over x position of pentomino
         {
             for (int j = 0; j < piece[i].length; j++) // loop over y position of pentomino
@@ -262,6 +330,7 @@ public class Search
         }
 		int[][] mock_grid = MakeMockGrid(GLOBAL_grid);
 
+		//If there is an empty area with empty squares that are not divisible by 5 then eliminate the pentomino
 		if(!CanAlgorithmContinue(mock_grid))
 		{
 			for(int i = 0; i < piece.length; i++) // loop over x position of pentomino
@@ -270,7 +339,7 @@ public class Search
 				{
 					if (piece[i][j] == 1)
 					{
-						// Add the ID of the pentomino to the board if the pentomino occupies this square
+						//Eliminate the pentomino from the grid
 						GLOBAL_grid[x + i][y + j] = -1;
 					}
 				}
@@ -279,6 +348,8 @@ public class Search
 
 		ui.setState(GLOBAL_grid);
 
+
+		//Scanner scanner = new Scanner(System.in);
 		// System.out.println("Press ENTER to generate next combination");
 		// scanner.nextLine();
     }
