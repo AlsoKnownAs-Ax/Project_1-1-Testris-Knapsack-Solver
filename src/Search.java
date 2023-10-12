@@ -12,17 +12,55 @@ import java.util.Scanner;
 /**
  * This class includes the methods to support the search of a solution.
  */
-public class Search
-{
-    public static final int horizontalGridSize = 6;
+public class Search {
+/*
+	public static void grid(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter the horizontal grid size: ");
+        int horizontalGridSize = scanner.nextInt();
+        
+        System.out.print("Enter the vertical grid size: ");
+        int verticalGridSize = scanner.nextInt();
+        
+        System.out.print("Enter the characters for the input array separated by spaces: ");
+        scanner.nextLine(); // Consume the newline character left from previous input
+        String inputString = scanner.nextLine();
+        String[] inputArray = inputString.split(" ");
+        
+        // Close the scanner when done with input
+        scanner.close();
+        */
+
+	public static final long TIME_LIMIT_MS = 100;
+
+    // ...
+
+    public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+        search();
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+
+        if (elapsedTime >= TIME_LIMIT_MS) {
+            System.out.println("Time limit exceeded. No solution found.");
+        } else {
+            System.out.println("Solution found in " + elapsedTime + "ms.");
+        }
+	}
+    
+	
+    public static final int horizontalGridSize = 10;
     public static final int verticalGridSize = 5;
     
-    public static final char[] input = { 'W', 'Y', 'I', 'T', 'Z', 'L'};
+    public static final char[] input = { 'W', 'Y', 'I', 'P', 'Z', 'L', 'U', 'X', 'V', 'F'};
 	//public static final char[] input = { 'P', 'X', 'F', 'V', 'W', 'Y', 'T', 'Z', 'U', 'N', 'L', 'I'};
 	public static int[][] GLOBAL_grid = new int[horizontalGridSize][verticalGridSize];
     
     //Static UI class to display the board
     public static UI ui = new UI(horizontalGridSize, verticalGridSize, 50);
+	
+
 
 	/**
 	 * Helper function which starts a basic search algorithm
@@ -41,7 +79,7 @@ public class Search
         }
         //Start the basic search
 		if(CanGridBeFilled(GLOBAL_grid)){
-			ImrpovedSearch(input);
+			ImprovedSearch(input);
 		}else{
 			System.out.println("No possible solution");
 		}
@@ -145,7 +183,7 @@ public class Search
 				GLOBAL_grid[i][j] = -1;
 	}
 
-	private static void ImrpovedSearch(char[] pentominos)
+	private static void ImprovedSearch(char[] pentominos)
 	{
 		ArrayList<Character> TemporaryInputs = Array2ArrayList(pentominos);
 
@@ -185,7 +223,7 @@ public class Search
 			for(int k = 0 ; k < pentominos.length; k++)
 				System.out.print(pentominos[k] + " ");
 			ClearGrid();
-			ImrpovedSearch(pentominos);
+			ImprovedSearch(pentominos);
 		}
 	}
 	
@@ -302,13 +340,13 @@ public class Search
 	/**
 	 * Main function. Needs to be executed to start the basic search algorithm
 	 */
-    public static void main(String[] args)
-    {
-		long startTime = System.currentTimeMillis();
-        search();
-		long endTime = System.currentTimeMillis();
+    // public static void main(String[] args)
+    // {
+	// 	long startTime = System.currentTimeMillis();
+    //     search();
+	// 	long endTime = System.currentTimeMillis();
 
-		long millis = endTime - startTime;
-		System.out.println("EXECUTION TIME: " + millis + "ms");
-    }
+	// 	long millis = endTime - startTime;
+	// 	System.out.println("EXECUTION TIME: " + millis + "ms");
+    // }
 }

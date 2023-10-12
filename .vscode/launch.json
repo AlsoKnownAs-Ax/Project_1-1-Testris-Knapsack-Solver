@@ -1,0 +1,43 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Java Debug (Launch)",
+            "request": "launch",
+            "mainClass": "Search",
+            "vmArgs": "-Xss4M",
+            "projectName": "YourProjectName"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "PentominoBuilder",
+            "request": "launch",
+            "mainClass": "PentominoBuilder",
+            "projectName": "Project_1-1_db9c702b"
+        },
+        {
+            "type": "java",
+            "name": "PentominoDatabase",
+            "request": "launch",
+            "mainClass": "PentominoDatabase",
+            "projectName": "Project_1-1_db9c702b"
+        },
+        {
+            "type": "java",
+            "name": "Search",
+            "request": "launch",
+            "mainClass": "Search",
+            "projectName": "Project_1-1_db9c702b"
+        }
+    ]
+}
