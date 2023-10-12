@@ -373,10 +373,18 @@ public class PentominoBuilder {
      */
     public static boolean isEqual(int[][] data1, int[][] data2)
     {
-    	
-        
+        for(int i = 0; i < data1.length;i++)
+        {
+            for(int j = 0; j < data1[i].length; j++)
+            {
+                if(data1[i][j] != data2[i][j])
+                {
+                    return false;
+                }
+            }
+        }
 
-        return false;
+        return true;
     }
 
 

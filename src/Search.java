@@ -3,17 +3,23 @@
  * @version 2022.0
  */
 
- import java.util.Random;
+ import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * This class includes the methods to support the search of a solution.
  */
 public class Search
 {
-    public static final int horizontalGridSize = 5;
-    public static final int verticalGridSize = 6;
+    public static final int horizontalGridSize = 6;
+    public static final int verticalGridSize = 5;
     
     public static final char[] input = { 'W', 'Y', 'I', 'T', 'Z', 'L'};
+	//public static final char[] input = { 'P', 'X', 'F', 'V', 'W', 'Y', 'T', 'Z', 'U', 'N', 'L', 'I'};
+	public static int[][] GLOBAL_grid = new int[horizontalGridSize][verticalGridSize];
     
     //Static UI class to display the board
     public static UI ui = new UI(horizontalGridSize, verticalGridSize, 50);
@@ -23,20 +29,22 @@ public class Search
 	 */
     public static void search()
     {
-        // Initialize an empty board
-        int[][] field = new int[horizontalGridSize][verticalGridSize];
 
-        for(int i = 0; i < field.length; i++)
+        for(int i = 0; i < GLOBAL_grid.length; i++)
         {
-            for(int j = 0; j < field[i].length; j++)
+            for(int j = 0; j < GLOBAL_grid[i].length; j++)
             {
                 // -1 in the state matrix corresponds to empty square
                 // Any positive number identifies the ID of the pentomino
-            	field[i][j] = -1;
+				GLOBAL_grid[i][j] = -1;
             }
         }
         //Start the basic search
-        basicSearch(field);
+		if(CanGridBeFilled(GLOBAL_grid)){
+			ImrpovedSearch(input);
+		}else{
+			System.out.println("No possible solution");
+		}
     }
 	
 	/**
@@ -73,6 +81,113 @@ public class Search
     	} 
     	return pentID;
     }
+
+	private static ArrayList<Character> Array2ArrayList(char[] array)
+	{
+		ArrayList<Character> new_ArrayList = new ArrayList<Character>(array.length);
+		for(char character : array)
+			new_ArrayList.add(character);
+		
+		return new_ArrayList;
+	}
+
+	private static boolean CanGridBeFilled(int[][] field)
+	{
+		int total_field_squares = verticalGridSize*horizontalGridSize;
+		int pentominos_squares = input.length*5;
+
+		if(total_field_squares != pentominos_squares)
+			return false;
+
+		return true;
+	}
+
+	private static boolean canPieceBePlaced(int[][] pieceToPlace, int row, int col)
+	{
+		if(GLOBAL_grid[row][col] == -1 && pieceToPlace[0][0] == 0)
+			return false;
+
+		for(int i = 0; i < pieceToPlace.length; i++)
+			for(int j = 0; j < pieceToPlace[i].length; j++){
+				if(row + i >= horizontalGridSize || col + j >= verticalGridSize || (pieceToPlace[i][j] == 1 && GLOBAL_grid[row + i][col + j] != -1))
+					return false;
+				
+			}
+
+		return true;
+	}
+
+	private static void remove(int[][] pentomino, int row, int col) {
+        for (int i = 0; i < pentomino.length; i++) {
+            for (int j = 0; j < pentomino[0].length; j++) {
+                if (pentomino[i][j] == 1) {
+                    GLOBAL_grid[row + i][col + j] = -1;
+                }
+            }
+        }
+		ui.setState(GLOBAL_grid);
+    }
+
+	private static char[] ArrayList2Array(ArrayList<Character> List,char[] array)
+	{
+		char[] pentominos = new char[List.size()];
+
+		for(int i=0; i < array.length; i++)
+			pentominos[i] = List.get(i);
+
+		return pentominos;
+	}
+
+	private static void ClearGrid()
+	{
+		for(int i=0; i < horizontalGridSize;i++)
+			for(int j=0;j < verticalGridSize;j++)
+				GLOBAL_grid[i][j] = -1;
+	}
+
+	private static void ImrpovedSearch(char[] pentominos)
+	{
+		ArrayList<Character> TemporaryInputs = Array2ArrayList(pentominos);
+
+		for(int index=0; index < pentominos.length; index++)
+			{
+				int pentID = characterToID(TemporaryInputs.get(index));
+				boolean piecePlaced = false;
+
+				for(int mutation = 0 ; mutation < PentominoDatabase.data[pentID].length && !piecePlaced; mutation++)
+				{
+					int[][] pieceToPlace = PentominoDatabase.data[pentID][mutation];
+
+					for(int i = 0; i < GLOBAL_grid.length && !piecePlaced; i++)
+						for(int j = 0; j < GLOBAL_grid[i].length && !piecePlaced; j++)
+						{
+							if(canPieceBePlaced(pieceToPlace,i,j)){
+								addPiece(pieceToPlace, pentID, i, j);
+								if(isGridFilled(GLOBAL_grid)){
+									System.out.println("GRID FILLED");
+									ui.setState(GLOBAL_grid); 
+									return;
+								}
+								piecePlaced = true;
+							}
+						}
+				}
+				// if(piecePlaced){
+				// 	System.out.println("PIECE REMOVED: " + TemporaryInputs.get(index));
+				// 	TemporaryInputs.remove(TemporaryInputs.get(index));
+				// }
+			}
+		if(!isGridFilled(GLOBAL_grid)){
+			Collections.shuffle(TemporaryInputs);
+			pentominos = ArrayList2Array(TemporaryInputs,pentominos);
+
+			System.out.println("NEXT PENTOS: ");
+			for(int k = 0 ; k < pentominos.length; k++)
+				System.out.print(pentominos[k] + " ");
+			ClearGrid();
+			ImrpovedSearch(pentominos);
+		}
+	}
 	
 	/**
 	 * Basic implementation of a search algorithm. It is not a bruto force algorithms (it does not check all the posssible combinations)
@@ -130,15 +245,11 @@ public class Search
     		
     			//If there is a possibility to place the piece on the field, do it
     			if (x >= 0 && y >= 0) {
-	    			addPiece(field, pieceToPlace, pentID, x, y);
+	    			addPiece(pieceToPlace, pentID, x, y);
 	    		} 
     		}
     		//Check whether complete field is filled
-    		//
-    		//
-    		// TODO: To be implemented
-    		//
-    		//
+			solutionFound = isGridFilled(field);
     		
 
     		
@@ -151,6 +262,15 @@ public class Search
     	}
     }
 
+	private static boolean isGridFilled(int[][] field)
+	{
+		for(int i = 0 ; i < field.length; i++)
+			for(int j = 0; j < field[i].length; j++)
+				if(field[i][j] == -1)
+					return false;
+		return true;
+	}
+
     
 	/**
 	 * Adds a pentomino to the position on the field (overriding current board at that position)
@@ -160,8 +280,9 @@ public class Search
 	 * @param x x position of the pentomino
 	 * @param y y position of the pentomino
 	 */
-    public static void addPiece(int[][] field, int[][] piece, int pieceID, int x, int y)
+    public static void addPiece(int[][] piece, int pieceID, int x, int y)
     {
+		Scanner scanner = new Scanner(System.in);
         for(int i = 0; i < piece.length; i++) // loop over x position of pentomino
         {
             for (int j = 0; j < piece[i].length; j++) // loop over y position of pentomino
@@ -169,10 +290,13 @@ public class Search
                 if (piece[i][j] == 1)
                 {
                     // Add the ID of the pentomino to the board if the pentomino occupies this square
-                    field[x + i][y + j] = pieceID;
+					GLOBAL_grid[x + i][y + j] = pieceID;
                 }
             }
         }
+		ui.setState(GLOBAL_grid);
+		//System.out.println("Press ENTER to generate next combination");
+		//scanner.nextLine();
     }
 
 	/**
@@ -180,6 +304,11 @@ public class Search
 	 */
     public static void main(String[] args)
     {
+		long startTime = System.currentTimeMillis();
         search();
+		long endTime = System.currentTimeMillis();
+
+		long millis = endTime - startTime;
+		System.out.println("EXECUTION TIME: " + millis + "ms");
     }
 }
