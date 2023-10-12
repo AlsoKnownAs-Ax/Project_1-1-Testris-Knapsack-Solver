@@ -33,22 +33,22 @@ public class Search
 
 	//private static int[][]
 
-    private static int countClusters(int[][] field)
-	{
-        int count = 0;
-        boolean[][] visited = new boolean[field.length][field[0].length];
-
-        for (int i = 0; i < field.length; i++) {
-            for (int j = 0; j < field[0].length; j++) {
-                if (field[i][j] == 1 && !visited[i][j]) {
-                    count++;
-                    dfs(field, visited, i, j);
-                }
-            }
-        }
-
-        return count;
-    }
+    private static int countClusters(int[][] field) {
+		int count = 0;
+		boolean[][] visited = new boolean[field.length][field[0].length];
+	
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[0].length; j++) {
+				if (field[i][j] == 1 && !visited[i][j]) {
+					count++;
+					dfs(field, visited, i, j);
+				}
+			}
+		}
+	
+		return count;
+	}
+	
 
     private static void dfs(int[][] field, boolean[][] visited, int row, int col) {
         visited[row][col] = true;
@@ -73,7 +73,6 @@ public class Search
 
    
     
-}
     
 	 public static void search()
     {
