@@ -1,8 +1,5 @@
 package PentominosUtils;
-/**
- * @author Department of Data Science and Knowledge Engineering (DKE)
- * @version 2022.0
- */
+
 
 import javax.swing.*;
 import java.awt.*;

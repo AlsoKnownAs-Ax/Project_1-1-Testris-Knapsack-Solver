@@ -1,8 +1,5 @@
 package PentominosUtils;
-/**
- * @author Department of Data Science and Knowledge Engineering (DKE)
- * @version 2022.0
- */
+
 
  import java.io.FileNotFoundException;
 //import java.io.FileWriter;
@@ -457,7 +454,7 @@ public class PentominoBuilder {
     public static void main(String[] args) throws FileNotFoundException, UnsupportedEncodingException {
         makeDatabase();
 
-        PrintWriter writer = new PrintWriter("pentominos.csv", "UTF-8");
+        PrintWriter writer = new PrintWriter("src\\PentominosUtils\\pentominos.csv", "UTF-8");
 
         for(int i = 0; i < database.size(); i++)
         {
