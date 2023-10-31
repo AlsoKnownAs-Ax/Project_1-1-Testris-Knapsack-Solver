@@ -1,9 +1,11 @@
+package PentominosUtils;
 /**
  * @author Department of Data Science and Knowledge Engineering (DKE)
  * @version 2022.0
  */
 
  import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -13,15 +15,15 @@ import java.util.Scanner;
 public class Search
 {
 	public static int verticalGridSize = 5;
-	public static int horizontalGridSize = 12;
+	public static int horizontalGridSize = 6;
 
 	//5x6 
-	//public static final char[] input = { 'T', 'W', 'Z', 'L', 'I', 'Y'};
+	public static final char[] input = { 'T', 'W', 'Z', 'L', 'I', 'Y'};
 	// 6x10 
 	//public static final char[] input = { 'I', 'P', 'T', 'W', 'X', 'Y','L','U','N','Z','F','V'};
 	//public static final char[] input = { 'W', 'T', 'Z', 'L', 'I', 'Y','X','F','P','U','F'};
     //public static final char[] input = { 'W', 'Y', 'I', 'T', 'Z', 'L','P','X','U','F'};
-	public static final char[] input = { 'P', 'X', 'F', 'V', 'W', 'Y', 'T', 'Z', 'U', 'N', 'L', 'I'};
+	//public static final char[] input = { 'P', 'X', 'F', 'V', 'W', 'Y', 'T', 'Z', 'U', 'N', 'L', 'I'};
 	public static int[][] GLOBAL_grid = new int[horizontalGridSize][verticalGridSize];
     
     //Static UI class to display the board
@@ -239,6 +241,7 @@ public class Search
 
 		ArrayList<Character> TemporaryInputs = Array2ArrayList(pentominos);
 
+
 		boolean solutionFound = false;
 	
 		while(!solutionFound){
@@ -264,6 +267,7 @@ public class Search
 								if(isGridFilled(GLOBAL_grid)){
 									System.out.println("GRID FILLED");
 									ui.setState(GLOBAL_grid);
+									System.out.println("TemporaryInputs : " + TemporaryInputs);
 									solutionFound = true; 
 									return;
 								}
@@ -272,7 +276,7 @@ public class Search
 
 								//If the piece leaves no Dead Areas then exit from the loops
 								if(CanAlgorithmContinue(mock_grid))
-								{
+								{									
 									piecePlaced = true;
 								}
 							}
@@ -283,6 +287,7 @@ public class Search
 			if(!isGridFilled(GLOBAL_grid)){
 				Collections.shuffle(TemporaryInputs);
 				pentominos = ArrayList2Array(TemporaryInputs,pentominos);
+			//	Solution_Array.clear();
 				ClearGrid();
 			}
 		}
@@ -346,9 +351,9 @@ public class Search
 		ui.setState(GLOBAL_grid);
 
 
-		//Scanner scanner = new Scanner(System.in);
-		// System.out.println("Press ENTER to generate next combination");
-		// scanner.nextLine();
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Press ENTER to generate next combination");
+		scanner.nextLine();
     }
 
 	/**
