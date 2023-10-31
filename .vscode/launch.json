@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PentominoBuilder",
+            "request": "launch",
+            "mainClass": "PentominoBuilder",
+            "projectName": "Project_1-1_cb1b7e0c"
+        },
+        {
+            "type": "java",
             "name": "Search",
             "request": "launch",
             "mainClass": "Search",

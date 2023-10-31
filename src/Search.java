@@ -12,16 +12,16 @@ import java.util.Scanner;
  */
 public class Search
 {
-	public static int verticalGridSize = 6;
-	public static int horizontalGridSize = 10;
+	public static int verticalGridSize = 5;
+	public static int horizontalGridSize = 12;
 
 	//5x6 
 	//public static final char[] input = { 'T', 'W', 'Z', 'L', 'I', 'Y'};
 	// 6x10 
-	public static final char[] input = { 'I', 'P', 'T', 'W', 'X', 'Y','L','U','N','Z','F','V'};
+	//public static final char[] input = { 'I', 'P', 'T', 'W', 'X', 'Y','L','U','N','Z','F','V'};
 	//public static final char[] input = { 'W', 'T', 'Z', 'L', 'I', 'Y','X','F','P','U','F'};
     //public static final char[] input = { 'W', 'Y', 'I', 'T', 'Z', 'L','P','X','U','F'};
-	//public static final char[] input = { 'P', 'X', 'F', 'V', 'W', 'Y', 'T', 'Z', 'U', 'N', 'L', 'I'};
+	public static final char[] input = { 'P', 'X', 'F', 'V', 'W', 'Y', 'T', 'Z', 'U', 'N', 'L', 'I'};
 	public static int[][] GLOBAL_grid = new int[horizontalGridSize][verticalGridSize];
     
     //Static UI class to display the board
@@ -238,56 +238,53 @@ public class Search
 	{
 
 		ArrayList<Character> TemporaryInputs = Array2ArrayList(pentominos);
+
+		boolean solutionFound = false;
 	
-		//Iterate over every pentomino
-		for(int index=0; index < pentominos.length; index++)
-		{
-			int pentID = characterToID(TemporaryInputs.get(index));
-			boolean piecePlaced = false;
+		while(!solutionFound){
+			//Iterate over every pentomino
+			for(int index=0; index < pentominos.length; index++)
+			{
+				int pentID = characterToID(TemporaryInputs.get(index));
+				boolean piecePlaced = false;
 
-			//Iterate over grid squares
-			for(int i = 0; i < GLOBAL_grid.length && !piecePlaced; i++)
-				for(int j = 0; j < GLOBAL_grid[i].length && !piecePlaced; j++)
-				{
-					//Get every mutation of the piece
-					for(int mutation = 0 ; mutation < PentominoDatabase.data[pentID].length && !piecePlaced; mutation++)
+				//Iterate over grid squares
+				for(int i = 0; i < GLOBAL_grid.length && !piecePlaced; i++)
+					for(int j = 0; j < GLOBAL_grid[i].length && !piecePlaced; j++)
 					{
-						int[][] pieceToPlace = PentominoDatabase.data[pentID][mutation];
+						//Get every mutation of the piece
+						for(int mutation = 0 ; mutation < PentominoDatabase.data[pentID].length && !piecePlaced; mutation++)
+						{
+							int[][] pieceToPlace = PentominoDatabase.data[pentID][mutation];
 
-						//Can piece fit ?
-						if(canPieceBePlaced(pieceToPlace,i,j)){
-							addPiece(pieceToPlace, pentID, i, j);
+							//Can piece fit ?
+							if(canPieceBePlaced(pieceToPlace,i,j)){
+								addPiece(pieceToPlace, pentID, i, j);
 
-							if(isGridFilled(GLOBAL_grid)){
-								System.out.println("GRID FILLED");
-								ui.setState(GLOBAL_grid); 
-								return;
-							}
+								if(isGridFilled(GLOBAL_grid)){
+									System.out.println("GRID FILLED");
+									ui.setState(GLOBAL_grid);
+									solutionFound = true; 
+									return;
+								}
 
-							int[][] mock_grid = MakeMockGrid(GLOBAL_grid);
+								int[][] mock_grid = MakeMockGrid(GLOBAL_grid);
 
-							//If the piece leaves no Dead Areas then exit from the loops
-							if(CanAlgorithmContinue(mock_grid))
-							{
-								piecePlaced = true;
+								//If the piece leaves no Dead Areas then exit from the loops
+								if(CanAlgorithmContinue(mock_grid))
+								{
+									piecePlaced = true;
+								}
 							}
 						}
 					}
-				}
-		}
+			}
 
-		//If the grid is not finished then continue
-		if(!isGridFilled(GLOBAL_grid)){
-			//Shuffle the combination
-			Collections.shuffle(TemporaryInputs);
-			pentominos = ArrayList2Array(TemporaryInputs,pentominos);
-
-			System.out.println("NEXT PENTOS: ");
-			for(int k = 0 ; k < pentominos.length; k++)
-				System.out.print(pentominos[k] + " ");
-
-			ClearGrid();
-			ImprovedSearch(pentominos);
+			if(!isGridFilled(GLOBAL_grid)){
+				Collections.shuffle(TemporaryInputs);
+				pentominos = ArrayList2Array(TemporaryInputs,pentominos);
+				ClearGrid();
+			}
 		}
 	}
 
