@@ -1,25 +1,10 @@
 [
-    {
-        "scores_data":
-        {
-            "top1": 
-            {
-                "time": "4:50",
-                "score": 250
-            },
-            "top2":
-            {
-                "time": "4:50",
-                "score": 250
-            },
-            "top3":
-            {
-                "time": "4:50",
-                "score": 250
-            }
-        }
-    },
-    {
-        "_comment":"We might need this for later"
+  {
+    "scores_data": {
+      "top3": { "score": 0, "time": "0:00" },
+      "top1": { "score": 120, "time": "0:30" },
+      "top2": { "score": 0, "time": "0:00" }
     }
+  },
+  { "_comment": "We might need this for later" }
 ]

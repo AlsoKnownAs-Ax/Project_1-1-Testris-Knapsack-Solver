@@ -1,10 +1,11 @@
 package MainApp;
 
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -15,15 +16,16 @@ import org.json.simple.parser.ParseException;
 public class JSONHandler {
     private static JSONObject HighScoreObject;
     
-    int[] scores = new int[3];
-    String[] times = new String[3];
+    private static int[] scores = new int[3];
+    private static String[] times = new String[3];
 
     public JSONHandler()
     {
         JSONParser jsonParser = new JSONParser();
         try (FileReader reader = new FileReader("src\\MainApp\\json\\HighScoreData.json")) {
-            Object obj = jsonParser.parse(reader);
-            JSONArray HighScoreArray = (JSONArray) obj;
+
+            Object JsonData = jsonParser.parse(reader);
+            JSONArray HighScoreArray = (JSONArray) JsonData;
             HighScoreObject = (JSONObject) HighScoreArray.get(0);
             HighScoreObject = (JSONObject) HighScoreObject.get("scores_data");
         } catch (FileNotFoundException e) {
@@ -33,11 +35,13 @@ public class JSONHandler {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        SetHighScoreData();
     }
 
     public void SetHighScoreData()
     {
-
+        int index = 0;
         for(Iterator<String> iterator = HighScoreObject.keySet().iterator(); iterator.hasNext();)
         {
             String key = (String) iterator.next();
@@ -45,11 +49,107 @@ public class JSONHandler {
             JSONObject CurrentData = (JSONObject) HighScoreObject.get(key);
 
             String time = (String) CurrentData.get("time");
-            // int score = (Long) CurrentData.get("score").intB;
+            int score = ((Long) CurrentData.get("score")).intValue();
 
-            //TODO: Store times and scores in arrays
+            scores[index] = score;
+            times[index] = time;
+
+            index++;
+        }
+
+        SortHighScoreDataDescending(scores,times);
+    }
+
+    public int[] GetScoresArray()
+    {
+        return scores;
+    }
+
+    public String[] GetTimesArray()
+    {
+        return times;
+    }
+
+    public void TryToInsertHighScore(int lapScore,String lapTime)
+    {
+        //Check if the score can be placed in top
+        if(lapScore > scores[scores.length-1])
+        {
+            for(int i = scores.length-1; i > 0; i++)
+            {
+                if(lapScore > scores[i] && lapScore < scores[i--])
+                {
+                    scores[i] = lapScore;
+                    times[i] = lapTime;
+                    return;
+                }
+            }
         }
     }
 
+    private static void SortHighScoreDataDescending(int[] scores, String[] times)
+    {
+        //bubble sort Algorithm to sort the arrays descending
+
+        for(int i = 0 ; i < scores.length-1; i++)
+            for(int j = 0; j < scores.length-i-1; j++)
+            {
+                if(scores[j] < scores[j+1])
+                {
+                    int aux = scores[j];
+                    scores[j] = scores[j+1];
+                    scores[j+1] = aux;
+
+                    String temp = times[j];
+                    times[j] = times[j+1];
+                    times[j+1] = temp;
+                }
+            }
+    }
+
+    public static void SaveHighScoreData()
+    {
+
+        JSONParser jsonParser = new JSONParser();
+        try (FileReader reader = new FileReader("src\\MainApp\\json\\HighScoreData.json")) {
+
+            Object JsonData = jsonParser.parse(reader);
+            JSONArray HighScoreArray = (JSONArray) JsonData;
+            HighScoreObject = (JSONObject) HighScoreArray.get(0);
+            HighScoreObject = (JSONObject) HighScoreObject.get("scores_data");
+
+            //Build JSON Object to be saved
+            for(int i = 0; i < scores.length; i++)
+            {
+                JSONObject top = (JSONObject) HighScoreObject.get("top"+(i+1));
+                top.put("time", times[i]);
+                top.put("score", scores[i]);
+                HighScoreObject.put("top"+(i+1),top);
+            }
+
+
+            @SuppressWarnings("resource")
+            FileWriter file = new FileWriter("src\\MainApp\\json\\HighScoreData.json");
+            file.write(HighScoreArray.toJSONString());
+            file.flush();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+     * DEBUG
+     */
+
+    // public static void main(String[] args)
+    // {
+    //     JSONHandler InitializeJson = new JSONHandler();
+
+    //     SaveHighScoreData();
+    // }
 
 }

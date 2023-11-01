@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "JSONHandler",
+            "request": "launch",
+            "mainClass": "MainApp.JSONHandler",
+            "projectName": "Project_1-1_5251dab7"
+        },
+        {
+            "type": "java",
             "name": "TetrisGame",
             "request": "launch",
             "mainClass": "MainApp.TetrisGame",

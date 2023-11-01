@@ -23,12 +23,7 @@ public class TetrisGame {
 
     public static void main(String[] args)
     {
-		long startTime = System.currentTimeMillis();
-        Search.search();
-		long endTime = System.currentTimeMillis();
-
-		long millis = endTime - startTime;
-		System.out.println("EXECUTION TIME: " + millis + "ms");
+        JSONHandler InitializeJson = new JSONHandler();
 
 		try {
             //create the font to use. Specify the size!
