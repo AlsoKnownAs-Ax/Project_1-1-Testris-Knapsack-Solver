@@ -18,13 +18,13 @@ import org.json.simple.parser.ParseException;
  * Functions Docs:
  * 
  * -> SetHighScoreData()
- *      > Reads the JSON Object and stores the time and scores in the 2 arrays
+ *      > Reads the JSON Object and stores the time and scores in 2 arrays
  * 
  * -> TryToInsertHighScore
- *      > We will use this to try to check if the player did a High Score or not and then store it in the array while keeping it sorted
+ *      > We will use this to check if the player did a High Score or not and then store it while keeping the array sorted
  * 
  * -> SortHighScoreDataDescending
- *       > Using bubble sort, we sort the array desceding while keeping track of their corresponding time
+ *       > Sorts the array desceding while keeping track of their corresponding time
  * 
  * -> SaveHighScoreData
  *       > Saves the data in the JSON File
@@ -67,7 +67,7 @@ public class JSONHandler {
     public void SetHighScoreData()
     {
         int index = 0;
-        for(Iterator<String> iterator = HighScoreObject.keySet().iterator(); iterator.hasNext();)
+        for(Iterator<?> iterator = HighScoreObject.keySet().iterator(); iterator.hasNext();)
         {
             String key = (String) iterator.next();
 
@@ -162,7 +162,7 @@ public class JSONHandler {
             for(int i = 0; i < scores.length; i++)
             {
                 JSONObject top = (JSONObject) HighScoreObject.get("top"+(i+1));
-                top.put("time", times[i]);
+                top.put("time",times[i]);
                 top.put("score", scores[i]);
                 HighScoreObject.put("top"+(i+1),top);
             }

@@ -23,56 +23,7 @@ public class Search
     
     //Static UI class to display the board
     public static UI ui = new UI(horizontalGridSize, verticalGridSize, 50);
-
-	/**
-	 * Helper function which starts a basic search algorithm
-	 */
-
-
-	private static final int[][] DIRECTIONS = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-
-	//private static int[][]
-
-    private static int countClusters(int[][] field) {
-		int count = 0;
-		boolean[][] visited = new boolean[field.length][field[0].length];
-	
-		for (int i = 0; i < field.length; i++) {
-			for (int j = 0; j < field[0].length; j++) {
-				if (field[i][j] == 1 && !visited[i][j]) {
-					count++;
-					dfs(field, visited, i, j);
-				}
-			}
-		}
-	
-		return count;
-	}
-	
-
-    private static void dfs(int[][] field, boolean[][] visited, int row, int col) {
-        visited[row][col] = true;
-
-        for (int[] direction : DIRECTIONS) {
-            int newRow = row + direction[0];
-            int newCol = col + direction[1];
-
-            if (isValid(field, visited, newRow, newCol)) {
-                dfs(field, visited, newRow, newCol);
-            }
-        }
-    }
-
-    private static boolean isValid(int[][] field, boolean[][] visited, int row, int col) {
-        int numRows = field.length;
-        int numCols = field[0].length;
-
-        return row >= 0 && row < numRows && col >= 0 && col < numCols
-                && field[row][col] == 1 && !visited[row][col];
-    }
-
-   
-    
+ 
     
 	 public static void search()
     {
