@@ -13,11 +13,32 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/*
+ * Concept: We will try to keep track of the current High Scores in 2 arrays and then store them in HighScoreData.json
+ * Functions Docs:
+ * 
+ * -> SetHighScoreData()
+ *      > Reads the JSON Object and stores the time and scores in the 2 arrays
+ * 
+ * -> TryToInsertHighScore
+ *      > We will use this to try to check if the player did a High Score or not and then store it in the array while keeping it sorted
+ * 
+ * -> SortHighScoreDataDescending
+ *       > Using bubble sort, we sort the array desceding while keeping track of their corresponding time
+ * 
+ * -> SaveHighScoreData
+ *       > Saves the data in the JSON File
+ */
+
 public class JSONHandler {
     private static JSONObject HighScoreObject;
     
     private static int[] scores = new int[3];
     private static String[] times = new String[3];
+
+    /**
+     * Constructor which reads the JSON file
+     */
 
     public JSONHandler()
     {
@@ -38,6 +59,10 @@ public class JSONHandler {
 
         SetHighScoreData();
     }
+
+    /**
+     * Initializes the 2 arrays with the data from the JSON file
+     */
 
     public void SetHighScoreData()
     {
@@ -70,6 +95,13 @@ public class JSONHandler {
         return times;
     }
 
+    /**
+     * Checks if the player reached a High Score and stores it in the right place in the array depending if it
+     * should be top1/top2/top3 while keeping the array sorted
+     * @param lapScore
+     * @param lapTime
+     */
+
     public void TryToInsertHighScore(int lapScore,String lapTime)
     {
         //Check if the score can be placed in top
@@ -87,10 +119,14 @@ public class JSONHandler {
         }
     }
 
+    /**
+     * Sort the scores array descendent while keeping track of their corresponding time
+     * @param scores
+     * @param times
+     */
+
     private static void SortHighScoreDataDescending(int[] scores, String[] times)
     {
-        //bubble sort Algorithm to sort the arrays descending
-
         for(int i = 0 ; i < scores.length-1; i++)
             for(int j = 0; j < scores.length-i-1; j++)
             {
@@ -106,6 +142,10 @@ public class JSONHandler {
                 }
             }
     }
+
+    /**
+     * Saves the data into the JSON file
+     */
 
     public static void SaveHighScoreData()
     {
