@@ -8,14 +8,14 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" fx:controller="MainApp.Controller" minWidth="-Infinity" prefHeight="850.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" fx:controller="MainApp.Controller" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fitHeight="850.0" fitWidth="900.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@assets/title-bg.png" />
          </image>
       </ImageView>
-      <Button fx:id="startgamebtn" layoutX="327.0" layoutY="526.0" mnemonicParsing="false" onAction="#StartGame" prefHeight="39.0" prefWidth="246.0" text="Start Game" textAlignment="CENTER">
+      <Button fx:id="startGamebtn" layoutX="327.0" layoutY="526.0" mnemonicParsing="false" onAction="#StartGame" prefHeight="39.0" prefWidth="246.0" style="-fx-background-radius: 8;" text="Start Game" textAlignment="CENTER">
          <font>
             <Font size="17.0" />
          </font>
@@ -23,7 +23,7 @@
             <DropShadow height="17.34" radius="8.3525" width="18.07" />
          </effect>
       </Button>
-      <Button fx:id="showHIghScores" layoutX="372.0" layoutY="582.0" mnemonicParsing="false" onAction="#ShowHighScores" prefHeight="30.0" prefWidth="155.0" text="High Scores">
+      <Button fx:id="showHIghScores" layoutX="372.0" layoutY="582.0" mnemonicParsing="false" onAction="#ShowHighScores" prefHeight="30.0" prefWidth="155.0" style="-fx-background-radius: 4;" text="High Scores">
          <font>
             <Font size="14.0" />
          </font>
