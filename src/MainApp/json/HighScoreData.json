@@ -2,8 +2,8 @@
   {
     "scores_data": {
       "top3": { "score": 0, "time": "0:00" },
-      "top1": { "score": 120, "time": "0:30" },
-      "top2": { "score": 0, "time": "0:00" }
+      "top1": { "score": 320, "time": "3:20" },
+      "top2": { "score": 120, "time": "0:30" }
     }
   },
   { "_comment": "We might need this for later" }

@@ -1,16 +1,20 @@
 package MainApp;
 
-import PentominosUtils.Search;
-
 import java.io.File;
 import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 
-public class TetrisGame {
+public class TetrisGame extends Application {
 
     public static Container container;
     public static Font titleFont = new Font("Rockwell", Font.PLAIN, 69);
@@ -20,6 +24,12 @@ public class TetrisGame {
     public static Font PIXELED_NORMAL;
     public static int ItemsAmount = 0;
 
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("fxml\\main.fxml"));
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
 
     public static void main(String[] args)
     {
@@ -46,5 +56,7 @@ public class TetrisGame {
         } catch(FontFormatException e) {
             e.printStackTrace();
         }
+
+        launch(args);
     }
 }

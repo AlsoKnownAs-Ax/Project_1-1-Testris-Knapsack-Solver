@@ -6,6 +6,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TetrisGame",
+            "request": "launch",
+            "mainClass": "MainApp.TetrisGame",
+            "projectName": "Project_1-1_5251dab7",
+            "vmArgs" : "--module-path \"C:/Program Files/Java/javafx-sdk-21.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
             "name": "JSONHandler",
             "request": "launch",
             "mainClass": "MainApp.JSONHandler",
