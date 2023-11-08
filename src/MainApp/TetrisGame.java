@@ -4,25 +4,24 @@ import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.awt.Container;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 
 public class TetrisGame extends Application {
 
-    public static Container container;
     public static Font titleFont = new Font("Rockwell", Font.PLAIN, 69);
     public static Font normalFont = new Font("Times New Roman", Font.PLAIN,26);
     public static final Font ChoiceFont = new Font("Times New Roman", Font.PLAIN,19);
     public static Font MainTextFont = new Font("Times New Roman", Font.PLAIN,30);
     public static Font PIXELED_NORMAL;
-    public static int ItemsAmount = 0;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -30,6 +29,19 @@ public class TetrisGame extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.setResizable(false);
+        primaryStage.setTitle("Tetris: Such a fun game with Pentominos");
+
+        //Disable fullscreen button --> code taken from: https://stackoverflow.com/questions/32282646/how-to-lock-javafx-fullscreen-mode
+        
+        primaryStage.fullScreenProperty().addListener((ChangeListener<? super Boolean>) new ChangeListener<Boolean>() {
+
+        @Override
+        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+            if(newValue != null && !newValue.booleanValue())
+                primaryStage.setFullScreen(false);
+        }
+    });
+
     }
 
     public static void main(String[] args)

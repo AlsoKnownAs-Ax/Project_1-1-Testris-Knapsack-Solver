@@ -1,0 +1,35 @@
+.goBackBTN{
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-size: 1.4em; /* 12 */
+    -fx-text-fill: #000000;
+}
+
+.goBackBTN:focused {
+    -fx-border-color: transparent, black;
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.goBackBTN:pressed {
+    -fx-background-color: rgba(0, 0, 0, 0.422);
+    -fx-text-fill: blue;
+}
+
+.topScores__container{
+   -fx-overflow: hidden;
+}
+
+.padding_container{
+    -fx-padding: 20px;
+}
+
+.padding_container_odd{
+    -fx-background-color: rgba(0, 0, 255, 0.788);
+}
+
+.padding_container_even{
+    -fx-background-color: rgba(83, 83, 230, 0.947);
+}

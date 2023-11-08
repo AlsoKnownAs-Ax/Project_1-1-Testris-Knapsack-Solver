@@ -185,12 +185,12 @@ public class JSONHandler {
      * DEBUG
      */
 
-    // public static void main(String[] args)
-    // {
-    //     JSONHandler InitializeJson = new JSONHandler();
+    public static void main(String[] args)
+    {
+        JSONHandler InitializeJson = new JSONHandler();
 
-    //     SaveHighScoreData();
-    // }
+        SaveHighScoreData();
+    }
     
 
 }
