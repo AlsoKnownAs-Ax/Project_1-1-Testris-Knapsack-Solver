@@ -1,1 +1,13 @@
-[{"scores_data":{"top3":{"score":0,"time":"0:00"},"top1":{"score":820,"time":"5:30"},"top2":{"score":320,"time":"3:20"}}},{"_comment":"We might need this for later"}]
+[
+  {
+    "scores_data": {
+      "top3": { "score": 0, "time": "0:00" },
+      "top1": { "score": 820, "time": "5:30" },
+      "top2": { "score": 320, "time": "3:20" },
+      "top4": { "score": 0, "time": "0:00" },
+      "top5": { "score": 0, "time": "0:00" }
+
+    }
+  },
+  { "_comment": "We might need this for later" }
+]

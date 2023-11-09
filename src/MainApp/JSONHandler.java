@@ -33,8 +33,8 @@ import org.json.simple.parser.ParseException;
 public class JSONHandler {
     private static JSONObject HighScoreObject;
     
-    private static int[] scores = new int[3];
-    private static String[] times = new String[3];
+    private static int[] scores = new int[5];
+    private static String[] times = new String[5];
 
     /**
      * Constructor which reads the JSON file
@@ -85,12 +85,12 @@ public class JSONHandler {
         SortHighScoreDataDescending(scores,times);
     }
 
-    public int[] GetScoresArray()
+    public static int[] GetScoresArray()
     {
         return scores;
     }
 
-    public String[] GetTimesArray()
+    public static String[] GetTimesArray()
     {
         return times;
     }
