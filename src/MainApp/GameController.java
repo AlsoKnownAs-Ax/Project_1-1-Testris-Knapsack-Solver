@@ -6,13 +6,10 @@ import javax.swing.Timer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class GameController {
 
@@ -39,7 +36,7 @@ public class GameController {
     private int PieceX,PieceY;
 
     private int[][] currentPiece;
-    private int[][] playingGrid;
+    private int[][] playGrid;
     private int[][] nextPiece;
 
     @FXML
