@@ -391,7 +391,7 @@ public class PentominoBuilder {
      * @param data a matrix
      * @return the shrinken matrix
      */
-    public static int[][]eraseEmptySpace(int[][] data)
+    public static int[][] eraseEmptySpace(int[][] data)
     {
         //stores the first row and column with only 0s
         int amountOfRows=data.length;
