@@ -13,11 +13,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainApp.GameController">
    <children>
-      <Pane prefHeight="750.0" prefWidth="359.0" style="-fx-background-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane prefHeight="750.0" prefWidth="359.0" style="-fx-background-color: #2596be;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane layoutX="80.0" layoutY="59.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: blue; -fx-background-radius: 5;">
+            <Pane layoutX="80.0" layoutY="59.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #145369; -fx-background-radius: 5;">
                <children>
-                  <Text layoutX="28.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Next Piece">
+                  <Text fill="#cedbdf" layoutX="28.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Next Piece">
                      <font>
                         <Font name="Comic Sans MS" size="28.0" />
                      </font>
@@ -44,9 +44,9 @@
                      </children></Pane>
                </children>
             </Pane>
-            <Pane layoutX="80.0" layoutY="329.0" prefHeight="363.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 5;">
+            <Pane layoutX="80.0" layoutY="329.0" prefHeight="363.0" prefWidth="200.0" style="-fx-background-color: #145369; -fx-background-radius: 5;">
                <children>
-                  <Text layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Score:" textAlignment="CENTER" wrappingWidth="91.20005798339844">
+                  <Text fill="#cedbdf" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text=" Score:" textAlignment="CENTER" wrappingWidth="91.20005798339844">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -54,7 +54,7 @@
                         <DropShadow />
                      </effect>
                   </Text>
-                  <Text fx:id="scoreCounter" layoutX="88.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="114.0">
+                  <Text fx:id="scoreCounter" fill="#49be25" layoutX="88.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="114.0">
                      <font>
                         <Font size="23.0" />
                      </font>
@@ -62,7 +62,7 @@
                         <DropShadow />
                      </effect>
                   </Text>
-                  <Button fx:id="autoPlaybtn" layoutX="49.0" layoutY="305.0" mnemonicParsing="false" onAction="#SetAutoPlay" prefHeight="25.0" prefWidth="102.0" text="AutoPlay" textAlignment="CENTER">
+                  <Button fx:id="autoPlaybtn" layoutX="49.0" layoutY="305.0" mnemonicParsing="false" onAction="#SetAutoPlay" prefHeight="25.0" prefWidth="102.0" text="AutoPlay ON" textAlignment="CENTER">
                      <effect>
                         <DropShadow />
                      </effect>

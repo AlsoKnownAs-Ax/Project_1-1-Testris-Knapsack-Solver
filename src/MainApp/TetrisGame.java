@@ -23,6 +23,7 @@ public class TetrisGame extends Application {
     public static Font MainTextFont = new Font("Times New Roman", Font.PLAIN,30);
     public static Font PIXELED_NORMAL;
 
+    
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("fxml\\main.fxml"));
@@ -44,6 +45,7 @@ public class TetrisGame extends Application {
 
     }
 
+    
     public static void main(String[] args)
     {
         JSONHandler InitializeJson = new JSONHandler();
@@ -72,4 +74,5 @@ public class TetrisGame extends Application {
 
         launch(args);
     }
+
 }

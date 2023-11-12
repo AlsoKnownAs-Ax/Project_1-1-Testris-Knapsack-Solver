@@ -1,20 +1,13 @@
 package MainApp;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -30,7 +23,7 @@ public class Controller{
     @FXML
     private Button startGamebtn;
 
-    GameController gameController = new GameController();
+    private GameController gameController = new GameController();
 
 
     @FXML
@@ -70,15 +63,15 @@ public class Controller{
 
     @FXML
     void StartGame(ActionEvent event) throws IOException {
+
         root = FXMLLoader.load(getClass().getResource("fxml\\GameScreen.fxml"));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         scene = new Scene(root);
 
         stage.setScene(scene);
+
         stage.show();
 
         gameController.StartGame();
-
     }
-
 }

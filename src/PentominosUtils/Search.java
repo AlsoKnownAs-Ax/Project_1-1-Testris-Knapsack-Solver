@@ -50,7 +50,7 @@ public class Search
 	 * @param character a character representating a pentomino
 	 * @return	the corresponding ID (numerical value)
 	 */
-    private static int characterToID(char character) {
+    public static int characterToID(char character) {
     	int pentID = -1; 
     	if (character == 'X') {
     		pentID = 0;

@@ -80,7 +80,7 @@ public class UI extends JPanel
      * @param i ID of the pentomino to be colored
      * @return the color to represent the pentomino. It uses the class Color (more in ICS2 course in Period 2)
      */
-    private Color GetColorOfID(int i)
+    public Color GetColorOfID(int i)
     {
         if(i==0) {return Color.BLUE;}
         else if(i==1) {return Color.ORANGE;}

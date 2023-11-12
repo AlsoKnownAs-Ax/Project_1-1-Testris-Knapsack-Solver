@@ -1,25 +1,28 @@
 package MainApp;
 
+
 import javax.swing.AbstractAction;
-import javax.swing.JTextArea;
 import javax.swing.Timer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class GameController {
+
+    @FXML
+    private Button autoPlaybtn;
     
     public GameController(){}
 
     @FXML
     private GridPane PlayGrid;
-
-    @FXML
-    private Button autoPlaybtn;
 
     @FXML
     private Pane nextPieceContainer;
@@ -33,11 +36,21 @@ public class GameController {
     private int currentScore = 0;
     private boolean inGame = false;
     private boolean autoPlay = false;
-    private int x,y;
+    private int PieceX,PieceY;
+
+    private int[][] currentPiece;
+    private int[][] playingGrid;
+    private int[][] nextPiece;
 
     @FXML
-    void SetAutoPlay(ActionEvent event) {
-        autoPlay = true;
+    private void SetAutoPlay(ActionEvent event) {
+        autoPlay = !autoPlay;
+
+        if(autoPlay) 
+            autoPlaybtn.setText( "AutoPlay OFF" );
+        else
+            autoPlaybtn.setText( "AutoPlay ON" );
+
     }
 
     public void StartGame(){
@@ -45,9 +58,9 @@ public class GameController {
         ActivateTimer();
         
         //Game Loop
-        while(inGame){
+        //while(inGame){
 
-        }
+       // }
     }
 
     public void UpdateScore(){
@@ -66,14 +79,12 @@ public class GameController {
                 if (inGame == false) {
                     timer.stop();
                 }else{
-                    y++;
+                   PieceY++;
                 }
             }
         });
 
         timer.start();
     }
-
-
 
 }
