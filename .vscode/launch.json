@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Search",
+            "request": "launch",
+            "mainClass": "PentominosUtils.Search",
+            "projectName": "Project_1-1_5251dab7"
+        },
+        {
+            "type": "java",
             "name": "PentominoBuilder",
             "request": "launch",
             "mainClass": "PentominosUtils.PentominoBuilder",

@@ -9,10 +9,10 @@ import javafx.scene.shape.Rectangle;
  */
 
 public class Pentomino {
-    private Rectangle a,b,c,d,e;
+    public Rectangle a,b,c,d,e;
     private Color color;
     private int PentoID;
-    private int state = 0;
+    private int state = 0;      //Max 4 stages ( rotating pentomino )
 
     public Pentomino(Rectangle a, Rectangle b, Rectangle c, Rectangle d, Rectangle e, int pentoID){
         this.a = a;
@@ -66,4 +66,7 @@ public class Pentomino {
             this.state++;
     }
 
+    public Color getColor(){
+        return this.color;
+    }
 }

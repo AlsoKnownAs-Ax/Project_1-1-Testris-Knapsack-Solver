@@ -1,6 +1,9 @@
 package MainApp;
 
+import javafx.scene.shape.Rectangle;
 import java.io.IOException;
+
+import PentominosUtils.PentominoDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,18 +16,16 @@ import javafx.stage.Stage;
 
 public class Controller{
 
+    public Controller(){}
+
     private Stage stage;
     private Scene scene;
     private Parent root;
 
     @FXML
-    private Button showHIghScores;
-
-    @FXML
-    private Button startGamebtn;
+    private Button showHIghScores, startGamebtn;
 
     private GameController gameController = new GameController();
-
 
     @FXML
     void ShowHighScores(ActionEvent event) throws IOException{
@@ -41,6 +42,7 @@ public class Controller{
     }
 
     private void setHighScoreTexts(){
+        
         int[] scores = JSONHandler.GetScoresArray();
         String[] times = JSONHandler.GetTimesArray();
 
@@ -69,7 +71,7 @@ public class Controller{
         scene = new Scene(root);
 
         stage.setScene(scene);
-
+        
         stage.show();
 
         gameController.StartGame();

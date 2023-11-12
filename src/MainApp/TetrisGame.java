@@ -35,20 +35,22 @@ public class TetrisGame extends Application {
         //Disable fullscreen button --> code taken from: https://stackoverflow.com/questions/32282646/how-to-lock-javafx-fullscreen-mode
         
         primaryStage.fullScreenProperty().addListener((ChangeListener<? super Boolean>) new ChangeListener<Boolean>() {
-
-        @Override
-        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-            if(newValue != null && !newValue.booleanValue())
-                primaryStage.setFullScreen(false);
-        }
-    });
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(newValue != null && !newValue.booleanValue())
+                    primaryStage.setFullScreen(false);
+            }
+        });
 
     }
+
 
     
     public static void main(String[] args)
     {
         JSONHandler InitializeJson = new JSONHandler();
+        GameController initGameController = new GameController();
+        initGameController.storePentominos();
 
 		try {
             //create the font to use. Specify the size!
