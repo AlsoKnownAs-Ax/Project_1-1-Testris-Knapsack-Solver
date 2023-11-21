@@ -81,6 +81,19 @@ public class Tetris extends Application {
 		}
 
 		Line line = new Line(XMAX, 0, XMAX, YMAX);
+
+		//Add horizontal lines to the Mesh
+		for(int i = 1 ; i <= YMAX / BLOCK_SIZE; i++){
+			Line Mesh_line = new Line(XMAX, i*BLOCK_SIZE, 0, i*BLOCK_SIZE);
+			group.getChildren().add(Mesh_line);
+		}
+
+		//Add vertical lines to the Mesh
+		for(int i = 1 ; i <= XMAX / BLOCK_SIZE; i++){
+			Line Mesh_line = new Line(i*BLOCK_SIZE, YMAX, i*BLOCK_SIZE, 0);
+			group.getChildren().add(Mesh_line);
+		}
+
 		Text scoretext = new Text("Score: ");
 		Button BTN_autoplay = new Button("AutoPlay ON");
 		BTN_autoplay.setStyle("-fx-font: 18 arial; -fx-border-radius: 5em");
