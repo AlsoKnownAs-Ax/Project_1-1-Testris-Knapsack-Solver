@@ -14,13 +14,13 @@ public class PentominoBuilder {
 
     //All basic pentominoes that will be rotated and flipped
     private static int[][][] basicDatabase = {
-            {
+            {   //DONE
             	// pentomino representation X
                     {0,1,0},
                     {1,1,1},
                     {0,1,0}
             },
-            {
+            {   //DONE
             	// pentomino representation I
                     {1},
                     {1},
@@ -28,37 +28,42 @@ public class PentominoBuilder {
                     {1},
                     {1}
             },
-            {
+            {   //DONE
             	// pentomino representation Z
                     {0,1,1},
                     {0,1,0},
                     {1,1,0}
             },
             {
+                //DONE
             	// pentomino representation T
                     {1,1,1},
                     {0,1,0},
                     {0,1,0}
             },
             {
+                //DONE
             	// pentomino representation U
                     {1,1},
                     {1,0},
                     {1,1}
             },
             {
+                //DONE
             	// pentomino representation V
                     {1,1,1},
                     {1,0,0},
                     {1,0,0}
             },
             {
+                //DONE
             	// pentomino representation W
                     {0,0,1},
                     {0,1,1},
                     {1,1,0}
             },
             {
+                //DONE
             	// pentomino representation Y
                     {1,0},
                     {1,1},
@@ -66,6 +71,7 @@ public class PentominoBuilder {
                     {1,0}
             },
             {
+                //DONE
             	// pentomino representation L
                     {1,0},
                     {1,0},
@@ -73,17 +79,21 @@ public class PentominoBuilder {
                     {1,1}
             },
             {
+                //DONE
                 // pentomino representation P
                 {1,1},
                 {1,1},
                 {1,0}
             },
             {
+                //DONE
                 // pentomino representation N
                 {1,1,0,0},
                 {0,1,1,1},
             },
             {
+
+                //IN PROGRESS
                 // pentomino representation F
                 {0,1,1},
                 {1,1,0},
@@ -91,6 +101,10 @@ public class PentominoBuilder {
 
             }
     };
+
+    public static int GetPentominosLength(){
+        return basicDatabase.length;
+    }
 
     //all pentominoes, inclusive their rotations
     public static ArrayList<int[][][]> database = new ArrayList<>();

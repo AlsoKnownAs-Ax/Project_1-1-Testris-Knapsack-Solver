@@ -1,5 +1,3 @@
-package MainApp;
-
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -43,7 +41,7 @@ public class JSONHandler {
     public JSONHandler()
     {
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("src\\MainApp\\json\\HighScoreData.json")) {
+        try (FileReader reader = new FileReader("src\\json\\HighScoreData.json")) {
 
             Object JsonData = jsonParser.parse(reader);
             JSONArray HighScoreArray = (JSONArray) JsonData;
@@ -102,21 +100,42 @@ public class JSONHandler {
      * @param lapTime
      */
 
-    public void TryToInsertHighScore(int lapScore,String lapTime)
+    public void TryToInsertHighScore(int lapScore,int lapTime)
     {
+        String time = ConvertTimeFormat(lapTime);
+
         //Check if the score can be placed in top
         if(lapScore > scores[scores.length-1])
         {
-            for(int i = scores.length-1; i > 0; i++)
+            for(int i = scores.length-1; i > 0; i--)
             {
-                if(lapScore > scores[i] && lapScore < scores[i--])
+                if(lapScore > scores[i] && lapScore < scores[i - 1] || (i == 1 && lapScore > scores[i]))
                 {
                     scores[i] = lapScore;
-                    times[i] = lapTime;
+                    times[i] = time;
+                    SaveHighScoreData();
+                    System.out.println(":HIGH SCORE SAVED:");
                     return;
                 }
             }
+
         }
+    }
+
+    /**
+     * Convert Integer time format ( 125sec ) into String format ( 2:05 )
+     * @param lapTime
+     * @return
+     */
+
+    private String ConvertTimeFormat(int lapTime){
+        int minutes = lapTime/60;
+        int seconds = lapTime%60;
+
+        if(seconds < 10)
+            return "" + minutes + ":" + "0"+seconds;
+
+        return "" + minutes + ":" + seconds;
     }
 
     /**
@@ -151,7 +170,7 @@ public class JSONHandler {
     {
 
         JSONParser jsonParser = new JSONParser();
-        try (FileReader reader = new FileReader("src\\MainApp\\json\\HighScoreData.json")) {
+        try (FileReader reader = new FileReader("src\\json\\HighScoreData.json")) {
 
             Object JsonData = jsonParser.parse(reader);
             JSONArray HighScoreArray = (JSONArray) JsonData;
@@ -169,7 +188,7 @@ public class JSONHandler {
 
 
             @SuppressWarnings("resource")
-            FileWriter file = new FileWriter("src\\MainApp\\json\\HighScoreData.json");
+            FileWriter file = new FileWriter("src\\json\\HighScoreData.json");
             file.write(HighScoreArray.toJSONString());
             file.flush();
 
@@ -185,12 +204,12 @@ public class JSONHandler {
      * DEBUG
      */
 
-    public static void main(String[] args)
-    {
-        JSONHandler InitializeJson = new JSONHandler();
+    // public static void main(String[] args)
+    // {
+    //     JSONHandler InitializeJson = new JSONHandler();
 
-        SaveHighScoreData();
-    }
+    //     SaveHighScoreData();
+    // }
     
 
 }
