@@ -444,7 +444,7 @@ public class Tetris extends Application {
 			}
 			break;
 		case "i":
-			if ( (f == 1 || f == 3) && cB(a, 2, 2) && cB(b, 1, 1) && cB(d, -1, -1) && cB(e, 3, -2)) {
+			if ( (f == 1 || f == 3) && cB(a, 2, -2) && cB(b, 1, -1) && cB(d, -1, -1) && cB(e, -2, -3)) {
 
 				MoveUp(form.a,2);
 				MoveRight(form.a,2);
@@ -458,17 +458,16 @@ public class Tetris extends Application {
 				form.changeForm();
 				break;
 			}
-			if ( (f == 2 || f == 4) && cB(a, -2, -2) && cB(b, -1, -1) && cB(d, 1, 1) && cB(e, -3, 2)) {
+			if ( (f == 2 || f == 4) && cB(a, -2, 2) && cB(b, -1, 1) && cB(d, 1, 1) && cB(e, 2, 3)) {
 
-				MoveDown(form.a,2);
 				MoveLeft(form.a,2);
-				MoveDown(form.b);
+				MoveDown(form.a,2);
 				MoveLeft(form.b);
-				MoveUp(form.d);
+				MoveDown(form.b);
 				MoveRight(form.d);
-
-				MoveDown(form.e,3);
+				MoveUp(form.d);
 				MoveRight(form.e,2);
+				MoveDown(form.e,3);
 
 				form.changeForm();
 				break;
