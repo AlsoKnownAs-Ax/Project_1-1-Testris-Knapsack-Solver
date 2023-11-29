@@ -2,14 +2,14 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Form {
+public class Pentomino {
 	public Rectangle a,b,c,d,e;
 	Color color;
 	private String name;
 	public int form = 1;
 	private int pentoID;
 
-	public Form(Rectangle a, Rectangle b, Rectangle c, Rectangle d,Rectangle e, String name, int pentoID) {
+	public Pentomino(Rectangle a, Rectangle b, Rectangle c, Rectangle d,Rectangle e, String name, int pentoID) {
 		this.a = a;
 		this.b = b;
 		this.c = c;

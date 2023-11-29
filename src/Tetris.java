@@ -30,12 +30,12 @@ public class Tetris extends Application {
 	public static int YMAX = BLOCK_SIZE * 25;
 	public static int[][] MESH = new int[XMAX / BLOCK_SIZE][YMAX / BLOCK_SIZE];
 	private static Pane group = new Pane();
-	private static Form object;
+	private static Pentomino object;
 	private static Scene scene = new Scene(group, XMAX + 150, YMAX);
 	public static int score = 0;
 	private static int top = 0;
 	private static boolean game = true;
-	private static Form nextObj = Controller.makeRect();
+	private static Pentomino nextObj = Controller.makeRect();
 	private static int linesNo = 0;
 
 	private boolean autoplay = false;
@@ -110,7 +110,7 @@ public class Tetris extends Application {
 		level.setFill(Color.GREEN);
 		group.getChildren().addAll(scoretext, line, level, BTN_autoplay);
 
-		Form a = nextObj;
+		Pentomino a = nextObj;
 		group.getChildren().addAll(a.a, a.b, a.c, a.d, a.e);
 		
 		BTN_autoplay.setOnAction(new EventHandler<ActionEvent>() {
@@ -207,7 +207,7 @@ public class Tetris extends Application {
 		BotDecisionFinished = state;
 	}
 
-	private void moveOnKeyPress(Form form) {
+	private void moveOnKeyPress(Pentomino form) {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -237,7 +237,7 @@ public class Tetris extends Application {
 
 	private boolean piecePlaced = false;
 
-	private void DropPiece(Form form){
+	private void DropPiece(Pentomino form){
 		if(game){
 			while (!piecePlaced && game) {
 				MoveDown(form);
@@ -251,7 +251,7 @@ public class Tetris extends Application {
 		}
 	}
 
-	private void MoveTurn(Form form) {
+	private void MoveTurn(Pentomino form) {
 		int f = form.form;
 		Rectangle a = form.a;
 		Rectangle b = form.b;
@@ -822,6 +822,7 @@ public class Tetris extends Application {
 					try {
 						MESH[(int) a.getX() / BLOCK_SIZE][(int) a.getY() / BLOCK_SIZE] = 1;
 					} catch (ArrayIndexOutOfBoundsException e) {
+						System.out.println("DEBUG: Array out of Bounds " + e.getMessage());
 					}
 				}
 				rects.clear();
@@ -846,30 +847,22 @@ public class Tetris extends Application {
 
 
 	private void MoveDown(Rectangle rect, int times){
-		if(times == 0) times = 1;	//Just in case
-
 		rect.setY(rect.getY() + (times * MOVE));
 	}
 
 	private void MoveRight(Rectangle rect, int times){
-		if(times == 0) times = 1;
-
 		rect.setX(rect.getX() + (times * MOVE));
 	}
 
 	private void MoveLeft(Rectangle rect, int times){
-		if(times == 0) times = 1;
-
 		rect.setX(rect.getX() - (times * MOVE));
 	}
 
 	private void MoveUp(Rectangle rect, int times){
-		if(times == 0) times = 1;
-
 		rect.setY(rect.getY() - (times * MOVE));
 	}
 
-	private void MoveDown(Form form) {
+	private void MoveDown(Pentomino form) {
 		if (form.a.getY() == YMAX - BLOCK_SIZE || form.b.getY() == YMAX - BLOCK_SIZE || form.c.getY() == YMAX - BLOCK_SIZE
 				|| form.d.getY() == YMAX - BLOCK_SIZE || form.e.getY() == YMAX - BLOCK_SIZE || moveA(form) || moveB(form) || moveC(form) || moveD(form) || moveE(form)) {
 			MESH[(int) form.a.getX() / BLOCK_SIZE][(int) form.a.getY() / BLOCK_SIZE] = 1;
@@ -879,7 +872,7 @@ public class Tetris extends Application {
 			MESH[(int) form.e.getX() / BLOCK_SIZE][(int) form.e.getY() / BLOCK_SIZE] = 1;
 			RemoveRows(group);
 
-			Form a = nextObj;
+			Pentomino a = nextObj;
 			nextObj = Controller.makeRect();
 			object = a;
 			group.getChildren().addAll(a.a, a.b, a.c, a.d, a.e);
@@ -904,23 +897,23 @@ public class Tetris extends Application {
 		}
 	}
 
-	private boolean moveA(Form form) {
+	private boolean moveA(Pentomino form) {
 		return (MESH[(int) form.a.getX() / BLOCK_SIZE][((int) form.a.getY() / BLOCK_SIZE) + 1] == 1);
 	}
 
-	private boolean moveB(Form form) {
+	private boolean moveB(Pentomino form) {
 		return (MESH[(int) form.b.getX() / BLOCK_SIZE][((int) form.b.getY() / BLOCK_SIZE) + 1] == 1);
 	}
 
-	private boolean moveC(Form form) {
+	private boolean moveC(Pentomino form) {
 		return (MESH[(int) form.c.getX() / BLOCK_SIZE][((int) form.c.getY() / BLOCK_SIZE) + 1] == 1);
 	}
 
-	private boolean moveD(Form form) {
+	private boolean moveD(Pentomino form) {
 		return (MESH[(int) form.d.getX() / BLOCK_SIZE][((int) form.d.getY() / BLOCK_SIZE) + 1] == 1);
 	}
 
-	private boolean moveE(Form form) {
+	private boolean moveE(Pentomino form) {
 		return (MESH[(int) form.e.getX() / BLOCK_SIZE][((int) form.e.getY() / BLOCK_SIZE) + 1] == 1);
 	}
 

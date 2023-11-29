@@ -55,7 +55,7 @@ public class Bot {
         return "";
     }
 
-    public void sendPieceCoords(Form form){
+    public void sendPieceCoords(Pentomino form){
         pieceX[0] = (int) form.a.getX() / BLOCK_SIZE;
         pieceX[1] = (int) form.b.getX() / BLOCK_SIZE;
         pieceX[2] = (int) form.c.getX() / BLOCK_SIZE;

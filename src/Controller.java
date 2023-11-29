@@ -68,7 +68,7 @@ public class Controller {
     }
 
 
-	public static void MoveRight(Form form) {
+	public static void MoveRight(Pentomino form) {
 		if (form.a.getX() + MOVE <= XMAX - BLOCK_SIZE && form.b.getX() + MOVE <= XMAX - BLOCK_SIZE
 				&& form.c.getX() + MOVE <= XMAX - BLOCK_SIZE && form.d.getX() + MOVE <= XMAX - BLOCK_SIZE && form.e.getX() + MOVE <= XMAX - BLOCK_SIZE) {
 			int movea = MESH[((int) form.a.getX() / BLOCK_SIZE) + 1][((int) form.a.getY() / BLOCK_SIZE)];
@@ -86,7 +86,7 @@ public class Controller {
 		}
 	}
 
-	public static void MoveLeft(Form form) {
+	public static void MoveLeft(Pentomino form) {
 		if (form.a.getX() - MOVE >= 0 && form.b.getX() - MOVE >= 0 && form.c.getX() - MOVE >= 0
 				&& form.d.getX() - MOVE >= 0 && form.e.getX() - MOVE >= 0) {
 			int movea = MESH[((int) form.a.getX() / BLOCK_SIZE) - 1][((int) form.a.getY() / BLOCK_SIZE)];
@@ -113,7 +113,7 @@ public class Controller {
 		* e - GOLD
 	*/
 
-	public static Form makeRect() {
+	public static Pentomino makeRect() {
 		Random random = new Random();
 		int block = random.nextInt((PentominoBuilder.GetPentominosLength())) + 1;
 		String name = "";
@@ -328,6 +328,6 @@ public class Controller {
 		}
 		int pentoID = block -1;
 
-		return new Form(a, b, c, d, e, name, pentoID);
+		return new Pentomino(a, b, c, d, e, name, pentoID);
 	}
 }
