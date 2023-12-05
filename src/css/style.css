@@ -33,3 +33,9 @@
 .padding_container_even{
     -fx-background-color: rgba(83, 83, 230, 0.947);
 }
+
+/* NOT FUCKING WORKING */
+
+.topText{   
+    -fx-text-fill: white;
+}

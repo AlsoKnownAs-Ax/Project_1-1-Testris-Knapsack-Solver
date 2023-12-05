@@ -36,7 +36,7 @@
          <children>
             <TextFlow prefHeight="95.0" prefWidth="518.0" stylesheets="@css/style.css">
                <children>
-                  <Text fx:id="top1Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 1: " textAlignment="CENTER" wrappingWidth="180.041015625">
+                  <Text fx:id="top1Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 1: " textAlignment="CENTER" wrappingWidth="180.041015625" styleClass="topText">
                      <font>
                         <Font size="28.0" />
                      </font>
@@ -52,7 +52,7 @@
             </TextFlow>
             <TextFlow prefHeight="95.0" prefWidth="518.0">
                <children>
-                  <Text fx:id="top2Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 2: " textAlignment="CENTER" wrappingWidth="180.041015625">
+                  <Text fx:id="top2Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 2: " textAlignment="CENTER" wrappingWidth="180.041015625" styleClass="topText">
                      <font>
                         <Font size="28.0" />
                      </font>
@@ -68,7 +68,7 @@
             </TextFlow>
             <TextFlow prefHeight="106.0" prefWidth="519.0">
                <children>
-                  <Text fx:id="top3Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 3:" textAlignment="CENTER" wrappingWidth="180.041015625">
+                  <Text fx:id="top3Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 3:" textAlignment="CENTER" wrappingWidth="180.041015625" styleClass="topText">
                      <font>
                         <Font size="28.0" />
                      </font>

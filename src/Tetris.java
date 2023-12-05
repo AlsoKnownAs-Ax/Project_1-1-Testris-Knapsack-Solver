@@ -781,52 +781,58 @@ public class Tetris extends Application {
 				if (MESH[j][i] == 1)
 					full++;
 			}
-			if (full == MESH.length)
-			lines.add(i);
+			if (full == MESH.length) lines.add(i);
+
 			full = 0;
 		}
-		if (lines.size() > 0)
-			do {
-				for (Node node : pane.getChildren()) {
-					if (node instanceof Rectangle)
-						rects.add(node);
-				}
-				score += 50;
-				linesNo++;
 
-				for (Node node : rects) {
-					Rectangle a = (Rectangle) node;
-					if (a.getY() == lines.get(0) * BLOCK_SIZE) {
-						MESH[(int) a.getX() / BLOCK_SIZE][(int) a.getY() / BLOCK_SIZE] = 0;
-						pane.getChildren().remove(node);
-					} else
-						newrects.add(node);
-				}
+		double multiplier = 1;
+		
+		for(int i = 0 ; i < lines.size();i++)
+			multiplier = multiplier + (multiplier*0.3);
 
-				for (Node node : newrects) {
-					Rectangle a = (Rectangle) node;
-					if (a.getY() < lines.get(0) * BLOCK_SIZE) {
-						MESH[(int) a.getX() / BLOCK_SIZE][(int) a.getY() / BLOCK_SIZE] = 0;
-						a.setY(a.getY() + BLOCK_SIZE);
-					}
+		while (lines.size() > 0)
+		{
+			for (Node node : pane.getChildren()) {
+				if (node instanceof Rectangle)
+					rects.add(node);
+			}
+			score += (int) 25*multiplier;
+			linesNo++;
+
+			for (Node node : rects) {
+				Rectangle a = (Rectangle) node;
+				if (a.getY() == lines.get(0) * BLOCK_SIZE) {
+					MESH[(int) a.getX() / BLOCK_SIZE][(int) a.getY() / BLOCK_SIZE] = 0;
+					pane.getChildren().remove(node);
+				} else
+					newrects.add(node);
+			}
+
+			for (Node node : newrects) {
+				Rectangle a = (Rectangle) node;
+				if (a.getY() < lines.get(0) * BLOCK_SIZE) {
+					MESH[(int) a.getX() / BLOCK_SIZE][(int) a.getY() / BLOCK_SIZE] = 0;
+					a.setY(a.getY() + BLOCK_SIZE);
 				}
-				lines.remove(0);
-				rects.clear();
-				newrects.clear();
-				for (Node node : pane.getChildren()) {
-					if (node instanceof Rectangle)
-						rects.add(node);
+			}
+			lines.remove(0);
+			rects.clear();
+			newrects.clear();
+			for (Node node : pane.getChildren()) {
+				if (node instanceof Rectangle)
+					rects.add(node);
+			}
+			for (Node node : rects) {
+				Rectangle a = (Rectangle) node;
+				try {
+					MESH[(int) a.getX() / BLOCK_SIZE][(int) a.getY() / BLOCK_SIZE] = 1;
+				} catch (ArrayIndexOutOfBoundsException e) {
+					System.out.println("DEBUG: Array out of Bounds " + e.getMessage());
 				}
-				for (Node node : rects) {
-					Rectangle a = (Rectangle) node;
-					try {
-						MESH[(int) a.getX() / BLOCK_SIZE][(int) a.getY() / BLOCK_SIZE] = 1;
-					} catch (ArrayIndexOutOfBoundsException e) {
-						System.out.println("DEBUG: Array out of Bounds " + e.getMessage());
-					}
-				}
-				rects.clear();
-			} while (lines.size() > 0);
+			}
+			rects.clear();
+		}
 	}
 
 	private void MoveDown(Rectangle rect) {
