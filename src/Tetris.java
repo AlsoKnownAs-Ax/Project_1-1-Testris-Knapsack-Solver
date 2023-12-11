@@ -26,8 +26,8 @@ public class Tetris extends Application {
 	// The variables
 	public static final int MOVE = 25;
 	public static final int BLOCK_SIZE = 25;
-	public static int XMAX = BLOCK_SIZE * 12;
-	public static int YMAX = BLOCK_SIZE * 25;
+	public static int XMAX = BLOCK_SIZE * 6;
+	public static int YMAX = BLOCK_SIZE * 12;
 	public static int[][] MESH = new int[XMAX / BLOCK_SIZE][YMAX / BLOCK_SIZE];
 	private static Pane group = new Pane();
 	private static Pentomino object;
@@ -168,24 +168,24 @@ public class Tetris extends Application {
 
 								//First decision or Last decision was finished
 								if(BotDecisionFinished == -1 || BotDecisionFinished == 2){
-									System.out.println("test");
 									bot.sendPieceCoords(object);
-									String choice = bot.TakeAChoice(MESH);
+									String choice = bot.TakeAChoice(MESH,object);
+									//String choice = bot.TakeAChoice();
 
-									switch (choice) {
-									case "left":
-										Controller.MoveLeft(object);
-										break;
-									case "right":
-										Controller.MoveRight(object);
-									case "turn":
-										MoveTurn(object);
-									case "down":
-										MoveDown(object);
-									case "space":
-										DropPiece(object);
-									default:
-										break;
+									// switch (choice) {
+									// case "left":
+									// 	Controller.MoveLeft(object);
+									// 	break;
+									// case "right":
+									// 	Controller.MoveRight(object);
+									// case "turn":
+									// 	MoveTurn(object);
+									// case "down":
+									// 	MoveDown(object);
+									// case "space":
+									// 	DropPiece(object);
+									// default:
+									// 	break;
 								}
 								}
 							}
@@ -200,7 +200,7 @@ public class Tetris extends Application {
 				});
 			}
 		};
-		fall.schedule(task, 0, 500); 
+		fall.schedule(task, 0, 1500); 
 	}
 
 	public static void SetStateOfBotDecision(int state){
@@ -214,22 +214,23 @@ public class Tetris extends Application {
 				if(autoplay) return;
 
 				switch (event.getCode()) {
-				case RIGHT:
-					Controller.MoveRight(form);
-					break;
-				case DOWN:
-					MoveDown(form);
-					score++;
-					break;
-				case LEFT:
-					Controller.MoveLeft(form);
-					break;
-				case UP:
-					MoveTurn(form);
-					break;
-				case SPACE:
-					DropPiece(form);
-					break;
+					case RIGHT:
+						Controller.MoveRight(form);
+						break;
+					case DOWN:
+						MoveDown(form);
+						score++;
+						break;
+					case LEFT:
+						Controller.MoveLeft(form);
+						break;
+					case UP:
+						MoveTurn(form);
+						break;
+					case SPACE:
+						DropPiece(form);
+						break;
+					default: break;
 				}
 			}
 		});

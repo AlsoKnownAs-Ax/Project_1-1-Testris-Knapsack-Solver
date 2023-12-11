@@ -1,8 +1,10 @@
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Random;
 
 import PentominosUtils.PentominoBuilder;
+import PentominosUtils.PentominoDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -119,7 +121,6 @@ public class Controller {
 		String name = "";
 		Rectangle a = new Rectangle(BLOCK_SIZE-1, BLOCK_SIZE-1), b = new Rectangle(BLOCK_SIZE-1, BLOCK_SIZE-1), c = new Rectangle(BLOCK_SIZE-1, BLOCK_SIZE-1),
 				  d = new Rectangle(BLOCK_SIZE-1, BLOCK_SIZE-1), e = new Rectangle(BLOCK_SIZE - 1, BLOCK_SIZE - 1);
-
 
 		switch (block) {
 			case 1:

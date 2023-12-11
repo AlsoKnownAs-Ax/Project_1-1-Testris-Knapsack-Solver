@@ -1,4 +1,7 @@
 
+import java.util.Arrays;
+
+import PentominosUtils.PentominoDatabase;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -8,6 +11,7 @@ public class Pentomino {
 	private String name;
 	public int form = 1;
 	private int pentoID;
+	int[][] PieceMatrix;
 
 	public Pentomino(Rectangle a, Rectangle b, Rectangle c, Rectangle d,Rectangle e, String name, int pentoID) {
 		this.a = a;
@@ -17,6 +21,8 @@ public class Pentomino {
 		this.e = e;
 		this.name = name;
 		this.pentoID = pentoID;
+
+		this.PieceMatrix = PentominoDatabase.data[pentoID][form-1];
 
 		switch (name) {
 		case "j":
@@ -80,12 +86,58 @@ public class Pentomino {
 		return this.pentoID;
 	}
 
+	public int[][] getPieceMatrix(){
+		changeMatrixNumber(this.PieceMatrix);
+		return this.PieceMatrix;
+	}
+
+	private void fixFormProblem(){
+		boolean changed = false;
+
+		switch (this.name) {
+			case "x":
+				this.form = 1;
+				changed = true;
+				break;
+			case "z":
+				if(this.form == 3)
+					this.form = 1;
+
+				if(this.form == 4) 
+					this.form = 2;
+
+				changed = true;
+				break;
+			case "i":
+				if(this.form == 3) this.form = 1;
+				if(this.form == 4) this.form = 2;
+
+				changed = true;
+				break;
+			default:
+				break;
+		}
+
+		if(!changed) this.form++;
+	}
 
 	public void changeForm() {
-		if (form != 4) {
-			form++;
+		if (this.form != 4) {
+			fixFormProblem();
+			System.out.println("CURRENT FORM NUMBER: " + this.form);
+			this.PieceMatrix = PentominoDatabase.data[this.pentoID][this.form-1];
 		} else {
-			form = 1;
+			this.form = 1;
+			this.PieceMatrix = PentominoDatabase.data[this.pentoID][0];
 		}
+	}
+
+	private void changeMatrixNumber(int[][] piece){
+
+		for(int row = 0; row < piece.length; row++)
+			for(int col = 0 ; col < piece[0].length; col++)
+				if(piece[row][col] == 1)
+					piece[row][col] = 2;
+		
 	}
 }
