@@ -186,7 +186,7 @@ public class Tetris extends Application {
 									// 	DropPiece(object);
 									// default:
 									// 	break;
-								}
+								//}
 								}
 							}
 

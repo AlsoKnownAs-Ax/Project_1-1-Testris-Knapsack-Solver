@@ -22,7 +22,7 @@ public class Pentomino {
 		this.name = name;
 		this.pentoID = pentoID;
 
-		this.PieceMatrix = PentominoDatabase.data[pentoID][form-1];
+		this.PieceMatrix = PentominoDatabase.data[pentoID][0];
 
 		switch (name) {
 		case "j":
@@ -92,33 +92,27 @@ public class Pentomino {
 	}
 
 	private void fixFormProblem(){
-		boolean changed = false;
+		this.form++;
 
 		switch (this.name) {
 			case "x":
 				this.form = 1;
-				changed = true;
 				break;
 			case "z":
-				if(this.form == 3)
-					this.form = 1;
+				if(this.form == 3) this.form = 1;
 
-				if(this.form == 4) 
-					this.form = 2;
+				if(this.form == 4) this.form = 2;
 
-				changed = true;
 				break;
 			case "i":
 				if(this.form == 3) this.form = 1;
 				if(this.form == 4) this.form = 2;
 
-				changed = true;
 				break;
 			default:
 				break;
 		}
 
-		if(!changed) this.form++;
 	}
 
 	public void changeForm() {
