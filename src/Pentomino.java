@@ -99,14 +99,14 @@ public class Pentomino {
 				this.form = 1;
 				break;
 			case "z":
-				if(this.form == 3) this.form = 1;
+				if(this.form % 2 == 1) this.form = 1;
 
-				if(this.form == 4) this.form = 2;
+				if(this.form % 2 == 0) this.form = 2;
 
 				break;
 			case "i":
-				if(this.form == 3) this.form = 1;
-				if(this.form == 4) this.form = 2;
+				if(this.form % 2 == 1) this.form = 1;
+				if(this.form % 2 == 0) this.form = 2;
 
 				break;
 			default:
@@ -118,7 +118,6 @@ public class Pentomino {
 	public void changeForm() {
 		if (this.form != 4) {
 			fixFormProblem();
-			System.out.println("CURRENT FORM NUMBER: " + this.form);
 			this.PieceMatrix = PentominoDatabase.data[this.pentoID][this.form-1];
 		} else {
 			this.form = 1;

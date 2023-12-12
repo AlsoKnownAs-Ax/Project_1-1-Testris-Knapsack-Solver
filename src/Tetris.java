@@ -26,8 +26,8 @@ public class Tetris extends Application {
 	// The variables
 	public static final int MOVE = 25;
 	public static final int BLOCK_SIZE = 25;
-	public static int XMAX = BLOCK_SIZE * 6;
-	public static int YMAX = BLOCK_SIZE * 12;
+	public static int XMAX = BLOCK_SIZE * 12;
+	public static int YMAX = BLOCK_SIZE * 25;
 	public static int[][] MESH = new int[XMAX / BLOCK_SIZE][YMAX / BLOCK_SIZE];
 	private static Pane group = new Pane();
 	private static Pentomino object;
@@ -169,24 +169,43 @@ public class Tetris extends Application {
 								//First decision or Last decision was finished
 								if(BotDecisionFinished == -1 || BotDecisionFinished == 2){
 									bot.sendPieceCoords(object);
-									String choice = bot.TakeAChoice(MESH,object);
-									//String choice = bot.TakeAChoice();
+									ArrayList<String> actions = bot.TakeAChoice(MESH,object);
 
-									// switch (choice) {
-									// case "left":
-									// 	Controller.MoveLeft(object);
-									// 	break;
-									// case "right":
-									// 	Controller.MoveRight(object);
-									// case "turn":
-									// 	MoveTurn(object);
-									// case "down":
-									// 	MoveDown(object);
-									// case "space":
-									// 	DropPiece(object);
-									// default:
-									// 	break;
-								//}
+									System.out.println("===========================");
+									System.out.println("TETRIS: BEST ACTIONS LIST: ");
+									for(String action: actions){
+										System.out.print(action + " ");
+									}
+									System.out.println("===========================");
+
+									boolean movedBuggedPentomino = false;
+
+									for(String choice : actions){
+										switch (choice) {
+											case "left":
+                                                if((object.getName() == "i" || object.getName() == "y") && !movedBuggedPentomino){
+													movedBuggedPentomino = true;
+													Controller.MoveLeft(object);
+												}
+
+												Controller.MoveLeft(object);
+												break;
+											case "right":
+                                                if((object.getName() == "i" || object.getName() == "y") && !movedBuggedPentomino){
+													movedBuggedPentomino = true;
+													Controller.MoveRight(object);
+												}
+
+												Controller.MoveRight(object);
+												break;
+											case "turn":
+												RotatePiece(object);
+												break;
+											default:
+												break;
+										}
+									}
+									DropPiece(object);
 								}
 							}
 
@@ -225,7 +244,7 @@ public class Tetris extends Application {
 						Controller.MoveLeft(form);
 						break;
 					case UP:
-						MoveTurn(form);
+						RotatePiece(form);
 						break;
 					case SPACE:
 						DropPiece(form);
@@ -252,7 +271,7 @@ public class Tetris extends Application {
 		}
 	}
 
-	private void MoveTurn(Pentomino form) {
+	private void RotatePiece(Pentomino form) {
 		int f = form.form;
 		Rectangle a = form.a;
 		Rectangle b = form.b;
@@ -445,7 +464,8 @@ public class Tetris extends Application {
 			}
 			break;
 		case "i":
-			if ( (f == 1 || f == 3) && cB(a, 2, -2) && cB(b, 1, -1) && cB(d, -1, -1) && cB(e, -2, -3)) {
+
+			if ( (f == 2 || f == 4) && cB(a, 2, -2) && cB(b, 1, -1) && cB(d, -1, -1) && cB(e, -2, -2)) {
 
 				MoveUp(form.a,2);
 				MoveRight(form.a,2);
@@ -453,13 +473,13 @@ public class Tetris extends Application {
 				MoveRight(form.b);
 				MoveDown(form.d);
 				MoveLeft(form.d);
-				MoveUp(form.e,3);
+				MoveDown(form.e,2);
 				MoveLeft(form.e,2);
 
 				form.changeForm();
 				break;
 			}
-			if ( (f == 2 || f == 4) && cB(a, -2, 2) && cB(b, -1, 1) && cB(d, 1, 1) && cB(e, 2, 3)) {
+			if ( (f == 1 || f == 3) && cB(a, -2, 2) && cB(b, -1, 1) && cB(d, 1, 1) && cB(e, 2, -2)) {
 
 				MoveLeft(form.a,2);
 				MoveDown(form.a,2);
@@ -468,7 +488,8 @@ public class Tetris extends Application {
 				MoveRight(form.d);
 				MoveUp(form.d);
 				MoveRight(form.e,2);
-				MoveDown(form.e,3);
+				MoveUp(form.e,2);
+			
 
 				form.changeForm();
 				break;
@@ -763,6 +784,9 @@ public class Tetris extends Application {
 		}
 	}
 
+
+	//DEBUG TOOL
+
 	private void DebugColors(Rectangle a, Rectangle b, Rectangle c, Rectangle d, Rectangle e)
 	{
 		a.setFill(Color.BLACK);
@@ -773,18 +797,18 @@ public class Tetris extends Application {
 	}
 
 	private void RemoveRows(Pane pane) {
-		ArrayList<Node> rects = new ArrayList<Node>();
+		ArrayList<Node> cells = new ArrayList<Node>();
 		ArrayList<Integer> lines = new ArrayList<Integer>();
-		ArrayList<Node> newrects = new ArrayList<Node>();
-		int full = 0;
+		ArrayList<Node> newcells = new ArrayList<Node>();
+		int isFull = 0;
 		for (int i = 0; i < MESH[0].length; i++) {
 			for (int j = 0; j < MESH.length; j++) {
 				if (MESH[j][i] == 1)
-					full++;
+					isFull++;
 			}
-			if (full == MESH.length) lines.add(i);
+			if (isFull == MESH.length) lines.add(i);
 
-			full = 0;
+			isFull = 0;
 		}
 
 		double multiplier = 1;
@@ -796,21 +820,21 @@ public class Tetris extends Application {
 		{
 			for (Node node : pane.getChildren()) {
 				if (node instanceof Rectangle)
-					rects.add(node);
+					cells.add(node);
 			}
 			score += (int) 25*multiplier;
 			linesNo++;
 
-			for (Node node : rects) {
+			for (Node node : cells) {
 				Rectangle a = (Rectangle) node;
 				if (a.getY() == lines.get(0) * BLOCK_SIZE) {
 					MESH[(int) a.getX() / BLOCK_SIZE][(int) a.getY() / BLOCK_SIZE] = 0;
 					pane.getChildren().remove(node);
 				} else
-					newrects.add(node);
+					newcells.add(node);
 			}
 
-			for (Node node : newrects) {
+			for (Node node : newcells) {
 				Rectangle a = (Rectangle) node;
 				if (a.getY() < lines.get(0) * BLOCK_SIZE) {
 					MESH[(int) a.getX() / BLOCK_SIZE][(int) a.getY() / BLOCK_SIZE] = 0;
@@ -818,13 +842,13 @@ public class Tetris extends Application {
 				}
 			}
 			lines.remove(0);
-			rects.clear();
-			newrects.clear();
+			cells.clear();
+			newcells.clear();
 			for (Node node : pane.getChildren()) {
 				if (node instanceof Rectangle)
-					rects.add(node);
+					cells.add(node);
 			}
-			for (Node node : rects) {
+			for (Node node : cells) {
 				Rectangle a = (Rectangle) node;
 				try {
 					MESH[(int) a.getX() / BLOCK_SIZE][(int) a.getY() / BLOCK_SIZE] = 1;
@@ -832,7 +856,7 @@ public class Tetris extends Application {
 					System.out.println("DEBUG: Array out of Bounds " + e.getMessage());
 				}
 			}
-			rects.clear();
+			cells.clear();
 		}
 	}
 
@@ -925,6 +949,9 @@ public class Tetris extends Application {
 	}
 
 	private boolean cB(Rectangle rect, int x, int y) {
+
+		if(autoplay) return true;
+
 		boolean xb = false;
 		boolean yb = false;
 		if (x >= 0)

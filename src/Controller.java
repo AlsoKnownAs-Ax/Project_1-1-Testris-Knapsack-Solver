@@ -145,11 +145,23 @@ public class Controller {
 					/*
 					* {a,b,c,d,e},
 					*/
-					a.setX(XMAX / 2 - (2*BLOCK_SIZE) );
-					b.setX(XMAX / 2 - BLOCK_SIZE);
+					// a.setX(XMAX / 2 - (2*BLOCK_SIZE) );
+					// b.setX(XMAX / 2 - BLOCK_SIZE);
+					// c.setX(XMAX / 2);
+					// d.setX(XMAX / 2 + BLOCK_SIZE);
+					// e.setX(XMAX / 2 + (2*BLOCK_SIZE));
+
+					a.setX(XMAX / 2);
+					b.setX(XMAX / 2);
 					c.setX(XMAX / 2);
-					d.setX(XMAX / 2 + BLOCK_SIZE);
-					e.setX(XMAX / 2 + (2*BLOCK_SIZE));
+					d.setX(XMAX / 2);
+					e.setX(XMAX / 2);
+
+					a.setY(BLOCK_SIZE);
+					b.setY(2*BLOCK_SIZE);
+					c.setY(3*BLOCK_SIZE);
+					d.setY(4*BLOCK_SIZE);
+					e.setY(5*BLOCK_SIZE);
 
 					name = "i";
 				break;
@@ -327,7 +339,7 @@ public class Controller {
 					name = "f";
 				break;
 		}
-		int pentoID = block -1;
+		int pentoID = block - 1;
 
 		return new Pentomino(a, b, c, d, e, name, pentoID);
 	}

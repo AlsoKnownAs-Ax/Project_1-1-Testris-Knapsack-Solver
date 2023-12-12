@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class Bot {
     
+    //ACTIVATES DEBUG MODE
+    private boolean DEBUG = false;
+
     private static String[] AvailableChoices = {"left","right","turn","down","space"};
 
     private int[] pieceX = new int[5];
@@ -37,23 +40,31 @@ public class Bot {
 		return CopiedGrid;
 	}
 
-    public String TakeAChoice(int[][] MESH, Pentomino CurrentPentomino){
+        //ACtions : drop, turn, left, right
+
+    private ArrayList<String> BestActions = new ArrayList<>();
+    private ArrayList<String> currentActions = new ArrayList<>();
+    private int turns = 0;
+    private int BestNumberOfTurns = 0;
+    private int bestMoveScore = 0;
+
+    public ArrayList<String> TakeAChoice(int[][] MESH, Pentomino CurrentPentomino){
 
         Tetris.SetStateOfBotDecision(1);
 
+        BestActions.clear();
+        currentActions.clear();
+        turns = 0;
+        BestNumberOfTurns = 0;
+        bestMoveScore = 0;
+        
         int[][] temp = MakeMockGrid(MESH);
-
-        //Place current piece in the Grid
-        // for(int i = 0 ; i < pieceX.length; i++){
-        //     temp[pieceX[i]][pieceY[i]] = 2;
-        // }
+        temp = flipMatrixClockwise(temp);
+        temp = mirrorMatrix(temp);
 
         //4 available mutations for the piece
         for(int i = 0; i < 4; i ++){
             int[][] resetedGrid = MakeMockGrid(temp);
-
-            //We have to flip the matrix to access it easier
-            resetedGrid = flipMatrixHorizontal(resetedGrid);
 
             int possibleLeft = getAvailableLeft(resetedGrid, currentPentomino.getPieceMatrix());
             int possibleRight = getAvailableRight(resetedGrid, currentPentomino.getPieceMatrix());
@@ -61,12 +72,8 @@ public class Bot {
             for(int left = 0 ; left < possibleLeft; left++){
                 int col = firstPieceCoords[0][0];
                 int row = firstPieceCoords[0][1];
-                System.out.println("MOVED LEFT");
 
                 int[][] _resetedGrid = MakeMockGrid(temp);
-
-                //We have to flip the matrix to access it easier
-                _resetedGrid = flipMatrixHorizontal(_resetedGrid);
 
                 StartSimulation(_resetedGrid, CurrentPentomino, row, col - left);
                 currentActions.add("left");
@@ -78,30 +85,77 @@ public class Bot {
                 int col = firstPieceCoords[0][0];
                 int row = firstPieceCoords[0][1];
                 
-                System.out.println("MOVED RIGHT");
-
                 int[][] _resetedGrid = MakeMockGrid(temp);
-
-                //We have to flip the matrix to access it easier
-                _resetedGrid = flipMatrixHorizontal(_resetedGrid);
 
                 StartSimulation(_resetedGrid, CurrentPentomino, row, col + right);
                 currentActions.add("right");
             }
+            currentActions.clear();
 
             CurrentPentomino.changeForm();
             turns++;
         }
 
-        System.out.println("BEST MOVE NEEDS: ");
-        for(String action : BestActions){
-            System.out.print(action + " ");
+        for(int turn = 0 ; turn < BestNumberOfTurns; turn++){
+            BestActions.add(0,"turn");
         }
-        System.out.println("and tunrs: " + BestNumberOfTurns);
-        System.out.println("===================");
-        
+
+        if(DEBUG){
+            System.out.println("BEST MOVE NEEDS: ");
+            for(String action : BestActions){
+                System.out.print(action + " ");
+            }
+            System.out.println("and turns: " + BestNumberOfTurns);
+            System.out.println("===================");
+        }
+
         Tetris.SetStateOfBotDecision(2);
-        return "";
+        return BestActions;
+    }
+
+        // Method to mirror the given matrix
+        public static int[][] mirrorMatrix(int[][] matrix) {
+            int rows = matrix.length;
+            int columns = matrix[0].length;
+    
+            // Create a new matrix to store the mirrored result
+            int[][] mirroredMatrix = new int[rows][columns];
+    
+            // Mirror the matrix
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < columns; j++) {
+                    // Mirror horizontally by reversing the order of elements in each row
+                    mirroredMatrix[i][j] = matrix[i][columns - 1 - j];
+                }
+            }
+    
+            return mirroredMatrix;
+        }
+
+
+    public static int[][] flipMatrixClockwise(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return matrix; // Empty matrix or empty rows
+        }
+
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        int[][] resultMatrix = new int[cols][rows];
+        int currentRow = 0;
+        int currentCol = 0;
+
+        for(int col = 0 ; col < cols; col++){
+            for(int row = rows - 1; row >= 0; row--){
+                resultMatrix[currentRow][currentCol] = matrix[row][col];
+                currentCol++;
+            }
+            currentRow++;
+            currentCol = 0;
+        }
+
+        return resultMatrix;
+
     }
 
     private int getAvailableLeft(int[][] grid,int[][] piece){
@@ -159,17 +213,11 @@ public class Bot {
 
     }
 
-    //ACtions : drop, turn, left, right
-
-    private ArrayList<String> BestActions = new ArrayList<>();
-    private ArrayList<String> currentActions = new ArrayList<>();
-    private int turns = 0;
-    private int BestNumberOfTurns = 0;
-    private int bestMoveScore = 0;
-
     private void StartSimulation(int[][] grid, Pentomino pento,int row,int col){
         
         int[][] piece = pento.getPieceMatrix();
+
+        printCurrentMatrix("PIECE MATRIX: ", piece);
 
         placePieceAtCoords(grid,piece,row+1,col);
 
@@ -185,46 +233,80 @@ public class Bot {
        clearPieceAtCoords(grid,piece,initialRow,initialCol);
        placePieceAtCoords(grid,piece,row,col);
        
-       printCurrentMatrix("SIMULATED GRID: ",grid);
-
        int currentMoveScore = 0;
 
-       int clousters = dfs(grid, 0, XMAX/2);
+       int clousters = countEmptyZones(MakeMockGrid(grid));
 
-       currentMoveScore -= clousters*3;
+       currentMoveScore -= clousters*10;
        currentMoveScore += getMoveScore(grid);
+
+       printCurrentMatrix("SIMULATED GRID", grid);
 
        System.out.println("MOVE SCORE: " + currentMoveScore);
 
        if(currentMoveScore > bestMoveScore){
             bestMoveScore = currentMoveScore;
             //TODO: ADD ACTIONS TO ARRAY
-            currentActions.add("drop");
-            BestActions = (ArrayList<String>) currentActions.clone();
+            BestActions.clear();
+            for(String action : currentActions){
+                BestActions.add(action);
+            }
+
             BestNumberOfTurns = turns;
-            System.out.println("===================");
-            System.out.println("BEST MOVE STORED");
-            System.out.println("===================");
+
+            if(DEBUG){
+                System.out.println("===================");
+                System.out.println("BEST MOVE STORED");
+                System.out.println("BEST MOVES: ");
+                for(String action : currentActions){
+                    System.out.print(action + " ");
+                }
+                System.out.println();
+                System.out.println("TURNS: " + BestNumberOfTurns);
+                System.out.println("===================");
+            }
+
        }
 
        
     }
 
-    private int dfs(int[][] grid, int i, int j) {
-		int[][] mock_grid = grid;
-
-        if (i >= 0 && i < mock_grid.length && j >= 0 && j < mock_grid[0].length && mock_grid[i][j] == -1) {
-            mock_grid[i][j] = 0;  // Mark the cell as visited
-            int count = 1;
-            // Explore adjacent cells
-            count += dfs(mock_grid, i + 1, j);
-            count += dfs(mock_grid, i - 1, j);
-            count += dfs(mock_grid, i, j + 1);
-            count += dfs(mock_grid, i, j - 1);
-            return count;
+    public static int countEmptyZones(int[][] matrix) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return 0; // Empty matrix
         }
-        return 0;
+
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int emptyZoneCount = 0;
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (matrix[i][j] == 0) {
+                    emptyZoneCount++;
+                    markAdjacentAsVisited(matrix, i, j, rows, cols);
+                }
+            }
+        }
+
+        return emptyZoneCount;
     }
+
+    private static void markAdjacentAsVisited(int[][] matrix, int i, int j, int rows, int cols) {
+        if (i < 0 || i >= rows || j < 0 || j >= cols || matrix[i][j] != 0) {
+            return;
+        }
+
+        // Mark the current cell as visited
+        matrix[i][j] = -1;
+
+        // Recursively mark adjacent cells as visited
+        markAdjacentAsVisited(matrix, i + 1, j, rows, cols);
+        markAdjacentAsVisited(matrix, i - 1, j, rows, cols);
+        markAdjacentAsVisited(matrix, i, j + 1, rows, cols);
+        markAdjacentAsVisited(matrix, i, j - 1, rows, cols);
+    }
+
 
     private int getMoveScore(int[][] grid){
         int score = 0;
@@ -233,69 +315,12 @@ public class Bot {
             for (int col=0; col < grid[0].length; col++){
                 if (grid[row][col] == 2){
                     score += row;
+                    if((col > XMAX / 2) || (col < XMAX/2)) score += 1;
                 }
             }
         }
     
-        score = score/5;
-
         return score;
-    }
-
-    private int[][] flipMatrixHorizontal(int[][] matrix) {
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-
-        int[][] resultMatrix = new int[rows][cols];
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                resultMatrix[i][cols - 1 - j] = matrix[i][j];
-            }
-        }
-
-        resultMatrix = flipMatrixCounterclockwise(resultMatrix);
-        resultMatrix = fixUpsideDown(resultMatrix);
-
-        return resultMatrix;
-    }
-
-    private static int[][] fixUpsideDown(int[][] matrix) {
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-
-        int[][] resultMatrix = new int[rows][cols];
-
-        // Reverse the order of rows
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                resultMatrix[i][j] = matrix[rows - 1 - i][j];
-            }
-        }
-
-        return resultMatrix;
-    }
-
-    private static int[][] flipMatrixCounterclockwise(int[][] matrix) {
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-
-        int[][] resultMatrix = new int[cols][rows];
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                resultMatrix[j][i] = matrix[i][j];
-            }
-        }
-
-        // Reverse the order of rows
-        for (int i = 0; i < rows / 2; i++) {
-            int[] temp = resultMatrix[i];
-            resultMatrix[i] = resultMatrix[rows - 1 - i];
-            resultMatrix[rows - 1 - i] = temp;
-        }
-
-        return resultMatrix;
     }
 
     private void clearPieceAtCoords(int[][] grid, int[][] piece,int row ,int col){
@@ -310,8 +335,11 @@ public class Bot {
     }
 
     private void placePieceAtCoords(int[][] grid, int[][] piece, int x, int y){
-        System.out.println("ROW: " + x);
-        System.out.println("COL: " + y);
+        if(DEBUG){
+            System.out.println("ROW: " + x);
+            System.out.println("COL: " + y);
+        }
+
 
         for(int i = 0; i < piece.length; i++){
             for(int j = 0; j < piece[0].length; j++){
@@ -325,6 +353,9 @@ public class Bot {
 
         for(int i = 0 ; i < piece.length;i++){
             for(int j = 0 ; j < piece[0].length;j++){
+
+                if(row + i < 0 || col + j < 0) return false;
+
                 if(row + i >= YMAX || col + j >= XMAX || (piece[i][j] != 0 && grid[row + i][col + j] == 1)){
                     return false;
                 }
@@ -336,18 +367,20 @@ public class Bot {
     
 
     //// DEBUG TOOLS
-
     private void printCurrentMatrix(String msg,int[][] matrixToPrint){
-        System.out.println(msg);
-        System.out.println("========================");
 
-        for(int i = 0 ; i < matrixToPrint.length; i++){
-            for(int j = 0 ; j < matrixToPrint[0].length; j ++){
-                System.out.print(matrixToPrint[i][j] + " ");
+        if(DEBUG){
+            System.out.println(msg);
+            System.out.println("========================");
+
+            for(int i = 0 ; i < matrixToPrint.length; i++){
+                for(int j = 0 ; j < matrixToPrint[0].length; j ++){
+                    System.out.print(matrixToPrint[i][j] + " ");
+                }
+                System.out.println();
             }
-            System.out.println();
+            System.out.println("========================");
         }
-        System.out.println("========================");
     }
         
 }
