@@ -1,0 +1,12 @@
+[
+  {
+    "scores_data": {
+      "top5": { "score": 333, "time": "0:12" },
+      "top3": { "score": 398, "time": "0:15" },
+      "top4": { "score": 348, "time": "0:13" },
+      "top1": { "score": 1058, "time": "0:27" },
+      "top2": { "score": 459, "time": "0:15" }
+    }
+  },
+  { "_comment": "We might need this for later" }
+]

@@ -1,0 +1,145 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "MatrixFlip",
+            "request": "launch",
+            "mainClass": "MatrixFlip",
+            "projectName": "Project_1-1_cb1b7e0c"
+        },
+        {
+            "type": "java",
+            "name": "MatrixEmptyZoneCounter",
+            "request": "launch",
+            "mainClass": "MatrixEmptyZoneCounter",
+            "projectName": "Project_1-1_cb1b7e0c"
+        },
+        {
+            "type": "java",
+            "name": "MatrixClusterCounter",
+            "request": "launch",
+            "mainClass": "MatrixClusterCounter",
+            "projectName": "Project_1-1_cb1b7e0c"
+        },
+        {
+            "type": "java",
+            "name": "ClusterCounter",
+            "request": "launch",
+            "mainClass": "ClusterCounter",
+            "projectName": "Project_1-1_cb1b7e0c"
+        },
+        {
+            "type": "java",
+            "name": "Tetris",
+            "request": "launch",
+            "mainClass": "Tetris",
+            "projectName": "Project_1-1_cb1b7e0c",
+            "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-21.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "Tetris",
+            "request": "launch",
+            "mainClass": "Tetris",
+            "projectName": "Project_1-1_5251dab7",
+            "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-21.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "TetrisGame",
+            "request": "launch",
+            "mainClass": "MainApp.TetrisGame",
+            "projectName": "Project_1-1_cb1b7e0c",
+            "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-21.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "TetrisGame",
+            "request": "launch",
+            "mainClass": "MainApp.TetrisGame",
+            "projectName": "Project_1-1_5251dab7",
+            "vmArgs": "--module-path \"C:/Program Files/Java/javafx-sdk-21.0.1/lib\" --add-modules javafx.controls,javafx.fxml"
+        },
+        {
+            "type": "java",
+            "name": "JSONHandler",
+            "request": "launch",
+            "mainClass": "MainApp.JSONHandler",
+            "projectName": "Project_1-1_5251dab7"
+        },
+        {
+            "type": "java",
+            "name": "PentominoDatabase",
+            "request": "launch",
+            "mainClass": "PentominosUtils.PentominoDatabase",
+            "projectName": "Project_1-1_cb1b7e0c"
+        },
+        {
+            "type": "java",
+            "name": "PentominoBuilder",
+            "request": "launch",
+            "mainClass": "PentominosUtils.PentominoBuilder",
+            "projectName": "Project_1-1_cb1b7e0c"
+        },
+        {
+            "type": "java",
+            "name": "Search",
+            "request": "launch",
+            "mainClass": "PentominosUtils.Search",
+            "projectName": "Project_1-1_cb1b7e0c"
+        },
+        {
+            "type": "java",
+            "name": "PentominoBuilder",
+            "request": "launch",
+            "mainClass": "PentominoBuilder",
+            "projectName": "Project_1-1_cb1b7e0c"
+        },
+        {
+            "type": "java",
+            "name": "Search",
+            "request": "launch",
+            "mainClass": "Search",
+            "projectName": "Project_1-1_cb1b7e0c"
+        },
+        {
+            "type": "java",
+            "name": "Java Debug (Launch)",
+            "request": "launch",
+            "mainClass": "Search",
+            "vmArgs": "-Xss4M",
+            "projectName": "YourProjectName"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "PentominoBuilder",
+            "request": "launch",
+            "mainClass": "PentominoBuilder",
+            "projectName": "Project_1-1_db9c702b"
+        },
+        {
+            "type": "java",
+            "name": "PentominoDatabase",
+            "request": "launch",
+            "mainClass": "PentominoDatabase",
+            "projectName": "Project_1-1_db9c702b"
+        },
+        {
+            "type": "java",
+            "name": "Search",
+            "request": "launch",
+            "mainClass": "Search",
+            "projectName": "Project_1-1_db9c702b"
+        }
+    ]
+}

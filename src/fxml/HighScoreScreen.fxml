@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <ImageView fitHeight="761.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/highscore-bg.png" />
+         </image>
+      </ImageView>
+      <TextFlow layoutX="162.0" layoutY="45.0" prefHeight="66.0" prefWidth="276.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High Scores" textAlignment="CENTER" wrappingWidth="304.06982421875">
+               <font>
+                  <Font name="Comic Sans MS" size="47.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Text>
+         </children>
+      </TextFlow>
+      <VBox layoutX="40.0" layoutY="153.0" prefHeight="498.0" prefWidth="519.0" style="-fx-border-color: blue; -fx-border-radius: 10;" styleClass="topScores__container" stylesheets="@css/style.css">
+         <children>
+            <TextFlow prefHeight="95.0" prefWidth="518.0" stylesheets="@css/style.css">
+               <children>
+                  <Text fx:id="top1Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 1: " textAlignment="CENTER" wrappingWidth="180.041015625" styleClass="topText">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets top="33.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="padding_container_odd" />
+                  <String fx:value="padding_container" />
+               </styleClass>
+            </TextFlow>
+            <TextFlow prefHeight="95.0" prefWidth="518.0">
+               <children>
+                  <Text fx:id="top2Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 2: " textAlignment="CENTER" wrappingWidth="180.041015625" styleClass="topText">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets top="33.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="padding_container" />
+                  <String fx:value="padding_container_even" />
+               </styleClass>
+            </TextFlow>
+            <TextFlow prefHeight="106.0" prefWidth="519.0">
+               <children>
+                  <Text fx:id="top3Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 3:" textAlignment="CENTER" wrappingWidth="180.041015625" styleClass="topText">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets top="33.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="padding_container" />
+                  <String fx:value="padding_container_odd" />
+               </styleClass>
+            </TextFlow>
+            <TextFlow prefHeight="106.0" prefWidth="519.0">
+               <children>
+                  <Text fx:id="top4Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 4:" textAlignment="CENTER" wrappingWidth="180.041015625">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets top="33.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="padding_container" />
+                  <String fx:value="padding_container_even" />
+               </styleClass>
+            </TextFlow>
+            <TextFlow prefHeight="106.0" prefWidth="518.0">
+               <children>
+                  <Text fx:id="top5Text" strokeType="OUTSIDE" strokeWidth="0.0" text="Top 5:" textAlignment="CENTER" wrappingWidth="180.041015625">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Text>
+               </children>
+               <padding>
+                  <Insets top="33.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="padding_container" />
+                  <String fx:value="padding_container_odd" />
+               </styleClass>
+            </TextFlow>
+         </children>
+      </VBox>
+      <Button fx:id="gobackBTN" layoutX="442.0" layoutY="659.0" mnemonicParsing="false" onAction="#ShowTitleScreen" onMouseClicked="#ShowTitleScreen" prefHeight="27.0" prefWidth="108.0" style="-fx-cursor: hand;" styleClass="goBackBTN" stylesheets="@css/style.css" text="Go Back">
+         <graphic>
+            <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/goBack-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <font>
+            <Font name="Comic Sans MS" size="39.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
