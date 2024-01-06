@@ -30,12 +30,12 @@ public class Tetris extends Application {
 	public static int YMAX = BLOCK_SIZE * 25;
 	public static int[][] MESH = new int[XMAX / BLOCK_SIZE][YMAX / BLOCK_SIZE];
 	private static Pane group = new Pane();
-	private static Pentomino object;
+	private static Pentomino CurrentPentomino;
 	private static Scene scene = new Scene(group, XMAX + 150, YMAX);
 	public static int score = 0;
 	private static int top = 0;
 	private static boolean game = true;
-	private static Pentomino nextObj = Controller.makeRect();
+	private static Pentomino nextPento = Controller.makeRect();
 	private static int linesNo = 0;
 
 	private boolean autoplay = false;
@@ -110,7 +110,7 @@ public class Tetris extends Application {
 		level.setFill(Color.GREEN);
 		group.getChildren().addAll(scoretext, line, level, BTN_autoplay);
 
-		Pentomino a = nextObj;
+		Pentomino a = nextPento;
 		group.getChildren().addAll(a.a, a.b, a.c, a.d, a.e);
 		
 		BTN_autoplay.setOnAction(new EventHandler<ActionEvent>() {
@@ -129,8 +129,8 @@ public class Tetris extends Application {
 		BTN_autoplay.setFocusTraversable(false);
 
 		moveOnKeyPress(a);
-		object = a;
-		nextObj = Controller.makeRect();
+		CurrentPentomino = a;
+		nextPento = Controller.makeRect();
 		stage.setScene(scene);
 		stage.setTitle("Tetris: But with Pentominos");
 		stage.show();
@@ -143,8 +143,8 @@ public class Tetris extends Application {
 			public void run() {
 				Platform.runLater(new Runnable() {
 					public void run() {
-						if (object.a.getY() == 0 || object.b.getY() == 0 || object.c.getY() == 0
-								|| object.d.getY() == 0 || object.e.getY() == 0)
+						if (CurrentPentomino.a.getY() == 0 || CurrentPentomino.b.getY() == 0 || CurrentPentomino.c.getY() == 0
+								|| CurrentPentomino.d.getY() == 0 || CurrentPentomino.e.getY() == 0)
 							top++;
 						else
 							top = 0;
@@ -168,8 +168,8 @@ public class Tetris extends Application {
 
 								//First decision or Last decision was finished
 								if(BotDecisionFinished == -1 || BotDecisionFinished == 2){
-									bot.sendPieceCoords(object);
-									ArrayList<String> actions = bot.TakeAChoice(MESH,object);
+									bot.sendPieceCoords(CurrentPentomino);
+									ArrayList<String> actions = bot.TakeAChoice(MESH,CurrentPentomino);
 
 									System.out.println("===========================");
 									System.out.println("TETRIS: BEST ACTIONS LIST: ");
@@ -183,35 +183,35 @@ public class Tetris extends Application {
 									for(String choice : actions){
 										switch (choice) {
 											case "left":
-                                                if((object.getName() == "i" || object.getName() == "y") && !movedBuggedPentomino){
+                                                if((CurrentPentomino.getName() == "i" || CurrentPentomino.getName() == "y") && !movedBuggedPentomino){
 													movedBuggedPentomino = true;
-													Controller.MoveLeft(object);
+													Controller.MoveLeft(CurrentPentomino);
 												}
 
-												Controller.MoveLeft(object);
+												Controller.MoveLeft(CurrentPentomino);
 												break;
 											case "right":
-                                                if((object.getName() == "i" || object.getName() == "y") && !movedBuggedPentomino){
+                                                if((CurrentPentomino.getName() == "i" || CurrentPentomino.getName() == "y") && !movedBuggedPentomino){
 													movedBuggedPentomino = true;
-													Controller.MoveRight(object);
+													Controller.MoveRight(CurrentPentomino);
 												}
 
-												Controller.MoveRight(object);
+												Controller.MoveRight(CurrentPentomino);
 												break;
 											case "turn":
-												RotatePiece(object);
+												RotatePiece(CurrentPentomino);
 												break;
 											default:
 												break;
 										}
 									}
-									DropPiece(object);
+									DropPiece(CurrentPentomino);
 								}
 							}
 
 							ThreadCounter++;
 							if(ThreadCounter%2 == 0) laptime++;
-							MoveDown(object);
+							MoveDown(CurrentPentomino);
 							scoretext.setText("Score: " + Integer.toString(score));
 							level.setText("Lines: " + Integer.toString(linesNo));
 						}
@@ -903,9 +903,9 @@ public class Tetris extends Application {
 			MESH[(int) form.e.getX() / BLOCK_SIZE][(int) form.e.getY() / BLOCK_SIZE] = 1;
 			RemoveRows(group);
 
-			Pentomino a = nextObj;
-			nextObj = Controller.makeRect();
-			object = a;
+			Pentomino a = nextPento;
+			nextPento = Controller.makeRect();
+			CurrentPentomino = a;
 			group.getChildren().addAll(a.a, a.b, a.c, a.d, a.e);
 			moveOnKeyPress(a);
 			piecePlaced = true;

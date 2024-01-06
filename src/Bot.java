@@ -20,6 +20,11 @@ public class Bot {
 
     public Bot(){}
 
+    /**
+     * Random choice bot
+     * @return
+     */
+
     public String TakeAChoice(){
         Random random = new Random();
         
@@ -28,6 +33,12 @@ public class Bot {
 
         return choice;
     }
+
+    /**
+     * return a new copied grid from the grid provided
+     * @param grid
+     * @return
+     */
 
     private static int[][] MakeMockGrid(int[][] grid)
 	{
@@ -47,6 +58,15 @@ public class Bot {
     private int turns = 0;
     private int BestNumberOfTurns = 0;
     private int bestMoveScore = 0;
+
+    /**
+     * Goes trough every move possible with the piece and assigns a score to the move,
+     * after going trough all of them return a set of actions that need to be done for
+     * the optimal placemenet of the pentomino
+     * @param MESH
+     * @param CurrentPentomino
+     * @return Set of actions that needs to be executed for the optimal placemenet
+     */
 
     public ArrayList<String> TakeAChoice(int[][] MESH, Pentomino CurrentPentomino){
 
@@ -190,6 +210,11 @@ public class Bot {
 
     private int[][] firstPieceCoords = new int[1][2];
 
+    /**
+     * Receives the current piece coords and stores them in order to place the pentomino on the bot's grid
+     * @param form
+     */
+
     public void sendPieceCoords(Pentomino form){
         currentPentomino = form;
 
@@ -212,6 +237,15 @@ public class Bot {
         firstPieceCoords[0][1] = pieceY[0];
 
     }
+
+    /**
+     * Start the simulation for the current mutation of the pentomino and current coords , and
+     * assign a certain score to the move
+     * @param grid
+     * @param pento
+     * @param row
+     * @param col
+     */
 
     private void StartSimulation(int[][] grid, Pentomino pento,int row,int col){
         

@@ -91,6 +91,10 @@ public class Pentomino {
 		return this.PieceMatrix;
 	}
 
+	/**
+	 * Fixes the form of the pentos that have less than 4 forms
+	 */
+
 	private void fixFormProblem(){
 		this.form++;
 
@@ -115,6 +119,10 @@ public class Pentomino {
 
 	}
 
+	/**
+	 * Changes the current form of the pento and stores the current piece's matrix
+	 */
+
 	public void changeForm() {
 		if (this.form != 4) {
 			fixFormProblem();
@@ -124,6 +132,11 @@ public class Pentomino {
 			this.PieceMatrix = PentominoDatabase.data[this.pentoID][0];
 		}
 	}
+
+	/**
+	 * Changes the 1's from the matrix into 2's in order to sync it with the bot
+	 * @param piece
+	 */
 
 	private void changeMatrixNumber(int[][] piece){
 
