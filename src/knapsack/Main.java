@@ -3,31 +3,31 @@ package knapsack;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Camera;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
+    //Visualisation config
+    private static final Color LShapeColor = Color.DARKGOLDENROD;
+    private static final Color PShapeColor = Color.rgb(0,0,100);
+    private static final Color TShapeColor = Color.CADETBLUE;
+    private static final int boxSize = 20;
+
 
     //Alghorithm's variables
 
     private static final int WIDTH = 1300;
     private static final int HEIGHT = 800;
-
     private int[] cargo = {165, 40, 25}; // {x,y,z}
-
     private static final int PARCEL_SIZE = 5;
 
     //Utils
-    private PentominoRender pentominoRender = new PentominoRender();
 
 
     public static void main(String[] args) {
@@ -38,30 +38,27 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Group group = new Group();
-        Box[] L_pento = pentominoRender.Draw_L_Pentomino();
-        Box[] P_pento = pentominoRender.Draw_P_Pentomino();
-        Box[] T_pento = pentominoRender.Draw_T_Pentomino();
 
-        for(Box shape : L_pento){
+        SmartPentomino L_pento = new SmartPentomino("L", LShapeColor, -150, 100, boxSize);
+        SmartPentomino P_pento = new SmartPentomino("P", PShapeColor, -20, 90, boxSize);
+        SmartPentomino T_pento = new SmartPentomino("T", TShapeColor, 110, -90, boxSize);
+
+        for(Box shape : L_pento.getCubes()){
             group.getChildren().add(shape);
         }
 
-        for(Box shape : P_pento){
+        for(Box shape : P_pento.getCubes()){
             group.getChildren().add(shape);
         }
 
-        for(Box shape : T_pento){
+        for(Box shape : T_pento.getCubes()){
             group.getChildren().add(shape);
         }
 
-        // group.getChildren().addAll(Draw_L_Pentomino());
         Camera camera = new PerspectiveCamera(true);
         Scene scene = new Scene(group, WIDTH,HEIGHT);
         scene.setFill(Color.SILVER);
         scene.setCamera(camera);
-
-        // cube.translateXProperty().set(-150);
-        // cube.translateYProperty().set(0);
 
         camera.translateXProperty().set(0);
         camera.translateYProperty().set(0);

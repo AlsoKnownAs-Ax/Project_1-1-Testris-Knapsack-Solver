@@ -78,6 +78,7 @@ public class PentominoDatabase
                 // Add piece to the dynamic list
                 dynamicList.get(dynamicList.size() - 1).add(piece);
             }
+            scanner.close();
         }
         catch (FileNotFoundException e)
         {
@@ -91,6 +92,7 @@ public class PentominoDatabase
         {
             staticList[i] = dynamicList.get(i).toArray(new int[0][0][0]);
         }
+
         return staticList;
     }
 

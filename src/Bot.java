@@ -280,7 +280,6 @@ public class Bot {
 
        if(currentMoveScore > bestMoveScore){
             bestMoveScore = currentMoveScore;
-            //TODO: ADD ACTIONS TO ARRAY
             BestActions.clear();
             for(String action : currentActions){
                 BestActions.add(action);

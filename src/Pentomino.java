@@ -1,6 +1,4 @@
 
-import java.util.Arrays;
-
 import PentominosUtils.PentominoDatabase;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

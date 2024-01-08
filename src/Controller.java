@@ -1,10 +1,8 @@
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Random;
 
 import PentominosUtils.PentominoBuilder;
-import PentominosUtils.PentominoDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
