@@ -1,4 +1,4 @@
-package knapsack;
+package knapsack.SmartObjects;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -75,7 +75,7 @@ public class SmartPentomino extends Group {
         this.color = color;
     }
 
-    public void DisplayPentomino( Group group){
+    public void DisplayPentomino( Group group ){
         for(Box shape : this.cubes){
             group.getChildren().add(shape);
         }

@@ -1,21 +1,34 @@
-package knapsack;
+package knapsack.Algorithms;
 
 import java.util.Random;
 
 public class GeneticAlgorithm {
     
-    private int[] cargo;
+    private int cargoX;
+    private int cargoY;
+    private int cargoZ;
+
     private int PARCEL_SIZE;
     private int populationSize;
 
+    /* 
+    *  0 - Empty Place
+    *  1 - Occupied Place
+    */
+    private int[][][] cargoMatrix;
+
 
     public GeneticAlgorithm(int[] cargo, int parcelSize){
-        this.cargo = cargo;
+        this.cargoX = cargo[0];
+        this.cargoY = cargo[1];
+        this.cargoZ = cargo[2];
         this.PARCEL_SIZE = parcelSize;
         this.populationSize = 0;
+
+        this.cargoMatrix = new int[this.cargoX][this.cargoY][this.cargoZ];
     }
 
-    public void runAlghorithm(int maxSize, String startPopulation){
+    public void runAlgorithm(int maxSize, String startPopulation){
 
     }
 
