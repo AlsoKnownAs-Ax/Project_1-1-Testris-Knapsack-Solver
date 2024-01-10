@@ -29,6 +29,7 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import knapsack.Questions.QuestionA;
+import knapsack.Questions.QuestionB;
 import knapsack.SmartObjects.SmartGroup;
 import knapsack.SmartObjects.SmartPentomino;
 import knapsack.UI.CargoRender;
@@ -153,7 +154,8 @@ public class Main extends Application {
         });
         buttonB.setOnAction(event -> {
             //Answer QuestionB
-
+            QuestionB questionB = new QuestionB(cargo);
+            questionB.runAlgorithm();
             // CargoRender cargoRender = new CargoRender(-70, 45, boxSize);
             // cargoRender.RenderCargo(cargoGroup, TestMatrix);
         });
