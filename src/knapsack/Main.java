@@ -33,10 +33,21 @@ import knapsack.UI.CargoRender;
 public class Main extends Application {
 
     //Tests
-        private static int[][][] TestMatrix = {
+    private static int[][][] TestMatrix = {
         {
             {1, 0, 0},
-            {0, 0, 0}
+            {0, 0, 0},
+            {0, 0, 0},
+        },
+        {
+            {1, 0, 0},
+            {1, 0, 0},
+            {1, 0, 0},
+        },
+        {
+            {1, 0, 0},
+            {0, 0, 0},
+            {0, 0, 0},
         },
     };
 
@@ -118,7 +129,7 @@ public class Main extends Application {
             System.out.println("Alghortihm running...");
             button.setVisible(false);
             CargoRender cargoRender = new CargoRender(-70, 45, boxSize);
-            cargoRender.RenderCargo(cargoGroup, TestMatrix2);
+            cargoRender.RenderCargo(cargoGroup, TestMatrix);
         });
 
         root.getChildren().add(showcaseGroup);
