@@ -1,5 +1,7 @@
 package knapsack;
 
+import java.util.Arrays;
+
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -26,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import knapsack.Questions.QuestionA;
 import knapsack.SmartObjects.SmartGroup;
 import knapsack.SmartObjects.SmartPentomino;
 import knapsack.UI.CargoRender;
@@ -117,20 +120,50 @@ public class Main extends Application {
 
         
         //Creating the Start button
-        Button button = new Button("Start Visulation");
-        button.setTranslateX(-60);
-        button.setTranslateY(60);
-        button.setTranslateZ(50);
-        root.getChildren().add(button);
+        Button buttonA = new Button("Question A");
+        Button buttonB = new Button("Question B");
+        Button buttonC = new Button("Question C");
+        Button buttonD = new Button("Question D");
+
+        buttonA.setTranslateX(-200);
+        buttonA.setTranslateY(200);
+        buttonA.setTranslateZ(380);
+
+        buttonB.setTranslateX(-100);
+        buttonB.setTranslateY(200);
+        buttonB.setTranslateZ(380);
+
+        buttonC.setTranslateX(0);
+        buttonC.setTranslateY(200);
+        buttonC.setTranslateZ(380);
+
+        buttonD.setTranslateX(100);
+        buttonD.setTranslateY(200);
+        buttonD.setTranslateZ(380);
+
+
+        root.getChildren().addAll(buttonA,buttonB,buttonC,buttonD);
 
         //This will start the Alghorithm
-        button.setOnAction(event -> {
+        buttonA.setOnAction(event -> {
             System.out.println("Clicked");
             System.out.println("Alghortihm running...");
-            button.setVisible(false);
-            CargoRender cargoRender = new CargoRender(-70, 45, boxSize);
-            cargoRender.RenderCargo(cargoGroup, TestMatrix);
+            QuestionA questionA = new QuestionA(cargo);
+            questionA.runAlgorithm();
         });
+        buttonB.setOnAction(event -> {
+            //Answer QuestionB
+
+            // CargoRender cargoRender = new CargoRender(-70, 45, boxSize);
+            // cargoRender.RenderCargo(cargoGroup, TestMatrix);
+        });
+        buttonC.setOnAction(event -> {
+            //Answer QuestionC
+        });
+        buttonD.setOnAction(event -> {
+            //Answer QuestionD
+        });
+
 
         root.getChildren().add(showcaseGroup);
         root.getChildren().add(cargoGroup);

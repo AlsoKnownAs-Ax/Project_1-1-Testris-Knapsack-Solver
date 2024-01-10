@@ -1,6 +1,5 @@
 package knapsack.UI;
 
-import javafx.scene.DepthTest;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -52,6 +51,16 @@ public class CargoRender {
 
                         cube.setCullFace(CullFace.NONE);
                         setColorForCube(element, cube);
+                        group.getChildren().add(cube);
+                    }else{
+                        Box cube = new Box(this.boxSize,this.boxSize,this.boxSize);
+
+                        cube.translateXProperty().set(this.x + this.boxSize*x);
+                        cube.translateYProperty().set(this.y + this.boxSize*y);
+                        cube.translateZProperty().set(this.boxSize*z);
+
+                        cube.setCullFace(CullFace.NONE);
+                        setColorForCube(2, cube);
                         group.getChildren().add(cube);
                     }
                 }

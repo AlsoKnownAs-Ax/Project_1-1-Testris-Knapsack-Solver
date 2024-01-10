@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "QuestionA",
+            "request": "launch",
+            "mainClass": "knapsack.Questions.QuestionA",
+            "projectName": "Project_1-1_5251dab7"
+        },
+        {
+            "type": "java",
             "name": "PentominoDatabase",
             "request": "launch",
             "mainClass": "PentominosUtils.PentominoDatabase",
