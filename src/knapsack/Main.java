@@ -23,7 +23,6 @@ import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import knapsack.Questions.QuestionA;
 import knapsack.Questions.QuestionB;
-import knapsack.SmartObjects.PentominoGenerator;
 import knapsack.SmartObjects.SmartGroup;
 import knapsack.SmartObjects.SmartPentomino;
 import knapsack.Tests.TestNoGaps;
@@ -160,7 +159,7 @@ public class Main extends Application {
             TestNoGaps TestNoGaps = new TestNoGaps();
             int[][][] solution = TestNoGaps.getSolutionsMatrix();
             if(solution == null){
-                System.out.println("No solution FOund 2");
+                System.out.println("No solution Found");
             }else{
                 CargoRender cargoRender = new CargoRender(-70, 45, boxSize);
                 cargoRender.RenderCargo(cargoGroup, solution);
@@ -168,6 +167,8 @@ public class Main extends Application {
         });
         buttonD.setOnAction(event -> {
             //Answer QuestionD
+            CargoRender cargoRender = new CargoRender(-70, 45, boxSize);
+            cargoRender.RenderCargo(cargoGroup, TestMatrix);
         });
 
 

@@ -52,16 +52,12 @@ public class QuestionA {
 
     // private int[][][] createVisual(int numberA,int numberB, int numberC){
     //     int[][][] matrix = new int[length][height][width];
-
     //             // Iterate over the x-dimension
     //     for (int x = 0; x < this.length; x++) {
     //         // Iterate over the y-dimension
     //         for (int y = 0; y < this.height; y++) {
     //             // Iterate over the z-dimension
     //             for (int z = 0; z < this.width; z++) {
-                    
-
-
     //             }
     //         }
     //     }

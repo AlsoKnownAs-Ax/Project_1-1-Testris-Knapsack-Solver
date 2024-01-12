@@ -3,7 +3,7 @@ package knapsack.Questions;
 import knapsack.SmartObjects.CargoSpace;
 
 /*
- * Fill the pentominos in the cargo withoyt having any gaps
+ * Fill the pentominos in the cargo without having any gaps
  */
 
 public class QuestionC {

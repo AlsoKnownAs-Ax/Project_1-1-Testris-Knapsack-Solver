@@ -123,8 +123,6 @@ public int[][][] getSolutionsMatrix(){
 
     if (solution != null) {
         return solution;
-    } else {
-        System.out.println("No solution found");
     }
 
     return null;
