@@ -6,7 +6,6 @@ import knapsack.SmartObjects.Parcel;
 public class QuestionB {
     CargoSpace cargoSpace;
 
-
     private Parcel boxA = new Parcel(10, 20, 10, 3);
     private Parcel boxB = new Parcel(10, 20, 15, 4);
     private Parcel boxC = new Parcel(10, 20, 15, 5);

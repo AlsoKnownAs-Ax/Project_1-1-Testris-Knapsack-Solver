@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PentominoGenerator",
+            "request": "launch",
+            "mainClass": "knapsack.SmartObjects.PentominoGenerator",
+            "projectName": "Project_1-1_cb1b7e0c"
+        },
+        {
+            "type": "java",
             "name": "QuestionB",
             "request": "launch",
             "mainClass": "knapsack.Questions.QuestionB",

@@ -1,13 +1,12 @@
 package knapsack;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 import javafx.application.Application;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
 import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
@@ -17,21 +16,17 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
-import javafx.scene.SubScene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import knapsack.Questions.QuestionA;
 import knapsack.Questions.QuestionB;
+import knapsack.SmartObjects.PentominoGenerator;
 import knapsack.SmartObjects.SmartGroup;
 import knapsack.SmartObjects.SmartPentomino;
+import knapsack.Tests.TestNoGaps;
 import knapsack.UI.CargoRender;
 
 public class Main extends Application {
@@ -39,19 +34,19 @@ public class Main extends Application {
     //Tests
     private static int[][][] TestMatrix = {
         {
-            {1, 0, 0},
             {0, 0, 0},
             {0, 0, 0},
-        },
-        {
-            {1, 0, 0},
-            {1, 0, 0},
             {1, 0, 0},
         },
         {
             {1, 0, 0},
+            {1 ,0, 0},
+            {1, 0, 0},
+        },
+        {
             {0, 0, 0},
-            {0, 0, 0},
+            {0 ,0, 0},
+            {1, 0, 0},
         },
     };
 
@@ -85,6 +80,7 @@ public class Main extends Application {
             {1, 0, 0}
         }
     };
+
     //
 
     //Visualisation config ( Also change it in knapsack/UI/CargoRender.java )
@@ -104,10 +100,13 @@ public class Main extends Application {
 		launch(args);
 	}
 
+    //Test purposes
+    public static SmartGroup cargoGroup = new SmartGroup();
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         SmartGroup showcaseGroup = new SmartGroup();
-        SmartGroup cargoGroup = new SmartGroup();
 
         Group root = new SmartGroup();
 
@@ -142,7 +141,6 @@ public class Main extends Application {
         buttonD.setTranslateY(200);
         buttonD.setTranslateZ(380);
 
-
         root.getChildren().addAll(buttonA,buttonB,buttonC,buttonD);
 
         //This will start the Alghorithm
@@ -156,11 +154,17 @@ public class Main extends Application {
             //Answer QuestionB
             QuestionB questionB = new QuestionB(cargo);
             questionB.runAlgorithm();
-            // CargoRender cargoRender = new CargoRender(-70, 45, boxSize);
-            // cargoRender.RenderCargo(cargoGroup, TestMatrix);
         });
         buttonC.setOnAction(event -> {
             //Answer QuestionC
+            TestNoGaps TestNoGaps = new TestNoGaps();
+            int[][][] solution = TestNoGaps.getSolutionsMatrix();
+            if(solution == null){
+                System.out.println("No solution FOund 2");
+            }else{
+                CargoRender cargoRender = new CargoRender(-70, 45, boxSize);
+                cargoRender.RenderCargo(cargoGroup, solution);
+            }
         });
         buttonD.setOnAction(event -> {
             //Answer QuestionD

@@ -14,6 +14,26 @@ public class SmartPentomino extends Group {
     private double x;
     private double y;
 
+    public SmartPentomino(String shape, Color color){
+        shape = shape.toUpperCase();
+        this.color = color;
+
+        switch (shape) {
+            case "L":
+                CreateLMatrix();
+                break;
+            case "P":
+                CreatePMatrix();
+                break;
+            case "T":
+                CreateTMatrix();
+                break;
+        
+            default:
+                break;
+        }
+    }
+
     public SmartPentomino(String shape, Color color,double x,double y, double boxSize){
         shape = shape.toUpperCase();
         this.color = color;
@@ -181,5 +201,18 @@ public class SmartPentomino extends Group {
             this.cubes[i+3] = cube;
         }
     }
+
+    /*
+     * Create Pentomino matrixes
+     */
     
+     private void CreateLMatrix(){
+        
+     }
+     private void CreatePMatrix(){
+        
+     }
+     private void CreateTMatrix(){
+        
+     }
 }

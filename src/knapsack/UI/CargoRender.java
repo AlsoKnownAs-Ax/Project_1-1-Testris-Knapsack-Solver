@@ -31,34 +31,34 @@ public class CargoRender {
      * @param MatrixToRender (0 - Empty, 1 - L Cube, 2 = P cube, 3 = T cube)
      */
 
-    public void RenderCargo(Group group, int[][][] MatrixToRender){
+     public void RenderCargo(Group group, int[][][] MatrixToRender){
         // Iterate over the x-dimension
         for (int x = 0; x < MatrixToRender.length; x++) {
-            // Iterate over the y-dimension
-            for (int y = 0; y < MatrixToRender[x].length; y++) {
-                // Iterate over the z-dimension
-                for (int z = 0; z < MatrixToRender[x][y].length; z++) {
+            // Iterate over the z-dimension
+            for (int z = 0; z < MatrixToRender[x][0].length; z++) {
+                // Iterate over the y-dimension from top to bottom (reversed)
+                for (int y = 0; y < MatrixToRender[x].length; y++) {
                     // Access the element at matrix[x][y][z]
                     int element = MatrixToRender[x][y][z];
-
-                    //Make sure the element 
+    
+                    // Make sure the element 
                     if(element > 0){
                         Box cube = new Box(this.boxSize,this.boxSize,this.boxSize);
-
+    
                         cube.translateXProperty().set(this.x + this.boxSize*x);
-                        cube.translateYProperty().set(this.y + this.boxSize*y);
+                        cube.translateYProperty().set(this.y + this.boxSize*(MatrixToRender[x].length - 1 - y)); // Reverse y here
                         cube.translateZProperty().set(this.boxSize*z);
-
+    
                         cube.setCullFace(CullFace.NONE);
                         setColorForCube(element, cube);
                         group.getChildren().add(cube);
-                    }else{
+                    } else {
                         Box cube = new Box(this.boxSize,this.boxSize,this.boxSize);
-
+    
                         cube.translateXProperty().set(this.x + this.boxSize*x);
-                        cube.translateYProperty().set(this.y + this.boxSize*y);
+                        cube.translateYProperty().set(this.y + this.boxSize*(MatrixToRender[x].length - 1 - y)); // Reverse y here
                         cube.translateZProperty().set(this.boxSize*z);
-
+    
                         cube.setCullFace(CullFace.NONE);
                         setColorForCube(2, cube);
                         group.getChildren().add(cube);
@@ -67,6 +67,9 @@ public class CargoRender {
             }
         }
     }
+    
+    
+    
 
     private void setColorForCube(int id,Box cube){
         cube.setCullFace(CullFace.NONE);
