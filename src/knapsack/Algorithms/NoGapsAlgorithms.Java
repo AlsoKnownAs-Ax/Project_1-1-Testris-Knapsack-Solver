@@ -21,6 +21,8 @@ public class NoGaspAlgorithm{
         this.cargoMatrix = new int[this.cargoX][this.cargoY][this.cargoZ];
     }
 
+    
+
     public int[][][] runAlgorithm(){
         
     }

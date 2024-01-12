@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Tetris",
+            "request": "launch",
+            "mainClass": "Tetris",
+            "projectName": "Project_1-1_1e87fa5d"
+        },
+        {
+            "type": "java",
             "name": "QuestionB",
             "request": "launch",
             "mainClass": "knapsack.Questions.QuestionB",
