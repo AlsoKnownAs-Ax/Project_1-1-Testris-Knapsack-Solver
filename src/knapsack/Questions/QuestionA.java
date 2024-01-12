@@ -44,4 +44,84 @@ public class QuestionA {
         }
         return false;
     }
+
+    public static boolean isItDone(){
+        boolean finished = false;
+        while (!finished){
+            if (!(a=0) && !(b=0) && !(c=0)){
+                finished = true;
+                return finished;
+            } 
+        }
+        return finished;
+    }
+
+    public static int[][][] position(int a, int b, int c, boolean isItDone){
+        while (!isItDone){
+            if ((a => 16)){
+                a-=16;
+            }
+            if ((b => 16)){
+                b-=16;
+            }
+            if (((a => 11) && (C>=1) )){
+                a-=11;
+                c-=1;
+            }
+
+        //x Possible combinations:
+        // 16A
+        // 16B
+        // 11C
+        // 11(A or B) + C 
+            if ((a=>2)){
+                a-=2;
+            }
+            if ((a=>1)&&(C>=1)){
+                a-=11;
+                c-=1;
+            }
+            if ((A=>1)&&(B>=1)){
+                a-=11;
+                b-=1;
+            }
+
+        //y Possible combinations:
+        // 2A 
+        // A+(B or C)
+            if ((c=>2)){
+                c-=2;
+            }
+            if (((c=>1) && (a=>1))){
+                c-=1;
+                a-=1;
+
+
+            }
+            if (((c=>1) && (b=>1))){
+                c-=1;
+                b-=1;
+                
+
+            }
+            if ((a=>2)){
+                a-=1;
+
+            }
+            if ((b=>2)){
+
+            }
+            if ((a=>1)&&(a=>1)){
+
+            }
+            
+
+        //z Possible combination:
+        // 2C 
+        // C + (A or B) 
+        // 2A 
+        // 2B 
+        // A+B 
+        }
+    }
 }

@@ -1,7 +1,7 @@
 package knapsack.Algorithms;
 
 public class Matrix3D {
-    public class ThreeDMatrixExample {
+    public class ThreeDMatrixExample implements QuestionA{
         public static void main(String[] args) {
             // Define the dimensions of the 3D matrix
             int xSize = 3;  // Number of rows
