@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DancingLinksX",
+            "request": "launch",
+            "mainClass": "DancingLinksX",
+            "projectName": "Project_1-1_5251dab7"
+        },
+        {
+            "type": "java",
             "name": "PentominoGenerator",
             "request": "launch",
             "mainClass": "knapsack.SmartObjects.PentominoGenerator",

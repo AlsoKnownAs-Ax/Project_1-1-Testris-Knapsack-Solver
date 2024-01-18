@@ -21,11 +21,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import knapsack.Algorithms.DancingLinks;
+import knapsack.Algorithms.DancingLinksRunnable;
 import knapsack.Questions.QuestionA;
 import knapsack.Questions.QuestionB;
 import knapsack.SmartObjects.SmartGroup;
 import knapsack.SmartObjects.SmartPentomino;
-import knapsack.Tests.TestNoGaps;
+//import knapsack.Tests.*;
 import knapsack.UI.CargoRender;
 
 public class Main extends Application {
@@ -93,6 +95,11 @@ public class Main extends Application {
     private static final int WIDTH = 1300;
     private static final int HEIGHT = 800;
     private int[] cargo = {165, 40, 25}; // {x,y,z}
+
+    public int cargoHeight = 40;
+    public int cargoWidth = 25;
+    public int cargoDepth = 8;
+
     private static final int PARCEL_SIZE = 5;
 
     public static void main(String[] args) {
@@ -142,6 +149,8 @@ public class Main extends Application {
 
         root.getChildren().addAll(buttonA,buttonB,buttonC,buttonD);
 
+        
+
         //This will start the Alghorithm
         buttonA.setOnAction(event -> {
             System.out.println("Clicked");
@@ -156,14 +165,11 @@ public class Main extends Application {
         });
         buttonC.setOnAction(event -> {
             //Answer QuestionC
-            TestNoGaps TestNoGaps = new TestNoGaps();
-            int[][][] solution = TestNoGaps.getSolutionsMatrix();
-            if(solution == null){
-                System.out.println("No solution Found");
-            }else{
-                CargoRender cargoRender = new CargoRender(-70, 45, boxSize);
-                cargoRender.RenderCargo(cargoGroup, solution);
-            }
+
+            DancingLinks.setVisualizer();
+            Thread thread = new Thread(new DancingLinksRunnable());
+
+            thread.start();
         });
         buttonD.setOnAction(event -> {
             //Answer QuestionD

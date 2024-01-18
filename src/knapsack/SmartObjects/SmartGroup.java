@@ -39,6 +39,13 @@ public class SmartGroup extends Group {
         this.getTransforms().addAll(this.transform);
     }
 
+    public Rotate rotateX = new Rotate();
+    { rotateX.setAxis(Rotate.X_AXIS); }
+    public Rotate rotateY = new Rotate();
+    { rotateY.setAxis(Rotate.Y_AXIS); }
+    public Rotate rotateZ = new Rotate();
+    { rotateZ.setAxis(Rotate.Z_AXIS); }
+
     public void initMouseControl( Scene scene ){
         Rotate xRotate;
         Rotate yRotate;
@@ -60,5 +67,17 @@ public class SmartGroup extends Group {
             angleX.set(this.anchorAngleX - (this.anchorY - event.getSceneY()));
             angleY.set(this.anchorAngleY + this.anchorX - event.getSceneX());
         });
+    }
+    
+    public void setPivot(SmartGroup group, int xCoord, int yCoord, int zCoord) {
+        group.rotateX.setPivotX(xCoord);
+        group.rotateX.setPivotY(yCoord);
+        group.rotateX.setPivotZ(zCoord);
+        group.rotateY.setPivotX(xCoord);
+        group.rotateY.setPivotY(yCoord);
+        group.rotateY.setPivotZ(zCoord);
+        group.rotateZ.setPivotX(xCoord);
+        group.rotateZ.setPivotY(yCoord);
+        group.rotateZ.setPivotZ(zCoord);
     }
 }
