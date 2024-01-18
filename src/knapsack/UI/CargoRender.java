@@ -18,6 +18,7 @@ public class CargoRender {
     private int y;
 
     private int z_offset;
+    private static int[][][] lastMatrix;
 
     //Visualisation config
     private static final Color LShapeColor = Color.DARKGOLDENROD;
@@ -46,6 +47,8 @@ public class CargoRender {
      */
 
      public void RenderCargo(Group group, int[][][] MatrixToRender){
+        this.lastMatrix = new int[MatrixToRender.length][MatrixToRender[0].length][MatrixToRender[0][0].length];
+
         //Iterate over the x-dimension
         for (int x = 0; x < MatrixToRender.length; x++) {
             // Iterate over the z-dimension
@@ -67,6 +70,8 @@ public class CargoRender {
                         setColorForCube(element, cube);
                         group.getChildren().add(cube);
                     }
+
+                    this.lastMatrix[x][y][z] = element;
                     // } else {
                     //     Box cube = new Box(this.boxSize,this.boxSize,this.boxSize);
     
@@ -81,6 +86,32 @@ public class CargoRender {
                 }
             }
         }
+    }
+
+    public static class Center{
+        private int x;
+        private int y;
+        private int z;
+
+        public Center(int x, int y, int z){
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+
+        public int getX() {return this.x;}
+        public int getY() {return this.y;}
+        public int getZ() {return this.z;}
+    }
+
+    public static Center getCenter(){
+        int centerX = (lastMatrix.length)/2;
+        int centerY = (lastMatrix[0].length)/2;
+        int centerZ = (lastMatrix[0][0].length)/2;
+
+        Center center = new Center(centerX, centerY, centerZ);
+
+        return center;
     }
 
     private void setColorForCube(int id,Box cube){

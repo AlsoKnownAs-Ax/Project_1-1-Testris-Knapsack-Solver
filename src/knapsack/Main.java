@@ -19,6 +19,7 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import knapsack.Algorithms.DancingLinks;
@@ -124,6 +125,17 @@ public class Main extends Application {
         P_pento.DisplayPentomino(showcaseGroup);
         T_pento.DisplayPentomino(showcaseGroup);
 
+        //Camera Settings
+        // Translate pivot = new Translate();
+        // Rotate yRotate = new Rotate(0, Rotate.Y_AXIS);
+        // Camera camera = new PerspectiveCamera(true);
+        // camera.getTransforms().addAll (
+        //         pivot,
+        //         yRotate,
+        //         new Rotate(-20, Rotate.X_AXIS),
+        //         new Translate(0, 0, -50)
+        // );
+
         
         //Creating the Start button
         Button buttonA = new Button("Question A");
@@ -169,6 +181,7 @@ public class Main extends Application {
             DancingLinks.setVisualizer();
             Thread thread = new Thread(new DancingLinksRunnable());
 
+
             thread.start();
         });
         buttonD.setOnAction(event -> {
@@ -211,6 +224,12 @@ public class Main extends Application {
                     break;
                 case D:
                     showcaseGroup.rotateByY(-2);
+                    break;
+                case Q:
+                    //camera.trans(-2);
+                    break;
+                case E:
+                    //showcaseGroup.rotateByY(-2);
                     break;
                 default:
                     break;

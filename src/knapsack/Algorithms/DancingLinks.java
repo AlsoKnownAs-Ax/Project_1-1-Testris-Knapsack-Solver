@@ -220,6 +220,7 @@ public class DancingLinks {
             @Override
             public void run() {
                 CargoRender cargoRender = new CargoRender(-250, 15, 10, 400);
+                
 
                 cargoRender.RenderCargo(Main.cargoGroup, finalField);
             }
