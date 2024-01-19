@@ -4,10 +4,15 @@ import java.util.*;
 
 
 public class DancingLinksRunnable implements Runnable {
-        @Override
-        public void run() { // called when thread is started
+        private String type;
 
-                CoverMatrixGenerator coverMatrixGenerator = new CoverMatrixGenerator("Parcels");
+        public DancingLinksRunnable(String type){
+                this.type = type;
+        }
+
+        @Override
+        public void run() {
+                CoverMatrixGenerator coverMatrixGenerator = new CoverMatrixGenerator(this.type);
                 boolean[][] exactCoverMatrix = coverMatrixGenerator.getExactCoverMatrix();
                 List<Integer> rowTypes = coverMatrixGenerator.getRowTypes();
                 DancingLinks dancingLinks = new DancingLinks(exactCoverMatrix, rowTypes);

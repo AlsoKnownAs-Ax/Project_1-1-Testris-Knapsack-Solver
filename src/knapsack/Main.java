@@ -110,6 +110,8 @@ public class Main extends Application {
     //Test purposes
     public static SmartGroup cargoGroup = new SmartGroup();
 
+    private static Camera camera = new PerspectiveCamera(true);
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -125,18 +127,6 @@ public class Main extends Application {
         P_pento.DisplayPentomino(showcaseGroup);
         T_pento.DisplayPentomino(showcaseGroup);
 
-        //Camera Settings
-        // Translate pivot = new Translate();
-        // Rotate yRotate = new Rotate(0, Rotate.Y_AXIS);
-        // Camera camera = new PerspectiveCamera(true);
-        // camera.getTransforms().addAll (
-        //         pivot,
-        //         yRotate,
-        //         new Rotate(-20, Rotate.X_AXIS),
-        //         new Translate(0, 0, -50)
-        // );
-
-        
         //Creating the Start button
         Button buttonA = new Button("Question A");
         Button buttonB = new Button("Question B");
@@ -165,10 +155,9 @@ public class Main extends Application {
 
         //This will start the Alghorithm
         buttonA.setOnAction(event -> {
-            System.out.println("Clicked");
-            System.out.println("Alghortihm running...");
-            QuestionA questionA = new QuestionA(cargo);
-            questionA.runAlgorithm();
+            Thread thread = new Thread(new DancingLinksRunnable("Parcels"));
+
+            thread.start();
         });
         buttonB.setOnAction(event -> {
             //Answer QuestionB
@@ -177,10 +166,7 @@ public class Main extends Application {
         });
         buttonC.setOnAction(event -> {
             //Answer QuestionC
-
-            DancingLinks.setVisualizer();
-            Thread thread = new Thread(new DancingLinksRunnable());
-
+            Thread thread = new Thread(new DancingLinksRunnable("Pentomino"));
 
             thread.start();
         });
@@ -188,13 +174,12 @@ public class Main extends Application {
             //Answer QuestionD
             CargoRender cargoRender = new CargoRender(-70, 45, boxSize);
             cargoRender.RenderCargo(cargoGroup, TestMatrix);
+            
         });
-
 
         root.getChildren().add(showcaseGroup);
         root.getChildren().add(cargoGroup);
 
-        Camera camera = new PerspectiveCamera(true);
         Scene scene = new Scene(root, WIDTH,HEIGHT,true, SceneAntialiasing.BALANCED);
         scene.setFill(Color.SILVER);
         scene.setCamera(camera);
@@ -224,12 +209,6 @@ public class Main extends Application {
                     break;
                 case D:
                     showcaseGroup.rotateByY(-2);
-                    break;
-                case Q:
-                    //camera.trans(-2);
-                    break;
-                case E:
-                    //showcaseGroup.rotateByY(-2);
                     break;
                 default:
                     break;

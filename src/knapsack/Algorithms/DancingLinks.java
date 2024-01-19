@@ -5,6 +5,7 @@ import java.util.List;
 import knapsack.Main;
 import knapsack.Database.ParcelDatabase;
 import knapsack.UI.CargoRender;
+import knapsack.UI.CargoRender.Center;
 
 // import gui.ArrayVisualization;
 
@@ -17,7 +18,6 @@ public class DancingLinks {
 
     boolean[][] coverMatrix;
     List<Integer> rowTypes;
-    static String visualization;
     DancingNode root;
 
     int score = 0;
@@ -28,14 +28,6 @@ public class DancingLinks {
         this.coverMatrix = coverMatrix;
         this.rowTypes = rowTypes;
         this.root = createDLXList(coverMatrix);
-    }
-
-    /**
-     * set the visualizer to the current thread
-     */
-
-    public static void setVisualizer() {
-        visualization = "test";
     }
 
     /**
@@ -166,13 +158,14 @@ public class DancingLinks {
         for (int rowNumber : solution) {
             score += ParcelDatabase.getValue(rowTypes.get(rowNumber));
         }
-
         return score;
     }
 
     /**
      * convert the 1D array to 3D and display it
      */
+    private Boolean cameraUpdated = false;
+    private int[][][] matrix;
 
     public void reconvert() {
 
@@ -215,15 +208,15 @@ public class DancingLinks {
             shapeNumber++;
         }
         score = bestScore;
-
-        Platform.runLater(new Runnable() {
+        
+        Platform.runLater(new Runnable() {            
             @Override
             public void run() {
                 CargoRender cargoRender = new CargoRender(-250, 15, 10, 400);
                 
-
                 cargoRender.RenderCargo(Main.cargoGroup, finalField);
             }
         });
     }
+
 }

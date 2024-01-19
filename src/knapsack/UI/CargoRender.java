@@ -1,5 +1,7 @@
 package knapsack.UI;
 
+import java.util.Arrays;
+
 import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -47,7 +49,7 @@ public class CargoRender {
      */
 
      public void RenderCargo(Group group, int[][][] MatrixToRender){
-        this.lastMatrix = new int[MatrixToRender.length][MatrixToRender[0].length][MatrixToRender[0][0].length];
+        lastMatrix = new int[MatrixToRender.length][MatrixToRender[0].length][MatrixToRender[0][0].length];
 
         //Iterate over the x-dimension
         for (int x = 0; x < MatrixToRender.length; x++) {
@@ -71,7 +73,7 @@ public class CargoRender {
                         group.getChildren().add(cube);
                     }
 
-                    this.lastMatrix[x][y][z] = element;
+                    lastMatrix[x][y][z] = element;
                     // } else {
                     //     Box cube = new Box(this.boxSize,this.boxSize,this.boxSize);
     
@@ -104,7 +106,7 @@ public class CargoRender {
         public int getZ() {return this.z;}
     }
 
-    public static Center getCenter(){
+    public Center getCenter(){
         int centerX = (lastMatrix.length)/2;
         int centerY = (lastMatrix[0].length)/2;
         int centerZ = (lastMatrix[0][0].length)/2;
@@ -136,5 +138,20 @@ public class CargoRender {
 
         cube.setMaterial(material);
     }
+
+    // private void ClearField(){
+    //     //Iterate over the x-dimension
+    //     for (int x = 0; x < lastMatrix.length; x++) {
+    //         // Iterate over the z-dimension
+    //         for (int z = 0; z < lastMatrix[x][0].length; z++) {
+    //             // Iterate over the y-dimension from top to bottom (reversed)
+    //             for (int y = 0; y < lastMatrix[x].length; y++) {
+    //                 lastMatrix[x][y][z] = 0
+    //             }
+    //         }
+    //     }
+
+         
+    // }
 
 }

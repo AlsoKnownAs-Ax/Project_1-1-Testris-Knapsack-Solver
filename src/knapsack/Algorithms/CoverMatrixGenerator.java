@@ -23,12 +23,10 @@ public class CoverMatrixGenerator {
     public CoverMatrixGenerator(String type) { 
 
         this.type = type;
-        selectInput();
+        selectInput(type);
         createPositions();
         generateCoverMatrix();
     }
-
-
     /** 
      *
      * Gets the exact cover matrix
@@ -61,21 +59,20 @@ public class CoverMatrixGenerator {
      *
      */
 
-    public void selectInput(){ 
+    public void selectInput(String type){ 
 
-        type = "NotParcels";
         if(type.equals("Parcels")) {
-        boolean[][][][] A = ParcelDatabase.aRotBool;
-        boolean[][][][] B = ParcelDatabase.bRotBool;
-        boolean[][][][] C = ParcelDatabase.cRotBool;
-        shapes = new boolean[][][][][]{A, C, B};
-        order = new int[]{0, 2, 1};
+            boolean[][][][] A = ParcelDatabase.aRotBool;
+            boolean[][][][] B = ParcelDatabase.bRotBool;
+            boolean[][][][] C = ParcelDatabase.cRotBool;
+            shapes = new boolean[][][][][]{A, C, B};
+            order = new int[]{0, 2, 1};
         } else {
-        boolean[][][][] L = PentominoesDatabase.lPentBool;
-        boolean[][][][] P = PentominoesDatabase.pPentBool;
-        boolean[][][][] T = PentominoesDatabase.tPentBool;
-        shapes = new boolean[][][][][]{T, P, L};
-        order = new int[]{2, 1, 0};
+            boolean[][][][] L = PentominoesDatabase.lPentBool;
+            boolean[][][][] P = PentominoesDatabase.pPentBool;
+            boolean[][][][] T = PentominoesDatabase.tPentBool;
+            shapes = new boolean[][][][][]{T, P, L};
+            order = new int[]{2, 1, 0};
         }
     }
 
