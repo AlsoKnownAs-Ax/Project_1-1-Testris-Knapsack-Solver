@@ -155,25 +155,24 @@ public class Main extends Application {
 
         //This will start the Alghorithm
         buttonA.setOnAction(event -> {
-            Thread thread = new Thread(new DancingLinksRunnable("Parcels"));
+            Thread thread = new Thread(new DancingLinksRunnable("Parcels",false));
 
             thread.start();
         });
         buttonB.setOnAction(event -> {
-            //Answer QuestionB
-            QuestionB questionB = new QuestionB(cargo);
-            questionB.runAlgorithm();
+            Thread thread = new Thread(new DancingLinksRunnable("Parcels",true));
+
+            thread.start();
         });
         buttonC.setOnAction(event -> {
-            //Answer QuestionC
-            Thread thread = new Thread(new DancingLinksRunnable("Pentomino"));
+            Thread thread = new Thread(new DancingLinksRunnable("Pentomino",false));
 
             thread.start();
         });
         buttonD.setOnAction(event -> {
-            //Answer QuestionD
-            CargoRender cargoRender = new CargoRender(-70, 45, boxSize);
-            cargoRender.RenderCargo(cargoGroup, TestMatrix);
+            Thread thread = new Thread(new DancingLinksRunnable("Pentomino",true));
+
+            thread.start();
             
         });
 

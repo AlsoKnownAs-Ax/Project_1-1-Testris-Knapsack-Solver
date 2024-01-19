@@ -19,6 +19,7 @@ public class DancingLinks {
     boolean[][] coverMatrix;
     List<Integer> rowTypes;
     DancingNode root;
+    boolean useValues = false;
 
     int score = 0;
     int bestScore = 0;
@@ -28,6 +29,11 @@ public class DancingLinks {
         this.coverMatrix = coverMatrix;
         this.rowTypes = rowTypes;
         this.root = createDLXList(coverMatrix);
+    }
+
+    public void activateValues(boolean toggle){
+        useValues = toggle;
+        System.out.println("Using values: " + useValues);
     }
 
     /**
@@ -86,6 +92,8 @@ public class DancingLinks {
      * solve the exact / partial cover problem
      * @param branchSolution ArrayList containing the branch solutions
      */
+
+     private boolean displayed = false;
 
     public void solve(ArrayList<Integer> branchSolution) {
 
@@ -158,14 +166,13 @@ public class DancingLinks {
         for (int rowNumber : solution) {
             score += ParcelDatabase.getValue(rowTypes.get(rowNumber));
         }
+
         return score;
     }
 
     /**
      * convert the 1D array to 3D and display it
      */
-    private Boolean cameraUpdated = false;
-    private int[][][] matrix;
 
     public void reconvert() {
 
@@ -207,12 +214,14 @@ public class DancingLinks {
             }
             shapeNumber++;
         }
-        score = bestScore;
+        if(useValues){
+            score = bestScore;
+        }
         
         Platform.runLater(new Runnable() {            
             @Override
             public void run() {
-                CargoRender cargoRender = new CargoRender(-250, 15, 10, 400);
+                CargoRender cargoRender = new CargoRender(-70, 0, 5, 40);
                 
                 cargoRender.RenderCargo(Main.cargoGroup, finalField);
             }

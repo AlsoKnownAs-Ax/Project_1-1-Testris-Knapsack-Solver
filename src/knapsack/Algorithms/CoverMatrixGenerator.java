@@ -21,7 +21,6 @@ public class CoverMatrixGenerator {
     int depth = 33;
 
     public CoverMatrixGenerator(String type) { 
-
         this.type = type;
         selectInput(type);
         createPositions();

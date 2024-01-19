@@ -5,9 +5,11 @@ import java.util.*;
 
 public class DancingLinksRunnable implements Runnable {
         private String type;
+        private boolean useValues;
 
-        public DancingLinksRunnable(String type){
+        public DancingLinksRunnable(String type,boolean useValues){
                 this.type = type;
+                this.useValues = useValues;
         }
 
         @Override
@@ -16,6 +18,7 @@ public class DancingLinksRunnable implements Runnable {
                 boolean[][] exactCoverMatrix = coverMatrixGenerator.getExactCoverMatrix();
                 List<Integer> rowTypes = coverMatrixGenerator.getRowTypes();
                 DancingLinks dancingLinks = new DancingLinks(exactCoverMatrix, rowTypes);
+                dancingLinks.activateValues(useValues);
                 dancingLinks.startSolve();
         }
 }
