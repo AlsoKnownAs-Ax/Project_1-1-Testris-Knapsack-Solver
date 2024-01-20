@@ -49,6 +49,7 @@ public class CargoRender {
      */
 
      public void RenderCargo(Group group, int[][][] MatrixToRender){
+        group.getChildren().clear();
         lastMatrix = new int[MatrixToRender.length][MatrixToRender[0].length][MatrixToRender[0][0].length];
 
         //Iterate over the x-dimension

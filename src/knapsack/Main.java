@@ -17,6 +17,7 @@ import javafx.scene.PointLight;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
@@ -109,7 +110,7 @@ public class Main extends Application {
 
     //Test purposes
     public static SmartGroup cargoGroup = new SmartGroup();
-
+    public static Label score_label = new Label("Score: 0");
     private static Camera camera = new PerspectiveCamera(true);
 
 
@@ -122,6 +123,10 @@ public class Main extends Application {
         SmartPentomino L_pento = new SmartPentomino("L", LShapeColor, -150, 100, boxSize);
         SmartPentomino P_pento = new SmartPentomino("P", PShapeColor, -20, 90, boxSize);
         SmartPentomino T_pento = new SmartPentomino("T", TShapeColor, 110, -90, boxSize);
+
+        score_label.setTranslateX(-40);
+        score_label.setTranslateY(-220);
+        score_label.setTranslateZ(380);
 
         L_pento.DisplayPentomino(showcaseGroup);
         P_pento.DisplayPentomino(showcaseGroup);
@@ -178,6 +183,7 @@ public class Main extends Application {
 
         root.getChildren().add(showcaseGroup);
         root.getChildren().add(cargoGroup);
+        root.getChildren().add(score_label);
 
         Scene scene = new Scene(root, WIDTH,HEIGHT,true, SceneAntialiasing.BALANCED);
         scene.setFill(Color.SILVER);

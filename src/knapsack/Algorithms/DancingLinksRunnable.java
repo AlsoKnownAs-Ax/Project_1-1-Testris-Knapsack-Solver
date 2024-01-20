@@ -18,7 +18,7 @@ public class DancingLinksRunnable implements Runnable {
                 boolean[][] exactCoverMatrix = coverMatrixGenerator.getExactCoverMatrix();
                 List<Integer> rowTypes = coverMatrixGenerator.getRowTypes();
                 DancingLinks dancingLinks = new DancingLinks(exactCoverMatrix, rowTypes);
-                dancingLinks.activateValues(useValues);
+                dancingLinks.toggleValues(useValues);
                 dancingLinks.startSolve();
         }
 }

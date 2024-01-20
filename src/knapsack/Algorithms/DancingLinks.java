@@ -31,7 +31,7 @@ public class DancingLinks {
         this.root = createDLXList(coverMatrix);
     }
 
-    public void activateValues(boolean toggle){
+    public void toggleValues(boolean toggle){
         useValues = toggle;
         System.out.println("Using values: " + useValues);
     }
@@ -106,6 +106,8 @@ public class DancingLinks {
         int solutionScore = getScore(branchSolution);
 
         if (solutionScore > bestScore) {
+            System.out.println("new solution found");
+            System.out.println("new score: " + solutionScore);
             bestSolution = branchSolution.toArray();
             bestScore = solutionScore;
             reconvert();
@@ -164,7 +166,13 @@ public class DancingLinks {
         int score = 0;
 
         for (int rowNumber : solution) {
-            score += ParcelDatabase.getValue(rowTypes.get(rowNumber));
+
+            if(!useValues){
+                score += 1;
+            }else{
+                score += ParcelDatabase.getValue(rowTypes.get(rowNumber));
+            }
+
         }
 
         return score;
@@ -189,9 +197,7 @@ public class DancingLinks {
             inputTypes.add(inputType);
         }
 
-      
-        //TODO: De schimbat
-
+        //We are using the values *2 so we can work with integers
         int width = 5;
         int height = 8;
         int depth = 33;
@@ -214,9 +220,8 @@ public class DancingLinks {
             }
             shapeNumber++;
         }
-        if(useValues){
-            score = bestScore;
-        }
+
+        score = bestScore;
         
         Platform.runLater(new Runnable() {            
             @Override
@@ -224,6 +229,7 @@ public class DancingLinks {
                 CargoRender cargoRender = new CargoRender(-70, 0, 5, 40);
                 
                 cargoRender.RenderCargo(Main.cargoGroup, finalField);
+                Main.score_label.setText("Score: "+ bestScore);
             }
         });
     }
