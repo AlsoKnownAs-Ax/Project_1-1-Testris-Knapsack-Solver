@@ -57,15 +57,4 @@ public class ParcelDatabase {
 
         return -1;
     }
-
-    /**
-    * get the parcel based on chromosome and index (GA)
-    * @param chromosomes GA chromosome
-    * @param index index of the piece
-    * @return piece
-    */
-
-    public static boolean[][][] getParcel(int[][] chromosomes, int index) {
-        return getDatabase()[chromosomes[0][index]][chromosomes[1][index]];
-    }
 }

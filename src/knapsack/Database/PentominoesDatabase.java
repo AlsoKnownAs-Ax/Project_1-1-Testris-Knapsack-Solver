@@ -2,7 +2,7 @@ package knapsack.Database;
 
 public class PentominoesDatabase {
 		
-    public static boolean[][][][] tPentBool = { // T pieces
+    public static boolean[][][][] Tpento = {
 		{{{true}, {false}, {false}}, {{true}, {true}, {true}}, {{true}, {false}, {false}}},
 		{{{true}, {true}, {true}}, {{false}, {true}, {false}}, {{false}, {true}, {false}}},
 		{{{false}, {false}, {true}}, {{true}, {true}, {true}}, {{false}, {false}, {true}}},
@@ -17,7 +17,7 @@ public class PentominoesDatabase {
 		{{{false, false, true}, {true, true, true}, {false, false, true}}}
 	};
     
-    public static boolean[][][][] lPentBool = { // L pieces
+    public static boolean[][][][] Lpento = {
 		{{{true}, {false}}, {{true}, {false}}, {{true}, {false}}, {{true}, {true}}},
 		{{{false}, {true}}, {{false}, {true}}, {{false}, {true}}, {{true}, {true}}},
 		{{{true}, {true}}, {{true}, {false}}, {{true}, {false}}, {{true}, {false}}},
@@ -44,7 +44,7 @@ public class PentominoesDatabase {
 		{{{false, false, false, true}, {true, true, true, true}}}
 	};
     
-    public static boolean[][][][] pPentBool = { // P pieces
+    public static boolean[][][][] Ppento = {
 		{{{true}, {false}}, {{true}, {true}}, {{true}, {true}}},
 		{{{true}, {true}}, {{true}, {true}}, {{false}, {true}}},
 		{{{true}, {true}}, {{true}, {true}}, {{true}, {false}}},		
@@ -77,7 +77,7 @@ public class PentominoesDatabase {
     */
 
 	public static boolean[][][][][] getDatabase() {
-		boolean[][][][][] pentominoes = {lPentBool, pPentBool, tPentBool};
+		boolean[][][][][] pentominoes = {Lpento, Ppento, Tpento};
         return pentominoes;
     }
 }

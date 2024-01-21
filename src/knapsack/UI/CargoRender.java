@@ -1,18 +1,11 @@
 package knapsack.UI;
 
-import java.util.Arrays;
-
-import javafx.geometry.Point3D;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.CullFace;
-import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.DrawMode;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
-import knapsack.SmartObjects.SmartGroup;
 
 public class CargoRender {
     
@@ -51,12 +44,13 @@ public class CargoRender {
      public void RenderCargo(Group group, int[][][] MatrixToRender){
         group.getChildren().clear();
         lastMatrix = new int[MatrixToRender.length][MatrixToRender[0].length][MatrixToRender[0][0].length];
+        boolean isfull = true;
 
         //Iterate over the x-dimension
         for (int x = 0; x < MatrixToRender.length; x++) {
             // Iterate over the z-dimension
             for (int z = 0; z < MatrixToRender[x][0].length; z++) {
-                // Iterate over the y-dimension from top to bottom (reversed)
+                // Iterate over the y-dimension from top to bottom
                 for (int y = 0; y < MatrixToRender[x].length; y++) {
                     // Access the element at matrix[x][y][z]
                     int element = MatrixToRender[x][y][z];
@@ -72,6 +66,8 @@ public class CargoRender {
                         cube.setCullFace(CullFace.NONE);
                         setColorForCube(element, cube);
                         group.getChildren().add(cube);
+                    }else{
+                        isfull = false;
                     }
 
                     lastMatrix[x][y][z] = element;
@@ -88,6 +84,12 @@ public class CargoRender {
                     // }
                 }
             }
+        }
+
+        if(!isfull){
+            System.out.println("Cover: not full");
+        }else{
+            System.out.println("Cover: Full");
         }
     }
 

@@ -8,11 +8,11 @@ import knapsack.Database.*;
 
 public class CoverMatrixGenerator {
     private boolean[][][][][] shapes;
-    private String type;
 
     private ArrayList<boolean[][][]> positions = new ArrayList<>();
     private ArrayList<Integer> rowTypes = new ArrayList<>();
     private boolean[][] exactCoverMatrix;
+    private static ArrayUtils arrayUtils = new ArrayUtils();
 
     int[] order;
 
@@ -21,7 +21,6 @@ public class CoverMatrixGenerator {
     int depth = 33;
 
     public CoverMatrixGenerator(String type) { 
-        this.type = type;
         selectInput(type);
         createPositions();
         generateCoverMatrix();
@@ -34,7 +33,6 @@ public class CoverMatrixGenerator {
      */
 
     public boolean[][] getExactCoverMatrix() { 
-
         return exactCoverMatrix;
     }
 
@@ -67,9 +65,9 @@ public class CoverMatrixGenerator {
             shapes = new boolean[][][][][]{A, C, B};
             order = new int[]{0, 2, 1};
         } else {
-            boolean[][][][] L = PentominoesDatabase.lPentBool;
-            boolean[][][][] P = PentominoesDatabase.pPentBool;
-            boolean[][][][] T = PentominoesDatabase.tPentBool;
+            boolean[][][][] L = PentominoesDatabase.Lpento;
+            boolean[][][][] P = PentominoesDatabase.Ppento;
+            boolean[][][][] T = PentominoesDatabase.Tpento;
             shapes = new boolean[][][][][]{T, P, L};
             order = new int[]{2, 1, 0};
         }
@@ -135,7 +133,7 @@ public class CoverMatrixGenerator {
         for(int i = 0; i < positions.size(); i++){
             boolean[][][] position = positions.get(i);
             
-            boolean[] oneD = ArrConverter.ThreeDto1D(position, width, height, depth);
+            boolean[] oneD = arrayUtils.ThreeDto1D(position, width, height, depth);
             result[i] = oneD;
             
         }

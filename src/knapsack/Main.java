@@ -1,9 +1,5 @@
 package knapsack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,71 +16,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-import knapsack.Algorithms.DancingLinks;
 import knapsack.Algorithms.DancingLinksRunnable;
-import knapsack.Questions.QuestionA;
-import knapsack.Questions.QuestionB;
 import knapsack.SmartObjects.SmartGroup;
 import knapsack.SmartObjects.SmartPentomino;
 //import knapsack.Tests.*;
-import knapsack.UI.CargoRender;
 
 public class Main extends Application {
-
-    //Tests
-    private static int[][][] TestMatrix = {
-        {
-            {0, 0, 0},
-            {0, 0, 0},
-            {1, 0, 0},
-        },
-        {
-            {1, 0, 0},
-            {1 ,0, 0},
-            {1, 0, 0},
-        },
-        {
-            {0, 0, 0},
-            {0 ,0, 0},
-            {1, 0, 0},
-        },
-    };
-
-    private static int[][][] TestMatrix2 = {
-        {
-            {1, 0, 2},
-            {0, 3, 3}
-        },
-        {
-            {1, 0, 2},
-            {0, 1, 3}
-        },
-        {
-            {1, 0, 2},
-            {0, 3, 1}
-        },
-        {
-            {1, 2, 2},
-            {0, 3, 3}
-        },
-        {
-            {1, 0, 2},
-            {0, 3, 2}
-        },
-        {
-            {1, 0, 2},
-            {0, 3, 3}
-        },
-        {
-            {0, 2, 2},
-            {1, 0, 0}
-        }
-    };
-
-    //
 
     //Visualisation config ( Also change it in knapsack/UI/CargoRender.java )
     private static final Color LShapeColor = Color.DARKGOLDENROD;
@@ -92,26 +31,19 @@ public class Main extends Application {
     private static final Color TShapeColor = Color.CADETBLUE;
     private static final int boxSize = 20;
 
-    //Alghorithm's variables
-
-    private static final int WIDTH = 1300;
+    //Screen settings
+    private static final int WIDTH = 1300; 
     private static final int HEIGHT = 800;
-    private int[] cargo = {165, 40, 25}; // {x,y,z}
-
-    public int cargoHeight = 40;
-    public int cargoWidth = 25;
-    public int cargoDepth = 8;
-
-    private static final int PARCEL_SIZE = 5;
+    
+    //Group settings
+    public static SmartGroup cargoGroup = new SmartGroup();
+    public static Label score_label = new Label("Score: 0");
+    private static Camera camera = new PerspectiveCamera(true);
 
     public static void main(String[] args) {
 		launch(args);
 	}
 
-    //Test purposes
-    public static SmartGroup cargoGroup = new SmartGroup();
-    public static Label score_label = new Label("Score: 0");
-    private static Camera camera = new PerspectiveCamera(true);
 
 
     @Override
@@ -178,7 +110,6 @@ public class Main extends Application {
             Thread thread = new Thread(new DancingLinksRunnable("Pentomino",true));
 
             thread.start();
-            
         });
 
         root.getChildren().add(showcaseGroup);
@@ -241,6 +172,4 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 	}
-
-
 }

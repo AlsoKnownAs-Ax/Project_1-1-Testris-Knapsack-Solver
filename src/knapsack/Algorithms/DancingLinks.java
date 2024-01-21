@@ -5,12 +5,7 @@ import java.util.List;
 import knapsack.Main;
 import knapsack.Database.ParcelDatabase;
 import knapsack.UI.CargoRender;
-import knapsack.UI.CargoRender.Center;
-
-// import gui.ArrayVisualization;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javafx.application.Platform;
 
@@ -24,6 +19,8 @@ public class DancingLinks {
     int score = 0;
     int bestScore = 0;
     Object[] bestSolution;
+
+    private ArrayUtils arrayUtils = new ArrayUtils();
 
     public DancingLinks(boolean[][] coverMatrix, List<Integer> rowTypes) {
         this.coverMatrix = coverMatrix;
@@ -53,7 +50,7 @@ public class DancingLinks {
             headerNode = (DancingColumn) headerNode.linkRight(n);
         }
 
-        headerNode = headerNode.r.header;
+        headerNode = headerNode.right.header;
 
         for (int i = 0; i < grid.length; i++) {
             boolean[] row = grid[i];
@@ -68,7 +65,7 @@ public class DancingLinks {
                     if (prev == null)
                         prev = newNode;
 
-                    col.u.linkDown(newNode);
+                    col.upper.linkDown(newNode);
                     prev = prev.linkRight(newNode);
                     col.size++;
                 }
@@ -93,13 +90,11 @@ public class DancingLinks {
      * @param branchSolution ArrayList containing the branch solutions
      */
 
-     private boolean displayed = false;
-
     public void solve(ArrayList<Integer> branchSolution) {
 
         DancingColumn smallestColumn = getSmallestColumn();
 
-        if (root.r == root) {
+        if (root.right == root) {
             //System.out.println("Exact cover found");
         }
 
@@ -115,11 +110,11 @@ public class DancingLinks {
 
         smallestColumn.unlink();
 
-        for (DancingNode row = smallestColumn.d; row != smallestColumn; row = row.d) {
+        for (DancingNode row = smallestColumn.down; row != smallestColumn; row = row.down) {
 
             branchSolution.add(row.inputRow);
 
-            for (DancingNode column = row.r; column != row; column = column.r) {
+            for (DancingNode column = row.right; column != row; column = column.right) {
                 column.header.unlink();
             }
 
@@ -129,7 +124,7 @@ public class DancingLinks {
 
             smallestColumn = row.header;
 
-            for (DancingNode j = row.l; j != row; j = j.l) {
+            for (DancingNode j = row.left; j != row; j = j.left) {
                 j.header.link();
             }
         }
@@ -145,9 +140,9 @@ public class DancingLinks {
 
     public DancingColumn getSmallestColumn() {
 
-        DancingColumn smallestColumn = (DancingColumn) root.r;
+        DancingColumn smallestColumn = (DancingColumn) root.right;
 
-        for (DancingColumn col = (DancingColumn) root.r; col != root; col = (DancingColumn) col.r) {
+        for (DancingColumn col = (DancingColumn) root.right; col != root; col = (DancingColumn) col.right) {
             if (col.size < smallestColumn.size) {
                 smallestColumn = col;
             }
@@ -206,7 +201,7 @@ public class DancingLinks {
 
         int shapeNumber = 0;
         for (boolean[] shape : inputRows) {
-            boolean[][][] booleanShapeOutput = ArrConverter.OneDto3D(shape, width, height, depth);
+            boolean[][][] booleanShapeOutput = arrayUtils.OneDto3D(shape, width, height, depth);
            
             int type = inputTypes.get(shapeNumber);
             for (int z = 0; z < depth; z++) {
