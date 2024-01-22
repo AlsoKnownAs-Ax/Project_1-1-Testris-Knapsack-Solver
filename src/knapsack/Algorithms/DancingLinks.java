@@ -25,8 +25,13 @@ public class DancingLinks {
     public DancingLinks(boolean[][] coverMatrix, List<Integer> rowTypes) {
         this.coverMatrix = coverMatrix;
         this.rowTypes = rowTypes;
-        this.root = createDLXList(coverMatrix);
+        this.root = initDLXList(coverMatrix);
     }
+
+    /**
+     * Turns the useValue Mode ON/OFF
+     * @param toggle
+     */
 
     public void toggleValues(boolean toggle){
         useValues = toggle;
@@ -34,12 +39,12 @@ public class DancingLinks {
     }
 
     /**
-     * start the creation of the DLX structure
+     * Initializes the DLX List
      * @param grid DLX 2D grid
      * @return header node
      */
 
-    private DancingColumn createDLXList(boolean[][] grid) {
+    private DancingColumn initDLXList(boolean[][] grid) {
         final int nbColumns = grid[0].length;
         DancingColumn headerNode = new DancingColumn();
         List<DancingColumn> DancingColumns = new ArrayList<>();
@@ -93,10 +98,6 @@ public class DancingLinks {
     public void solve(ArrayList<Integer> branchSolution) {
 
         DancingColumn smallestColumn = getSmallestColumn();
-
-        if (root.right == root) {
-            //System.out.println("Exact cover found");
-        }
 
         int solutionScore = getScore(branchSolution);
 
@@ -173,9 +174,6 @@ public class DancingLinks {
         return score;
     }
 
-    /**
-     * convert the 1D array to 3D and display it
-     */
 
     public void reconvert() {
 
@@ -193,12 +191,9 @@ public class DancingLinks {
         }
 
         //We are using the values *2 so we can work with integers
-        int width = 50;
-        int height = 80;
-        int depth = 330;
-        // int width = 5;
-        // int height = 8;
-        // int depth = 33;
+        int width = 5;
+        int height = 8;
+        int depth = 33;
 
         int[][][] finalField = new int[depth][height][width];
 
