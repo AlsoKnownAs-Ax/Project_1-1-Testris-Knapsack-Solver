@@ -193,9 +193,12 @@ public class DancingLinks {
         }
 
         //We are using the values *2 so we can work with integers
-        int width = 5;
-        int height = 8;
-        int depth = 33;
+        int width = 50;
+        int height = 80;
+        int depth = 330;
+        // int width = 5;
+        // int height = 8;
+        // int depth = 33;
 
         int[][][] finalField = new int[depth][height][width];
 

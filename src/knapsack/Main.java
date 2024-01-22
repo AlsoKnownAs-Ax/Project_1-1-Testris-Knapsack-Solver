@@ -45,7 +45,7 @@ public class Main extends Application {
 	}
 
 
-
+    public static Long startTime;
     @Override
     public void start(Stage primaryStage) throws Exception{
         SmartGroup showcaseGroup = new SmartGroup();
@@ -92,21 +92,25 @@ public class Main extends Application {
 
         //This will start the Alghorithm
         buttonA.setOnAction(event -> {
+            startTime = System.nanoTime();
             Thread thread = new Thread(new DancingLinksRunnable("Parcels",false));
 
             thread.start();
         });
         buttonB.setOnAction(event -> {
+            startTime = System.nanoTime();
             Thread thread = new Thread(new DancingLinksRunnable("Parcels",true));
 
             thread.start();
         });
         buttonC.setOnAction(event -> {
+            startTime = System.nanoTime();
             Thread thread = new Thread(new DancingLinksRunnable("Pentomino",false));
 
             thread.start();
         });
         buttonD.setOnAction(event -> {
+            startTime = System.nanoTime();
             Thread thread = new Thread(new DancingLinksRunnable("Pentomino",true));
 
             thread.start();

@@ -6,6 +6,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
+import knapsack.Main;
 
 public class CargoRender {
     
@@ -85,12 +86,14 @@ public class CargoRender {
                 }
             }
         }
+        long elapsedTime = System.nanoTime() - Main.startTime;
 
         if(!isfull){
             System.out.println("Cover: not full");
         }else{
             System.out.println("Cover: Full");
         }
+        System.out.println("Run Time: " + elapsedTime/1000000 + "ms");
     }
 
     public static class Center{
