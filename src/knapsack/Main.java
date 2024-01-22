@@ -18,7 +18,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-import knapsack.Algorithms.DancingLinksRunnable;
+import knapsack.DLX.DancingLinksRunnable;
 import knapsack.SmartObjects.SmartGroup;
 import knapsack.SmartObjects.SmartPentomino;
 //import knapsack.Tests.*;

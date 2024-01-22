@@ -1,4 +1,4 @@
-package knapsack.Algorithms;
+package knapsack.DLX;
 
 
 public class ArrayUtils {
@@ -14,7 +14,7 @@ public class ArrayUtils {
     * @return 3D field
     */
 
-    public boolean[][][] OneDto3D (boolean[] array, int width, int height, int depth)
+    public boolean[][][] ConvertTo3D (boolean[] array, int width, int height, int depth)
     {
 
         boolean[][][] array3D = new boolean[depth][height][width];
@@ -22,7 +22,6 @@ public class ArrayUtils {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 for (int z = 0; z < depth; z++) {
-
                     array3D[z][y][x] = array[height * depth * x + depth * y + z];
                 }
             }
@@ -39,7 +38,7 @@ public class ArrayUtils {
     * @return 1D field
     */
 
-    public boolean[] ThreeDto1D (boolean[][][] array3D, int width, int height, int depth) {
+    public boolean[] ConvertTo1D (boolean[][][] array3D, int width, int height, int depth) {
         boolean[] result = new boolean[width * height * depth];
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {

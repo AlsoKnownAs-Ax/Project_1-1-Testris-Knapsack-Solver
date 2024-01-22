@@ -1,10 +1,10 @@
-package knapsack.Algorithms;
+package knapsack.DLX;
 
 class DancingNode {
 
-    DancingNode left, right, upper, down;
-    DancingColumn header;
-    int inputRow;
+    public DancingNode left, right, upper, down;
+    public DancingColumn header;
+    public int inputRow;
 
     DancingNode() {
         left = this;

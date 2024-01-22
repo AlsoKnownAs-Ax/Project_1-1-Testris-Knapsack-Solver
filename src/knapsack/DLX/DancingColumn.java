@@ -1,4 +1,4 @@
-package knapsack.Algorithms;
+package knapsack.DLX;
 
 class DancingColumn extends DancingNode {
     int size; 

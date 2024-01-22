@@ -1,17 +1,15 @@
-package knapsack.Algorithms;
+package knapsack.DLX;
 
 import java.util.ArrayList;
 
 import knapsack.Database.*;
-
-// import gui.ArrayVisualization;
 
 public class CoverMatrixGenerator {
     private boolean[][][][][] shapes;
 
     private ArrayList<boolean[][][]> positions = new ArrayList<>();
     private ArrayList<Integer> rowTypes = new ArrayList<>();
-    private boolean[][] exactCoverMatrix;
+    private boolean[][] coverMatrix;
     private static ArrayUtils arrayUtils = new ArrayUtils();
 
     int[] order;
@@ -32,8 +30,8 @@ public class CoverMatrixGenerator {
      * @return exact cover matrix
      */
 
-    public boolean[][] getExactCoverMatrix() { 
-        return exactCoverMatrix;
+    public boolean[][] getCoverMatrix() { 
+        return coverMatrix;
     }
 
 
@@ -73,13 +71,6 @@ public class CoverMatrixGenerator {
         }
     }
 
-
-    /** 
-     *
-     * Create shape positions
-     *
-     */
-
     public void createPositions(){ 
 
         int typeNumber = 0;
@@ -117,31 +108,7 @@ public class CoverMatrixGenerator {
             typeNumber++;
         }
     }
-
-
-    /** 
-     *
-     * Generate cover matrix
-     *
-     */
-
-    public void generateCoverMatrix(){ 
-
-
-        boolean[][] result = new boolean[positions.size()][width*height*depth];
-
-        for(int i = 0; i < positions.size(); i++){
-            boolean[][][] position = positions.get(i);
-            
-            boolean[] oneD = arrayUtils.ThreeDto1D(position, width, height, depth);
-            result[i] = oneD;
-            
-        }
-
-        exactCoverMatrix = result;
-    }
-
-
+    
     /** 
      *
      * Check if shape is placeable
@@ -169,5 +136,23 @@ public class CoverMatrixGenerator {
 
         return startZ + shapeDepth <= depth;
     }
+    
+    public void generateCoverMatrix(){ 
+
+
+        boolean[][] result = new boolean[positions.size()][width*height*depth];
+
+        for(int i = 0; i < positions.size(); i++){
+            boolean[][][] position = positions.get(i);
+            
+            boolean[] oneD = arrayUtils.ConvertTo1D(position, width, height, depth);
+            result[i] = oneD;
+            
+        }
+
+        coverMatrix = result;
+    }
+
+
 
 }

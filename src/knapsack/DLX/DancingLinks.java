@@ -1,4 +1,4 @@
-package knapsack.Algorithms;
+package knapsack.DLX;
 
 import java.util.List;
 
@@ -11,14 +11,15 @@ import javafx.application.Platform;
 
 public class DancingLinks {
 
-    boolean[][] coverMatrix;
-    List<Integer> rowTypes;
-    DancingNode root;
-    boolean useValues = false;
+    private boolean useValues = false;
+
+    private boolean[][] coverMatrix;
+    private List<Integer> rowTypes;
+    private DancingNode root;
 
     int score = 0;
-    int bestScore = 0;
-    Object[] bestSolution;
+    private int bestScore = 0;
+    private Object[] bestSolution;
 
     private ArrayUtils arrayUtils = new ArrayUtils();
 
@@ -106,7 +107,7 @@ public class DancingLinks {
             System.out.println("new score: " + solutionScore);
             bestSolution = branchSolution.toArray();
             bestScore = solutionScore;
-            reconvert();
+            redraw();
         }
 
         smallestColumn.unlink();
@@ -133,6 +134,57 @@ public class DancingLinks {
         smallestColumn.link();
     }
 
+    public void redraw() {
+
+        List<boolean[]> inputRows = new ArrayList<>();
+        List<Integer> inputTypes = new ArrayList<>();
+
+        for (Object row : bestSolution) {
+            int rowNumber = (Integer) row;
+
+            boolean[] inputRow = coverMatrix[rowNumber];
+            int inputType = rowTypes.get(rowNumber);
+
+            inputRows.add(inputRow);
+            inputTypes.add(inputType);
+        }
+
+        //We are using the values *2 so we can work with integers
+        int width = 5;
+        int height = 8;
+        int depth = 33;
+
+        int[][][] finalField = new int[depth][height][width];
+
+        int shapeNumber = 0;
+        for (boolean[] shape : inputRows) {
+            boolean[][][] booleanShapeOutput = arrayUtils.ConvertTo3D(shape, width, height, depth);
+           
+            int type = inputTypes.get(shapeNumber);
+            for (int z = 0; z < depth; z++) {
+                for (int y = 0; y < height; y++) {
+                    for (int x = 0; x < width; x++) {
+                        if (booleanShapeOutput[z][y][x]) {
+                            finalField[z][y][x] = type;
+                        }
+                    }
+                }
+            }
+            shapeNumber++;
+        }
+
+        score = bestScore;
+        
+        Platform.runLater(new Runnable() {            
+            @Override
+            public void run() {
+                CargoRender cargoRender = new CargoRender(-70, 0, 5, 40);
+                
+                cargoRender.RenderCargo(Main.cargoGroup, finalField);
+                Main.score_label.setText("Score: "+ bestScore);
+            }
+        });
+    }
  
     /**
      * get smallest column
@@ -172,59 +224,6 @@ public class DancingLinks {
         }
 
         return score;
-    }
-
-
-    public void reconvert() {
-
-        List<boolean[]> inputRows = new ArrayList<>();
-        List<Integer> inputTypes = new ArrayList<>();
-
-        for (Object row : bestSolution) {
-            int rowNumber = (Integer) row;
-
-            boolean[] inputRow = coverMatrix[rowNumber];
-            int inputType = rowTypes.get(rowNumber);
-
-            inputRows.add(inputRow);
-            inputTypes.add(inputType);
-        }
-
-        //We are using the values *2 so we can work with integers
-        int width = 5;
-        int height = 8;
-        int depth = 33;
-
-        int[][][] finalField = new int[depth][height][width];
-
-        int shapeNumber = 0;
-        for (boolean[] shape : inputRows) {
-            boolean[][][] booleanShapeOutput = arrayUtils.OneDto3D(shape, width, height, depth);
-           
-            int type = inputTypes.get(shapeNumber);
-            for (int z = 0; z < depth; z++) {
-                for (int y = 0; y < height; y++) {
-                    for (int x = 0; x < width; x++) {
-                        if (booleanShapeOutput[z][y][x]) {
-                            finalField[z][y][x] = type;
-                        }
-                    }
-                }
-            }
-            shapeNumber++;
-        }
-
-        score = bestScore;
-        
-        Platform.runLater(new Runnable() {            
-            @Override
-            public void run() {
-                CargoRender cargoRender = new CargoRender(-70, 0, 5, 40);
-                
-                cargoRender.RenderCargo(Main.cargoGroup, finalField);
-                Main.score_label.setText("Score: "+ bestScore);
-            }
-        });
     }
 
 }
