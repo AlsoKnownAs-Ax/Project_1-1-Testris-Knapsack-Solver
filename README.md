@@ -1,4 +1,8 @@
-# How to run the code:
+## How to run Phase 3:
+
+> Open the project in your editor and run the src/knapsack/Main.java
+
+# How to run the code (Phase 2):
 
 > Open the project in your code editor
 > Make sure the project is opened entirely
@@ -21,3 +25,4 @@
 
 > JavaFX (20.0.1 SDK Download: https://gluonhq.com/products/javafx/ )
 > JSON simple ( 1.1.1 Download: https://code.google.com/archive/p/json-simple/downloads )
+
